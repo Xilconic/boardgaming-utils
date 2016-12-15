@@ -44,10 +44,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dice\NumericalDieTest.cs" />
+    <Compile Include="Mathmatics\DiscreteValueProbabilityDistributionTest.cs" />
+    <Compile Include="Mathmatics\ValueProbabilityPairTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Xilconic.BoardgamingUtils\Xilconic.BoardgamingUtils.csproj">
+      <Project>{0cf56992-90e0-4568-aee6-b3fa78f8fe5d}</Project>
+      <Name>Xilconic.BoardgamingUtils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
