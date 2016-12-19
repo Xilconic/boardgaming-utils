@@ -6,16 +6,27 @@ using Xilconic.BoardgamingUtils.PseudoRandom;
 
 namespace Xilconic.BoardgamingUtils.Test.TestDoubles
 {
+    /// <summary>
+    /// Implementation of <see cref="IRandomNumberGenerator"/> that allows for predictable number
+    /// generation, useful for unit testing.
+    /// </summary>
     [ContractVerification(true)]
     internal class TestingRandomNumberGenerator : IRandomNumberGenerator
     {
         private readonly Queue<double> factorValues;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="TestingRandomNumberGenerator"/>.
+        /// </summary>
         public TestingRandomNumberGenerator()
         {
             factorValues = new Queue<double>();
         }
 
+        /// <summary>
+        /// Adds a collection of factors (all in the [0.0, 1.0] range) that are expected to be used.
+        /// </summary>
+        /// <param name="factors">The collection of factors.</param>
         public void AddFactorValues(IEnumerable<double> factors)
         {
             Contract.Requires<ArgumentNullException>(factors != null);
@@ -28,6 +39,9 @@ namespace Xilconic.BoardgamingUtils.Test.TestDoubles
             }
         }
 
+        /// <summary>
+        /// Returns the next value in the range of [0.0, 1.0].
+        /// </summary>
         public double NextFactor()
         {
             if (factorValues.Any())

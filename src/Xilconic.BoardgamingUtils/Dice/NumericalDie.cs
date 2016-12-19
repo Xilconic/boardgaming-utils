@@ -12,6 +12,7 @@ namespace Xilconic.BoardgamingUtils.Dice
     public sealed class NumericalDie
     {
         private readonly IRandomNumberGenerator rng;
+
         /// <summary>
         /// Creates a new instance of <see cref="NumericalDie"/>.
         /// </summary>
@@ -38,6 +39,21 @@ namespace Xilconic.BoardgamingUtils.Dice
         /// </summary>
         public DiscreteValueProbabilityDistribution ProbabilityDistribution { get; private set; }
 
+        /// <summary>
+        /// Rolls the die and returns the result of that roll.
+        /// </summary>
+        /// <returns>The die roll's result.</returns>
+        public int Roll()
+        {
+            Contract.Ensures(Contract.Result<int>() >= 1);
+            Contract.Ensures(Contract.Result<int>() <= NumberOfSides);
+
+            int rollResult = ProbabilityDistribution.GetValueAtCdf(rng.NextFactor());
+            Contract.Assume(rollResult >= 1);
+            Contract.Assume(rollResult <= NumberOfSides);
+            return rollResult;
+        }
+
         private ValueProbabilityPair[] CreateProbabilityDistribution(int numberOfSides)
         {
             Contract.Requires<ArgumentOutOfRangeException>(numberOfSides > 0);
@@ -53,17 +69,6 @@ namespace Xilconic.BoardgamingUtils.Dice
         {
             Contract.Invariant(NumberOfSides > 0);
             Contract.Invariant(ProbabilityDistribution != null);
-        }
-
-        public int Roll()
-        {
-            Contract.Ensures(Contract.Result<int>() >= 1);
-            Contract.Ensures(Contract.Result<int>() <= NumberOfSides);
-
-            int rollResult = ProbabilityDistribution.GetValueAtCdf(rng.NextFactor());
-            Contract.Assume(rollResult >= 1);
-            Contract.Assume(rollResult <= NumberOfSides);
-            return rollResult;
         }
     }
 }

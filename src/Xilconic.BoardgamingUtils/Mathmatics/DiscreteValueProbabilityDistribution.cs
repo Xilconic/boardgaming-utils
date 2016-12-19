@@ -14,7 +14,7 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
         /// <summary>
         /// Creates a new instance of <see cref="DiscreteValueProbabilityDistribution"/>.
         /// </summary>
-        /// <param name="probabilitySpecification">The specification of the probability distribution.</param>
+        /// <param name="probabilitySpecification">The complete probability mass function specification.</param>
         public DiscreteValueProbabilityDistribution(IEnumerable<ValueProbabilityPair> probabilitySpecification)
         {
             Contract.Requires<ArgumentNullException>(probabilitySpecification != null);
@@ -30,9 +30,39 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
         }
 
         /// <summary>
-        /// The complete specification of the probability distribution.
+        /// The complete probability mass function specification of this distribution.
         /// </summary>
+        /// <remarks>The elements have been ordered on <see cref="ValueProbabilityPair.Value"/> in
+        /// ascending order.</remarks>
         public ReadOnlyCollection<ValueProbabilityPair> Specification { get; private set; }
+
+        /// <summary>
+        /// Samples the distribution at the given cdf probability and returns the corresponding value.
+        /// </summary>
+        /// <param name="probabilityValue">The probability.</param>
+        /// <returns>The value corresponding with the cdf probability.</returns>
+        /// <remarks>Limited precision of <see cref="double"/> can result in slight unexpected at
+        /// boundaries between two elements in <see cref="Specification"/>.</remarks>
+        public int GetValueAtCdf(double probabilityValue)
+        {
+            Contract.Requires<ArgumentOutOfRangeException>(probabilityValue >= 0.0);
+            Contract.Requires<ArgumentOutOfRangeException>(probabilityValue <= 1.0);
+            Contract.Ensures(Contract.Exists(Specification, p => p.Value == Contract.Result<int>()));
+
+            double runningLowerProbabilityBracket = 0.0;
+            foreach (ValueProbabilityPair pair in Specification)
+            {
+                if (runningLowerProbabilityBracket <= probabilityValue && probabilityValue <= runningLowerProbabilityBracket + pair.Probability)
+                {
+                    return pair.Value;
+                }
+                else
+                {
+                    runningLowerProbabilityBracket += pair.Probability;
+                }
+            }
+            return Specification.Last().Value;
+        }
 
         [ContractInvariantMethod]
         private void ObjectInvariant()
@@ -44,27 +74,6 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
             Contract.Invariant(Specification.Select(p => p.Value).Distinct().Count() == Specification.Count());
             Contract.Invariant(Contract.ForAll(1, Specification.Count, index => Specification[index].Value > Specification[index - 1].Value),
                 "Specification should be ordered in a strict increasing collection on ValueProbabilityPair.Value.");
-        }
-
-        public int GetValueAtCdf(double probabilityValue)
-        {
-            Contract.Requires<ArgumentOutOfRangeException>(probabilityValue >= 0.0);
-            Contract.Requires<ArgumentOutOfRangeException>(probabilityValue <= 1.0);
-            Contract.Ensures(Contract.Exists(Specification, p => p.Value == Contract.Result<int>()));
-
-            double runningLowerProbabilityBracket = 0.0;
-            foreach (ValueProbabilityPair pair in Specification)
-            {
-                if(runningLowerProbabilityBracket <= probabilityValue && probabilityValue <= runningLowerProbabilityBracket + pair.Probability)
-                {
-                    return pair.Value;
-                }
-                else
-                {
-                    runningLowerProbabilityBracket += pair.Probability;
-                }
-            }
-            return Specification.Last().Value;
         }
     }
 }
