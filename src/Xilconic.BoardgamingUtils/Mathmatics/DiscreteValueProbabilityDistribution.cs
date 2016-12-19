@@ -19,13 +19,14 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
         {
             Contract.Requires<ArgumentNullException>(probabilitySpecification != null);
             Contract.Requires<ArgumentException>(probabilitySpecification.Count() > 0);
-            Contract.Requires<ArgumentException>(probabilitySpecification.All(p => p != null));
+            Contract.Requires<ArgumentException>(Contract.ForAll(probabilitySpecification, p => p != null));
             Contract.Requires<ArgumentException>(Math.Abs(probabilitySpecification.Sum(p => p.Probability) - 1.0) < 1e-6,
                 "The sum of all probabilities should be 1.");
             Contract.Requires<ArgumentException>(probabilitySpecification.Select(p => p.Value).Distinct().Count() == probabilitySpecification.Count(),
                 "All values in the specification should be unique.");
 
-            Specification = new ReadOnlyCollection<ValueProbabilityPair>(probabilitySpecification.ToArray());
+            Specification = new ReadOnlyCollection<ValueProbabilityPair>(probabilitySpecification.OrderBy(p => p.Value).ToArray());
+            Contract.Assert(Specification.Count > 0);
         }
 
         /// <summary>
@@ -38,9 +39,32 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
         {
             Contract.Invariant(Specification != null);
             Contract.Invariant(Specification.Count > 0);
-            Contract.Invariant(Specification.All(p => p != null));
+            Contract.Invariant(Contract.ForAll(Specification, p => p != null));
             Contract.Invariant(Math.Abs(Specification.Sum(p => p.Probability) - 1.0) < 1e-6);
             Contract.Invariant(Specification.Select(p => p.Value).Distinct().Count() == Specification.Count());
+            Contract.Invariant(Contract.ForAll(1, Specification.Count, index => Specification[index].Value > Specification[index - 1].Value),
+                "Specification should be ordered in a strict increasing collection on ValueProbabilityPair.Value.");
+        }
+
+        public int GetValueAtCdf(double probabilityValue)
+        {
+            Contract.Requires<ArgumentOutOfRangeException>(probabilityValue >= 0.0);
+            Contract.Requires<ArgumentOutOfRangeException>(probabilityValue <= 1.0);
+            Contract.Ensures(Contract.Exists(Specification, p => p.Value == Contract.Result<int>()));
+
+            double runningLowerProbabilityBracket = 0.0;
+            foreach (ValueProbabilityPair pair in Specification)
+            {
+                if(runningLowerProbabilityBracket <= probabilityValue && probabilityValue <= runningLowerProbabilityBracket + pair.Probability)
+                {
+                    return pair.Value;
+                }
+                else
+                {
+                    runningLowerProbabilityBracket += pair.Probability;
+                }
+            }
+            return Specification.Last().Value;
         }
     }
 }
