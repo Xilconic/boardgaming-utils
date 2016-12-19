@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dice\NumericalDie.cs" />
+    <Compile Include="Dice\SumOfDice.cs" />
     <Compile Include="Mathmatics\DiscreteValueProbabilityDistribution.cs" />
     <Compile Include="Mathmatics\ValueProbabilityPair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

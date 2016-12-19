@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dice\NumericalDieTest.cs" />
+    <Compile Include="Dice\SumOfDiceTest.cs" />
     <Compile Include="Mathmatics\DiscreteValueProbabilityDistributionTest.cs" />
     <Compile Include="Mathmatics\ValueProbabilityPairTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
