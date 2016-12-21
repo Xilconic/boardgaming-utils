@@ -39,6 +39,10 @@ namespace Xilconic.BoardgamingUtils.Dice
         /// </summary>
         public DiscreteValueProbabilityDistribution ProbabilityDistribution { get; private set; }
 
+        /// <summary>
+        /// Rolls the dice and returns the result of that roll.
+        /// </summary>
+        /// <returns>The dice roll result.</returns>
         public int Roll()
         {
             return ProbabilityDistribution.GetValueAtCdf(rng.NextFactor());
