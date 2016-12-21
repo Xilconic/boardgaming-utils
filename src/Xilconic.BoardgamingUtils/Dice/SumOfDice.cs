@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xilconic.BoardgamingUtils.Mathmatics;
+using Xilconic.BoardgamingUtils.PseudoRandom;
 
 namespace Xilconic.BoardgamingUtils.Dice
 {
@@ -15,17 +14,21 @@ namespace Xilconic.BoardgamingUtils.Dice
     public class SumOfDice
     {
         private readonly NumericalDie[] dice;
+        private readonly IRandomNumberGenerator rng;
 
         /// <summary>
         /// Creates a new instance of <see cref="SumOfDice"/>.
         /// </summary>
         /// <param name="dice">The dice that define this object.</param>
-        public SumOfDice(IEnumerable<NumericalDie> dice)
+        /// <param name="rng">The random number generator.</param>
+        public SumOfDice(IEnumerable<NumericalDie> dice, IRandomNumberGenerator rng)
         {
             Contract.Requires<ArgumentNullException>(dice != null);
             Contract.Requires<ArgumentException>(Contract.ForAll(dice, d => d != null));
             Contract.Requires<ArgumentException>(dice.Count() > 0);
+            Contract.Requires<ArgumentNullException>(rng != null);
 
+            this.rng = rng;
             this.dice = dice.ToArray();
             ValueProbabilityPair[] probabilitySpecification = CreateProbabilityDistribution(this.dice);
             ProbabilityDistribution = new DiscreteValueProbabilityDistribution(probabilitySpecification);
@@ -36,6 +39,10 @@ namespace Xilconic.BoardgamingUtils.Dice
         /// </summary>
         public DiscreteValueProbabilityDistribution ProbabilityDistribution { get; private set; }
 
+        public int Roll()
+        {
+            return ProbabilityDistribution.GetValueAtCdf(rng.NextFactor());
+        }
 
         private ValueProbabilityPair[] CreateProbabilityDistribution(NumericalDie[] dice)
         {
