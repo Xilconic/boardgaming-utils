@@ -13,7 +13,7 @@ namespace Xilconic.BoardgamingUtils.Dice
     /// </summary>
     public class SumOfDice : IAbstractDie
     {
-        private readonly NumericalDie[] dice;
+        private readonly IAbstractDie[] dice;
         private readonly IRandomNumberGenerator rng;
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace Xilconic.BoardgamingUtils.Dice
         /// </summary>
         /// <param name="dice">The dice that define this object.</param>
         /// <param name="rng">The random number generator.</param>
-        public SumOfDice(IEnumerable<NumericalDie> dice, IRandomNumberGenerator rng)
+        public SumOfDice(IEnumerable<IAbstractDie> dice, IRandomNumberGenerator rng)
         {
             Contract.Requires<ArgumentNullException>(dice != null);
             Contract.Requires<ArgumentException>(Contract.ForAll(dice, d => d != null));
@@ -41,7 +41,7 @@ namespace Xilconic.BoardgamingUtils.Dice
             return ProbabilityDistribution.GetValueAtCdf(rng.NextFactor());
         }
 
-        private ValueProbabilityPair[] CreateProbabilityDistribution(NumericalDie[] dice)
+        private ValueProbabilityPair[] CreateProbabilityDistribution(IAbstractDie[] dice)
         {
             IDictionary<int, double> runningDictionary = dice[0].ProbabilityDistribution.Specification.ToDictionary(p => p.Value, p => p.Probability);
             for(int i = 1; i < dice.Length; i++)
