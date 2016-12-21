@@ -11,7 +11,7 @@ namespace Xilconic.BoardgamingUtils.Dice
     /// This class represents a collection of dice whose rolled value is determined by the sum of all
     /// individual die rolls in that collection.
     /// </summary>
-    public class SumOfDice
+    public class SumOfDice : IAbstractDie
     {
         private readonly NumericalDie[] dice;
         private readonly IRandomNumberGenerator rng;
@@ -34,15 +34,8 @@ namespace Xilconic.BoardgamingUtils.Dice
             ProbabilityDistribution = new DiscreteValueProbabilityDistribution(probabilitySpecification);
         }
 
-        /// <summary>
-        /// The probability distribution of this collection of dice.
-        /// </summary>
         public DiscreteValueProbabilityDistribution ProbabilityDistribution { get; private set; }
 
-        /// <summary>
-        /// Rolls the dice and returns the result of that roll.
-        /// </summary>
-        /// <returns>The dice roll result.</returns>
         public int Roll()
         {
             return ProbabilityDistribution.GetValueAtCdf(rng.NextFactor());

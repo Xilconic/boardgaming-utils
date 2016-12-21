@@ -85,6 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dice\IAbstractDie.cs" />
     <Compile Include="Dice\NumericalDie.cs" />
     <Compile Include="Dice\SumOfDice.cs" />
     <Compile Include="Mathmatics\DiscreteValueProbabilityDistribution.cs" />

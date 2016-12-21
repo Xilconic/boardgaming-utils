@@ -9,7 +9,7 @@ namespace Xilconic.BoardgamingUtils.Dice
     /// <summary>
     /// Class representing a die numbering from 1 to N where N is the number of sides the die has.
     /// </summary>
-    public sealed class NumericalDie
+    public sealed class NumericalDie : IAbstractDie
     {
         private readonly IRandomNumberGenerator rng;
 
@@ -34,15 +34,8 @@ namespace Xilconic.BoardgamingUtils.Dice
         /// </summary>
         public int NumberOfSides { get; private set; }
 
-        /// <summary>
-        /// The probability distribution of this die.
-        /// </summary>
         public DiscreteValueProbabilityDistribution ProbabilityDistribution { get; private set; }
 
-        /// <summary>
-        /// Rolls the die and returns the result of that roll.
-        /// </summary>
-        /// <returns>The die roll's result.</returns>
         public int Roll()
         {
             Contract.Ensures(Contract.Result<int>() >= 1);
