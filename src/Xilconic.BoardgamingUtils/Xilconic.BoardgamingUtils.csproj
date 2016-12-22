@@ -85,6 +85,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dice\AbstractDie.cs" />
+    <Compile Include="Dice\DiceModifier.cs" />
     <Compile Include="Dice\IAbstractDie.cs" />
     <Compile Include="Dice\NumericalDie.cs" />
     <Compile Include="Dice\SumOfDice.cs" />

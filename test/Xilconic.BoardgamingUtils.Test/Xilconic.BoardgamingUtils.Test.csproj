@@ -92,6 +92,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dice\AbstractDieTest.cs" />
+    <Compile Include="Dice\DiceModifierTest.cs" />
     <Compile Include="Dice\NumericalDieTest.cs" />
     <Compile Include="Dice\SumOfDiceTest.cs" />
     <Compile Include="Mathmatics\DiscreteValueProbabilityDistributionTest.cs" />

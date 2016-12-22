@@ -9,24 +9,22 @@ namespace Xilconic.BoardgamingUtils.Dice
     /// <summary>
     /// Class representing a die numbering from 1 to N where N is the number of sides the die has.
     /// </summary>
-    public sealed class NumericalDie : IAbstractDie
+    public sealed class NumericalDie : AbstractDie
     {
-        private readonly IRandomNumberGenerator rng;
 
         /// <summary>
         /// Creates a new instance of <see cref="NumericalDie"/>.
         /// </summary>
         /// <param name="numberOfSides">The number of sides the die has.</param>
-        public NumericalDie(int numberOfSides, IRandomNumberGenerator rng)
+        /// <param name="rng">The random number generator.</param>
+        public NumericalDie(int numberOfSides, IRandomNumberGenerator rng) : base(rng)
         {
             Contract.Requires<ArgumentOutOfRangeException>(numberOfSides > 0);
-            Contract.Requires<ArgumentNullException>(rng != null, "rng");
             Contract.Ensures(NumberOfSides == numberOfSides);
 
             NumberOfSides = numberOfSides;
             ValueProbabilityPair[] dieProbabilities = CreateProbabilityDistribution(numberOfSides);
             ProbabilityDistribution = new DiscreteValueProbabilityDistribution(dieProbabilities);
-            this.rng = rng;
         }
 
         /// <summary>
@@ -34,18 +32,7 @@ namespace Xilconic.BoardgamingUtils.Dice
         /// </summary>
         public int NumberOfSides { get; private set; }
 
-        public DiscreteValueProbabilityDistribution ProbabilityDistribution { get; private set; }
-
-        public int Roll()
-        {
-            Contract.Ensures(Contract.Result<int>() >= 1);
-            Contract.Ensures(Contract.Result<int>() <= NumberOfSides);
-
-            int rollResult = ProbabilityDistribution.GetValueAtCdf(rng.NextFactor());
-            Contract.Assume(rollResult >= 1);
-            Contract.Assume(rollResult <= NumberOfSides);
-            return rollResult;
-        }
+        public override DiscreteValueProbabilityDistribution ProbabilityDistribution { get; }
 
         private ValueProbabilityPair[] CreateProbabilityDistribution(int numberOfSides)
         {
@@ -61,7 +48,6 @@ namespace Xilconic.BoardgamingUtils.Dice
         private void ObjectInvariant()
         {
             Contract.Invariant(NumberOfSides > 0);
-            Contract.Invariant(ProbabilityDistribution != null);
         }
     }
 }

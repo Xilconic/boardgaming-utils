@@ -23,6 +23,7 @@ namespace Xilconic.BoardgamingUtils.Test.Dice
             var die = new NumericalDie(numberOfSides, rng);
 
             // Assert
+            Assert.IsInstanceOf<AbstractDie>(die);
             Assert.AreEqual(numberOfSides, die.NumberOfSides);
         }
 

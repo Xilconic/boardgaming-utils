@@ -13,6 +13,26 @@ namespace Xilconic.BoardgamingUtils.Test.Dice
     public class SumOfDiceTest
     {
         [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var rng = MockRepository.GenerateStub<IRandomNumberGenerator>();
+            var die = MockRepository.GenerateStub<IAbstractDie>();
+            die.Stub(d => d.ProbabilityDistribution).Return(new DiscreteValueProbabilityDistribution(new[] { new ValueProbabilityPair(0, 1.0) }));
+
+            var dice = new[]
+            {
+                die
+            };
+
+            // Call
+            var sumOfDice = new SumOfDice(dice, rng);
+
+            // Setup
+            Assert.IsInstanceOf<IAbstractDie>(sumOfDice);
+        }
+
+        [Test]
         public void ProbabilityDistribution_OneD3_ReturnExpectedDistribution()
         {
             // Setup
