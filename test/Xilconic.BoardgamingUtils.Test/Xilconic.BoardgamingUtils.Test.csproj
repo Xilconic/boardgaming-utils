@@ -96,6 +96,8 @@
     <Compile Include="Dice\DiceModifierTest.cs" />
     <Compile Include="Dice\NumericalDieTest.cs" />
     <Compile Include="Dice\SumOfDiceTest.cs" />
+    <Compile Include="Dice\ThresholdCompareTest.cs" />
+    <Compile Include="Mathmatics\BooleanProbabilityDistributionTest.cs" />
     <Compile Include="Mathmatics\DiscreteValueProbabilityDistributionTest.cs" />
     <Compile Include="Mathmatics\ValueProbabilityPairTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
