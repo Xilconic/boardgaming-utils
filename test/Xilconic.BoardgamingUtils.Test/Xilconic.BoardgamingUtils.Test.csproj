@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dice\AbstractDieTest.cs" />
+    <Compile Include="Dice\ConditionalCombinationTest.cs" />
     <Compile Include="Dice\DiceModifierTest.cs" />
     <Compile Include="Dice\NumericalDieTest.cs" />
     <Compile Include="Dice\SumOfDiceTest.cs" />

@@ -10,7 +10,7 @@ namespace Xilconic.BoardgamingUtils.Dice
     /// <summary>
     /// Class that compares the result of an <see cref="IAbstractDie"/> to some other value.
     /// </summary>
-    public class ThresholdCompare : IRollable<bool>
+    public class ThresholdCompare : IRollable<bool>, IDiscreteBooleanRandomVariable
     {
         private IAbstractDie die;
         private readonly IRandomNumberGenerator rng;

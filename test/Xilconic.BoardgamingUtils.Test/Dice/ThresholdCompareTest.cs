@@ -28,6 +28,8 @@ namespace Xilconic.BoardgamingUtils.Test.Dice
 
             // Assert
             Assert.IsInstanceOf<IRollable<bool>>(thresholdCompare);
+            Assert.IsInstanceOf<IDiscreteBooleanRandomVariable>(thresholdCompare);
+
             Assert.AreEqual(referenceValue, thresholdCompare.ReferenceValue);
             Assert.AreEqual(comparisonType, thresholdCompare.ComparisonType);
         }

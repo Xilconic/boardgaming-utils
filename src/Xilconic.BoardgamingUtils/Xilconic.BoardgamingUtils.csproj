@@ -87,14 +87,17 @@
   <ItemGroup>
     <Compile Include="Dice\AbstractDie.cs" />
     <Compile Include="Dice\ComparisonType.cs" />
+    <Compile Include="Dice\ConditionalCombination.cs" />
     <Compile Include="Dice\DiceModifier.cs" />
     <Compile Include="Dice\IAbstractDie.cs" />
+    <Compile Include="Mathmatics\IDiscreteBooleanRandomVariable.cs" />
     <Compile Include="Dice\IRollable.cs" />
     <Compile Include="Dice\NumericalDie.cs" />
     <Compile Include="Dice\SumOfDice.cs" />
     <Compile Include="Dice\ThresholdCompare.cs" />
     <Compile Include="Mathmatics\BooleanProbabilityDistribution.cs" />
     <Compile Include="Mathmatics\DiscreteValueProbabilityDistribution.cs" />
+    <Compile Include="Mathmatics\IDiscreteIntegerRandomVariable.cs" />
     <Compile Include="Mathmatics\ValueProbabilityPair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PseudoRandom\IRandomNumberGenerator.cs" />
