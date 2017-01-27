@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Xilconic.BoardgamingUtils")]
-[assembly: AssemblyDescription("Libary with boardgaming related classes.")]
+[assembly: AssemblyDescription("Library with boardgaming related classes.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Xilconic")]
 [assembly: AssemblyProduct("Xilconic.BoardgamingUtils")]
