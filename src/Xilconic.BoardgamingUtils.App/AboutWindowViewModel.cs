@@ -12,25 +12,34 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using NUnit.Framework;
-using Xilconic.BoardgamingUtils.Mathmatics;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Xilconic.BoardgamingUtils.Test.Mathmatics
+namespace Xilconic.BoardgamingUtils.App
 {
-    [TestFixture]
-    public class BooleanProbabilityDistributionTest
+    internal class AboutWindowViewModel
     {
-        [TestCase(0.0)]
-        [TestCase(0.7)]
-        [TestCase(1.0)]
-        public void Constructor_ExpectedValues(double succesProbability)
+        public AboutWindowViewModel()
         {
-            // Call
-            var distribution = new BooleanProbabilityDistribution(succesProbability);
+            var executingAssembly = Assembly.GetExecutingAssembly();
+            Version = executingAssembly.GetName().Version;
+            var versionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
+            Company = versionInfo.CompanyName;
+        }
 
-            // Assert
-            Assert.AreEqual(succesProbability, distribution.SuccessProbability);
-            Assert.AreEqual(1.0-succesProbability, distribution.FailureProbability);
+        public Version Version
+        {
+            get;
+        }
+
+        public string Company
+        {
+            get;
         }
     }
 }

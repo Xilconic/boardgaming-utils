@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xilconic.BoardgamingUtils",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xilconic.BoardgamingUtils.Test", "test\Xilconic.BoardgamingUtils.Test\Xilconic.BoardgamingUtils.Test.csproj", "{1802CBF6-90CC-4844-A239-18C0CB2ADCE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xilconic.BoardgamingUtils.App", "src\Xilconic.BoardgamingUtils.App\Xilconic.BoardgamingUtils.App.csproj", "{2B35BD4B-6CF1-4D70-894E-4A203035E65F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1802CBF6-90CC-4844-A239-18C0CB2ADCE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1802CBF6-90CC-4844-A239-18C0CB2ADCE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1802CBF6-90CC-4844-A239-18C0CB2ADCE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B35BD4B-6CF1-4D70-894E-4A203035E65F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B35BD4B-6CF1-4D70-894E-4A203035E65F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B35BD4B-6CF1-4D70-894E-4A203035E65F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B35BD4B-6CF1-4D70-894E-4A203035E65F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

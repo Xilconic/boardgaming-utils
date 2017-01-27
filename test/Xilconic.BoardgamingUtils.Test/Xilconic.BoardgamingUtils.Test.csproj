@@ -106,6 +106,9 @@
     <Compile Include="TestDoubles\TestingRandomNumberGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\build\license_header.licenseheader">
+      <Link>license_header.licenseheader</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

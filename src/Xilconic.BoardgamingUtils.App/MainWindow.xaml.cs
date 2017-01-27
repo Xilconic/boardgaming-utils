@@ -13,29 +13,36 @@
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace Xilconic.BoardgamingUtils.PseudoRandom
+namespace Xilconic.BoardgamingUtils.App
 {
     /// <summary>
-    /// Class responsible for generating (pseudo)random numbers.
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public class RandomNumberGenerator
+    public partial class MainWindow : Window
     {
-        private readonly Random random;
-
-        /// <summary>
-        /// Creates a new instance of <see cref="RandomNumberGenerator"/>, initialized with a given
-        /// seed.
-        /// </summary>
-        /// <param name="seed">The seed.</param>
-        public RandomNumberGenerator(int seed)
+        public MainWindow()
         {
-            random = new Random(seed);
+            InitializeComponent();
         }
 
-        public double NextFactor()
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            return random.NextDouble();
+            var aboutWindow = new AboutWindow();
+            aboutWindow.ShowDialog();
         }
     }
 }

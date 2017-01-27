@@ -12,25 +12,20 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using NUnit.Framework;
-using Xilconic.BoardgamingUtils.Mathmatics;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 
-namespace Xilconic.BoardgamingUtils.Test.Mathmatics
+namespace Xilconic.BoardgamingUtils.App
 {
-    [TestFixture]
-    public class BooleanProbabilityDistributionTest
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App : Application
     {
-        [TestCase(0.0)]
-        [TestCase(0.7)]
-        [TestCase(1.0)]
-        public void Constructor_ExpectedValues(double succesProbability)
-        {
-            // Call
-            var distribution = new BooleanProbabilityDistribution(succesProbability);
-
-            // Assert
-            Assert.AreEqual(succesProbability, distribution.SuccessProbability);
-            Assert.AreEqual(1.0-succesProbability, distribution.FailureProbability);
-        }
     }
 }
