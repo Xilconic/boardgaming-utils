@@ -46,7 +46,7 @@ extensions: .vb
 '
 'You should have received a copy of the GNU General Public License
 'along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-extensions:  .xml .config .xsd
+extensions:  .xml .config .xsd .xaml
 <!--
 This file is part of Boardgaming Utils.
 
