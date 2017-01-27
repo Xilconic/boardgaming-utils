@@ -69,5 +69,15 @@ namespace Xilconic.BoardgamingUtils.App.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap gplv3_127x51 {
+            get {
+                object obj = ResourceManager.GetObject("gplv3_127x51", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

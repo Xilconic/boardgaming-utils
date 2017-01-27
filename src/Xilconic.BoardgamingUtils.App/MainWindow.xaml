@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Xilconic.BoardgamingUtils.App"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Icon="pack://application:,,,/Resources/AppIcon.ico">
+        Title="MainWindow" Height="350" Width="525" Icon="Resources/AppIcon.ico">
     <Grid>
-        
+        <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <MenuItem Header="About" Click="MenuItem_Click"></MenuItem>
+        </Menu>
     </Grid>
 </Window>
