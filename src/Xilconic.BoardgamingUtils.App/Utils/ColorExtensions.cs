@@ -13,7 +13,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 using OxyPlot;
-using System;
 using System.Diagnostics.Contracts;
 using System.Drawing;
 
@@ -29,11 +28,9 @@ namespace Xilconic.BoardgamingUtils.App.Utils
         /// </summary>
         /// <param name="color">The color to convert.</param>
         /// <returns>The converted color.</returns>
+        [Pure]
         internal static OxyColor ToOxyColor(this Color color)
         {
-            Contract.Requires<ArgumentNullException>(color != null);
-            Contract.Ensures(Contract.Result<OxyColor>() != null);
-
             return OxyColor.FromArgb(color.A, color.R, color.G, color.B);
         }
     }

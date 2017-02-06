@@ -21,8 +21,7 @@ using Xilconic.BoardgamingUtils.Dice;
 using Xilconic.BoardgamingUtils.PseudoRandom;
 using Xilconic.BoardgamingUtils.Mathmatics;
 using System.ComponentModel;
-using System.Drawing;
-using Xilconic.BoardgamingUtils.App.Utils;
+using System.Diagnostics.Contracts;
 
 namespace Xilconic.BoardgamingUtils.App.Controls
 {
@@ -33,7 +32,7 @@ namespace Xilconic.BoardgamingUtils.App.Controls
     {
         private readonly RandomNumberGenerator rng = new RandomNumberGenerator(Environment.TickCount);
         private NumericalDie die;
-        private CategoryAxis horizontalAxis;
+        private readonly CategoryAxis horizontalAxis;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -105,6 +104,8 @@ namespace Xilconic.BoardgamingUtils.App.Controls
             }
             set
             {
+                Contract.Requires<ArgumentOutOfRangeException>(value > 0);
+
                 die = new NumericalDie(value, rng);
                 Items.Clear();
                 Items.AddRange(die.ProbabilityDistribution.Specification);
@@ -115,7 +116,7 @@ namespace Xilconic.BoardgamingUtils.App.Controls
             }
         }
 
-        private List<ValueProbabilityPair> Items { get; set; }
+        private List<ValueProbabilityPair> Items { get; }
 
         private void OnNotifyPropertyChanged(string propertyName)
         {
