@@ -12,30 +12,29 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+using OxyPlot;
 using System;
+using System.Diagnostics.Contracts;
+using System.Drawing;
 
-namespace Xilconic.BoardgamingUtils.PseudoRandom
+namespace Xilconic.BoardgamingUtils.App.Utils
 {
     /// <summary>
-    /// Class responsible for generating (pseudo)random numbers.
+    /// Extension methods for <see cref="Color"/>.
     /// </summary>
-    public class RandomNumberGenerator : IRandomNumberGenerator
+    internal static class ColorExtensions
     {
-        private readonly Random random;
-
         /// <summary>
-        /// Creates a new instance of <see cref="RandomNumberGenerator"/>, initialized with a given
-        /// seed.
+        /// Converts a <see cref="Color"/> instance into a oxyplot compliant color.
         /// </summary>
-        /// <param name="seed">The seed.</param>
-        public RandomNumberGenerator(int seed)
+        /// <param name="color">The color to convert.</param>
+        /// <returns>The converted color.</returns>
+        internal static OxyColor ToOxyColor(this Color color)
         {
-            random = new Random(seed);
-        }
+            Contract.Requires<ArgumentNullException>(color != null);
+            Contract.Ensures(Contract.Result<OxyColor>() != null);
 
-        public double NextFactor()
-        {
-            return random.NextDouble();
+            return OxyColor.FromArgb(color.A, color.R, color.G, color.B);
         }
     }
 }

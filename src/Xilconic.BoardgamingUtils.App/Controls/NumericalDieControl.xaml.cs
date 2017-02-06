@@ -12,30 +12,35 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+using OxyPlot.Series;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace Xilconic.BoardgamingUtils.PseudoRandom
+namespace Xilconic.BoardgamingUtils.App.Controls
 {
     /// <summary>
-    /// Class responsible for generating (pseudo)random numbers.
+    /// Interaction logic for DiceAnalyticsControl.xaml
     /// </summary>
-    public class RandomNumberGenerator : IRandomNumberGenerator
+    public partial class DiceAnalyticsControl : UserControl
     {
-        private readonly Random random;
+        //private readonly DiceAnalyticsControlViewModel viewModel = new DiceAnalyticsControlViewModel();
 
-        /// <summary>
-        /// Creates a new instance of <see cref="RandomNumberGenerator"/>, initialized with a given
-        /// seed.
-        /// </summary>
-        /// <param name="seed">The seed.</param>
-        public RandomNumberGenerator(int seed)
+        public DiceAnalyticsControl()
         {
-            random = new Random(seed);
-        }
-
-        public double NextFactor()
-        {
-            return random.NextDouble();
+            InitializeComponent();
+            //DataContext = viewModel;
         }
     }
 }
