@@ -20,6 +20,7 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Xilconic.BoardgamingUtils.App.Controls"
+             xmlns:validationRules="clr-namespace:Xilconic.BoardgamingUtils.App.ValidationRules"
              xmlns:oxyplot="http://oxyplot.org/wpf"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -42,7 +43,15 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Dice" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Number of sides:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding NumberOfSides}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="8"/>
+            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="8" >
+                <TextBox.Text>
+                    <Binding Path="NumberOfSides">
+                        <Binding.ValidationRules>
+                            <validationRules:NumberOfDieFacesRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </Grid>
         <oxyplot:PlotView Grid.Row="1" Model="{Binding PlotModel}"/>
     </Grid>

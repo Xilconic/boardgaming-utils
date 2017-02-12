@@ -20,6 +20,6 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
              xmlns:local="clr-namespace:Xilconic.BoardgamingUtils.App"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="XamlResources\Styles\TextBoxStylesDictionary.xaml"/>
     </Application.Resources>
 </Application>
