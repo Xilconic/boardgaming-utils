@@ -28,7 +28,10 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="0">
-            <MenuItem Header="About" Click="MenuItem_Click"></MenuItem>
+            <MenuItem Header="Dice statistics">
+                <MenuItem Header="Single die" Click="Change_to_single_die_statistics_mode"/>
+            </MenuItem>
+            <MenuItem Header="About" Click="MenuItem_Click"/>
         </Menu>
         <Grid x:Name="panel" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>

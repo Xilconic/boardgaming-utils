@@ -20,21 +20,24 @@ using Xilconic.BoardgamingUtils.App.ValidationRules;
 namespace Xilconic.BoardgamingUtils.App.Test.ValidationRules
 {
     [TestFixture]
-    public class NumberOfDieFacesRuleTest
+    public class PracticalNumberOfDieFacesLimitationRuleTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var validationRule = new NumberOfDieFacesRule();
+            var validationRule = new PracticalNumberOfDieFacesLimitationRule();
 
             // Assert
             Assert.IsInstanceOf<IntegerParsingRule>(validationRule);
 
-            Assert.AreEqual("Number of sides", validationRule.ParameterName);
-
             Assert.IsFalse(validationRule.ValidatesOnTargetUpdated);
             Assert.AreEqual(ValidationStep.RawProposedValue, validationRule.ValidationStep);
+
+            Assert.AreEqual("Number of sides", validationRule.ParameterName);
+
+            Assert.AreEqual(1, validationRule.Minimum);
+            Assert.AreEqual(200, validationRule.Maximum);
         }
 
         [TestCase(null)]
@@ -43,7 +46,7 @@ namespace Xilconic.BoardgamingUtils.App.Test.ValidationRules
         public void Validate_ValueNullOrWhitespace_ReturnInvalid(string invalidValue)
         {
             // Setup
-            var validationRule = new NumberOfDieFacesRule();
+            var validationRule = new PracticalNumberOfDieFacesLimitationRule();
 
             // Call
             ValidationResult result = validationRule.Validate(invalidValue, CultureInfo.CurrentCulture);
@@ -57,7 +60,7 @@ namespace Xilconic.BoardgamingUtils.App.Test.ValidationRules
         public void Validate_ValueIsNotString_ReturnInvalid()
         {
             // Setup
-            var validationRule = new NumberOfDieFacesRule();
+            var validationRule = new PracticalNumberOfDieFacesLimitationRule();
 
             // Call
             ValidationResult result = validationRule.Validate(new object(), CultureInfo.CurrentCulture);
@@ -69,10 +72,12 @@ namespace Xilconic.BoardgamingUtils.App.Test.ValidationRules
 
         [TestCase(-1234346)]
         [TestCase(0)]
+        [TestCase(201)]
+        [TestCase(2346895)]
         public void Validate_InvalidNumberOfDieSides_ReturnInvalid(int invalidNumberOfSides)
         {
             // Setup
-            var validationRule = new NumberOfDieFacesRule();
+            var validationRule = new PracticalNumberOfDieFacesLimitationRule();
 
             var cultureInfo = CultureInfo.CurrentCulture;
 
@@ -81,14 +86,14 @@ namespace Xilconic.BoardgamingUtils.App.Test.ValidationRules
 
             // Assert
             Assert.IsFalse(result.IsValid);
-            Assert.AreEqual("Number of sides must be greater than zero.", result.ErrorContent);
+            Assert.AreEqual("Number of sides must be in range of [1, 200].", result.ErrorContent);
         }
 
         [Test]
         public void Validate_NumberOfDieSidesNotIntegerString_ReturnInvalid()
         {
             // Setup
-            var validationRule = new NumberOfDieFacesRule();
+            var validationRule = new PracticalNumberOfDieFacesLimitationRule();
 
             // Call
             ValidationResult result = validationRule.Validate("A", CultureInfo.CurrentCulture);
@@ -103,7 +108,7 @@ namespace Xilconic.BoardgamingUtils.App.Test.ValidationRules
         public void Validate_NumberOfDieSidesTooLarge_ReturnInvalid(int extremeValue)
         {
             // Setup
-            var validationRule = new NumberOfDieFacesRule();
+            var validationRule = new PracticalNumberOfDieFacesLimitationRule();
 
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
             string overflowingValue = extremeValue.ToString(cultureInfo) + "1";
@@ -118,11 +123,11 @@ namespace Xilconic.BoardgamingUtils.App.Test.ValidationRules
 
         [TestCase(1)]
         [TestCase(20)]
-        [TestCase(int.MaxValue)]
+        [TestCase(200)]
         public void Validate_ValidNumberOfDieSides_ReturnValidResult(int value)
         {
             // Setup
-            var validationRule = new NumberOfDieFacesRule();
+            var validationRule = new PracticalNumberOfDieFacesLimitationRule();
 
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
 

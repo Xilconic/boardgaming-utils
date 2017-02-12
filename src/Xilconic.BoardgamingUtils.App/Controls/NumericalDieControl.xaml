@@ -41,13 +41,14 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Dice" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Single die" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Number of sides:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8"/>
             <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="8" >
                 <TextBox.Text>
                     <Binding Path="NumberOfSides">
                         <Binding.ValidationRules>
                             <validationRules:NumberOfDieFacesRule/>
+                            <validationRules:PracticalNumberOfDieFacesLimitationRule/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>

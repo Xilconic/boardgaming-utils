@@ -115,7 +115,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Utils\ColorExtensions.cs" />
+    <Compile Include="ValidationRules\IntegerParsingRule.cs" />
     <Compile Include="ValidationRules\NumberOfDieFacesRule.cs" />
+    <Compile Include="ValidationRules\PracticalNumberOfDieFacesLimitationRule.cs" />
     <Page Include="AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

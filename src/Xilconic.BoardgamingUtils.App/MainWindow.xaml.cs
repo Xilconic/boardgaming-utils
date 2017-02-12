@@ -38,13 +38,17 @@ namespace Xilconic.BoardgamingUtils.App
         public MainWindow()
         {
             InitializeComponent();
-            panel.Children.Add(new DiceAnalyticsControl());
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             var aboutWindow = new AboutWindow();
             aboutWindow.ShowDialog();
+        }
+
+        private void Change_to_single_die_statistics_mode(object sender, RoutedEventArgs e)
+        {
+            panel.Children.Add(new DiceAnalyticsControl());
         }
     }
 }

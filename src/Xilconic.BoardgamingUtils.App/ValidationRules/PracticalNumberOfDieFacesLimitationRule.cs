@@ -19,23 +19,37 @@ using Xilconic.BoardgamingUtils.Dice;
 namespace Xilconic.BoardgamingUtils.App.ValidationRules
 {
     /// <summary>
-    /// Validation rule for <see cref="NumericalDie.NumberOfSides"/>.
+    /// Defines a value range for the number of faces for an <see cref="NumericalDie"/>.
     /// </summary>
-    public class NumberOfDieFacesRule : IntegerParsingRule
+    public class PracticalNumberOfDieFacesLimitationRule : IntegerParsingRule
     {
         /// <summary>
-        /// Initializes a new instance of <see cref="NumberOfDieFacesRule"/>.
+        /// Initializes a new instance of <see cref="PracticalNumberOfDieFacesLimitationRule"/>.
         /// </summary>
-        public NumberOfDieFacesRule()
+        public PracticalNumberOfDieFacesLimitationRule()
         {
             ParameterName = "Number of sides";
+
+            Minimum = 1;
+            Maximum = 200;
         }
+
+        /// <summary>
+        /// The minimum value that the number of faces has to be.
+        /// </summary>
+        public int Minimum { get; private set; }
+
+        /// <summary>
+        /// The maximum value that the number of faces can be.
+        /// </summary>
+        public int Maximum { get; private set; }
+        
 
         protected override ValidationResult ValidateInteger(int numberOfDieFaces, CultureInfo cultureInfo)
         {
-            if (numberOfDieFaces <= 0)
+            if (numberOfDieFaces < Minimum || numberOfDieFaces > Maximum)
             {
-                return new ValidationResult(false, $"{ParameterName} must be greater than zero.");
+                return new ValidationResult(false, $"{ParameterName} must be in range of [{Minimum}, {Maximum}].");
             }
             return ValidationResult.ValidResult;
         }
