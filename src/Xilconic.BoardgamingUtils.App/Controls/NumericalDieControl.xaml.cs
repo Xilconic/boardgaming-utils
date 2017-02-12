@@ -12,21 +12,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using OxyPlot.Series;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Xilconic.BoardgamingUtils.App.Controls
 {
@@ -35,12 +21,9 @@ namespace Xilconic.BoardgamingUtils.App.Controls
     /// </summary>
     public partial class DiceAnalyticsControl : UserControl
     {
-        //private readonly DiceAnalyticsControlViewModel viewModel = new DiceAnalyticsControlViewModel();
-
         public DiceAnalyticsControl()
         {
             InitializeComponent();
-            //DataContext = viewModel;
         }
     }
 }

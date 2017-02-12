@@ -82,6 +82,7 @@ namespace Xilconic.BoardgamingUtils.App.Test.Controls
             Assert.AreEqual(expectedNumberofSidesOnDie, horizontalAxis.AbsoluteMaximum);
             Assert.IsFalse(horizontalAxis.IsZoomEnabled);
             Assert.IsFalse(horizontalAxis.IsPanEnabled);
+            Assert.AreEqual(0.0, horizontalAxis.GapWidth);
             AssertItemSource(horizontalAxis.ItemsSource, expectedNumberofSidesOnDie);
             Assert.AreEqual(nameof(ValueProbabilityPair.Value), horizontalAxis.LabelField);
 
@@ -94,6 +95,7 @@ namespace Xilconic.BoardgamingUtils.App.Test.Controls
             Assert.AreEqual(1.0, verticalAxis.Maximum);
             Assert.IsFalse(verticalAxis.IsZoomEnabled);
             Assert.IsFalse(verticalAxis.IsPanEnabled);
+            Assert.AreEqual("p", verticalAxis.StringFormat);
 
             Assert.AreEqual(1, model.Series.Count);
             ColumnSeries series = (ColumnSeries)model.Series[0];
@@ -101,6 +103,7 @@ namespace Xilconic.BoardgamingUtils.App.Test.Controls
             AssertItemSource(series.ItemsSource, expectedNumberofSidesOnDie);
             Assert.AreEqual(nameof(ValueProbabilityPair.Probability), series.ValueField);
             Assert.AreEqual(OxyColors.DarkCyan, series.FillColor);
+            Assert.AreEqual("{0}\n{1}: {2:p}", series.TrackerFormatString);
         }
 
         private void AssertItemSource(IEnumerable itemSource, int expectedNumberOfSidesOnDie)

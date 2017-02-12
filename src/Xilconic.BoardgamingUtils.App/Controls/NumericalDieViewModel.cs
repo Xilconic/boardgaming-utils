@@ -51,7 +51,8 @@ namespace Xilconic.BoardgamingUtils.App.Controls
                 LabelField = nameof(ValueProbabilityPair.Value),
                 AbsoluteMinimum = -1,
                 IsZoomEnabled = false,
-                IsPanEnabled = false
+                IsPanEnabled = false,
+                GapWidth = 0
             };
 
             PlotModel = new PlotModel
@@ -70,7 +71,8 @@ namespace Xilconic.BoardgamingUtils.App.Controls
                         Maximum = 1.0,
                         AbsoluteMaximum = 1.0,
                         IsZoomEnabled = false,
-                        IsPanEnabled = false
+                        IsPanEnabled = false,
+                        StringFormat = "p",
                     }
                 },
                 Series =
@@ -80,7 +82,8 @@ namespace Xilconic.BoardgamingUtils.App.Controls
                         Title = "Die face probability",
                         ItemsSource = Items,
                         ValueField = nameof(ValueProbabilityPair.Probability),
-                        FillColor = OxyColors.DarkCyan
+                        FillColor = OxyColors.DarkCyan,
+                        TrackerFormatString = "{0}\n{1}: {2:p}"
                     }
                 }
             };
