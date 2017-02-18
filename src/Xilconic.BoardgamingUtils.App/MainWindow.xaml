@@ -1,12 +1,12 @@
 ﻿<!--
 This file is part of Boardgaming Utils.
 
-Boardgaming Utilsis free software: you can redistribute it and/or modify
+Boardgaming Utils is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-Boardgaming Utilsis distributed in the hope that it will be useful,
+Boardgaming Utils is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
@@ -22,9 +22,17 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
         xmlns:local="clr-namespace:Xilconic.BoardgamingUtils.App"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" Icon="Resources/AppIcon.ico">
-    <Grid>
-        <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top">
-            <MenuItem Header="About" Click="MenuItem_Click"></MenuItem>
+    <Grid x:Name="a">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="0">
+            <MenuItem Header="Dice statistics">
+                <MenuItem Header="Single die" Click="Change_to_single_die_statistics_mode"/>
+            </MenuItem>
+            <MenuItem Header="About" Click="MenuItem_Click"/>
         </Menu>
+        <Grid x:Name="panel" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </Window>

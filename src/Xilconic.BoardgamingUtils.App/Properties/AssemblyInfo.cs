@@ -1,11 +1,11 @@
 ﻿// This file is part of Boardgaming Utils.
 //
-// Boardgaming Utilsis free software: you can redistribute it and/or modify
+// Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Boardgaming Utilsis distributed in the hope that it will be useful,
+// Boardgaming Utils is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
@@ -29,6 +29,8 @@ using System.Windows;
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+
+[assembly:InternalsVisibleTo("Xilconic.BoardgamingUtils.App.Test")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

@@ -1,11 +1,11 @@
 ﻿// This file is part of Boardgaming Utils.
 //
-// Boardgaming Utilsis free software: you can redistribute it and/or modify
+// Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Boardgaming Utilsis distributed in the hope that it will be useful,
+// Boardgaming Utils is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
@@ -14,10 +14,6 @@
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xilconic.BoardgamingUtils.PseudoRandom;
 
 namespace Xilconic.BoardgamingUtils.Test.PseudoRandom
@@ -25,6 +21,16 @@ namespace Xilconic.BoardgamingUtils.Test.PseudoRandom
     [TestFixture]
     public class RandomNumberGeneratorTest
     {
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var rng = new RandomNumberGenerator(0);
+
+            // Assert
+            Assert.IsInstanceOf<IRandomNumberGenerator>(rng);
+        }
+
         [Test]
         [TestCase(0)]
         [TestCase(123456789)]
