@@ -13,6 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Xilconic.BoardgamingUtils.App.Controls
 {
@@ -24,6 +25,21 @@ namespace Xilconic.BoardgamingUtils.App.Controls
         public DiceAnalyticsControl()
         {
             InitializeComponent();
+        }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                var textBox = (TextBox)sender;
+                CommitValueInTexBoxField(textBox);
+                e.Handled = true;
+            }
+        }
+
+        private static void CommitValueInTexBoxField(TextBox textBox)
+        {
+            textBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
         }
     }
 }
