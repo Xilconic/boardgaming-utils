@@ -61,7 +61,7 @@ namespace Xilconic.BoardgamingUtils.App.Test.Controls
             Assert.AreEqual("Sum", horizontalAxis.Title);
             Assert.AreEqual(AxisPosition.Bottom, horizontalAxis.Position);
             Assert.AreEqual(-1, horizontalAxis.AbsoluteMinimum);
-            Assert.AreEqual(expectedNumberOfSides* expectedNumberOfDice, horizontalAxis.AbsoluteMaximum);
+            Assert.AreEqual(expectedNumberOfSides * expectedNumberOfDice - expectedNumberOfDice + 1, horizontalAxis.AbsoluteMaximum);
             Assert.IsFalse(horizontalAxis.IsZoomEnabled);
             Assert.IsFalse(horizontalAxis.IsPanEnabled);
             Assert.AreEqual(0.0, horizontalAxis.GapWidth);

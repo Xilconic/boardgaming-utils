@@ -48,7 +48,7 @@ namespace Xilconic.BoardgamingUtils.App.Controls
 
             horizontalAxis = new CategoryAxis
             {
-                Title = "Die face",
+                Title = "Sum",
                 Position = AxisPosition.Bottom,
                 ItemsSource = Items,
                 LabelField = nameof(ValueProbabilityPair.Value),
@@ -60,7 +60,7 @@ namespace Xilconic.BoardgamingUtils.App.Controls
 
             PlotModel = new PlotModel
             {
-                Title = "Die Probabilities (pdf)",
+                Title = "Dice Probabilities (pdf)",
                 IsLegendVisible = false,
                 Axes =
                 {

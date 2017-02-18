@@ -60,10 +60,8 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
                 <TextBox.Text>
                     <Binding Path="NumberOfDice">
                         <Binding.ValidationRules>
-                            <!-- 
                             <validationRules:NumberOfDiceRule/>
-                            <validationRules:PracticalNumberOfDiceRuleLimitationRule/>
-                            -->
+                            <validationRules:PracticalNumberOfDiceLimitationRule/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
