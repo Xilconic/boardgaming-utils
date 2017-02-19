@@ -12,9 +12,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using OxyPlot;
-using OxyPlot.Axes;
-using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,14 +24,13 @@ using Xilconic.BoardgamingUtils.PseudoRandom;
 namespace Xilconic.BoardgamingUtils.App.Controls
 {
     /// <summary>
-    /// ViewModel for displaying the probability density function (pdf) of a <see cref="SumOfDice"/>
+    /// ViewModel for configuring the probability density function (pdf) of a <see cref="SumOfDice"/>
     /// for a single class of <see cref="NumericalDie"/>.
     /// </summary>
     internal class SumOfNumericalDiceViewModel : INotifyPropertyChanged
     {
         private readonly RandomNumberGenerator rng = new RandomNumberGenerator(Environment.TickCount);
         private SumOfDice diceSum;
-        private readonly CategoryAxis horizontalAxis;
         private int numberOfDice = 2, numberOfSides = 6;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -44,55 +40,7 @@ namespace Xilconic.BoardgamingUtils.App.Controls
         /// </summary>
         public SumOfNumericalDiceViewModel()
         {
-            Items = new List<ValueProbabilityPair>();
-
-            horizontalAxis = new CategoryAxis
-            {
-                Title = "Sum",
-                Position = AxisPosition.Bottom,
-                ItemsSource = Items,
-                LabelField = nameof(ValueProbabilityPair.Value),
-                AbsoluteMinimum = -1,
-                IsZoomEnabled = false,
-                IsPanEnabled = false,
-                GapWidth = 0
-            };
-
-            PlotModel = new PlotModel
-            {
-                Title = "Dice Probabilities (pdf)",
-                IsLegendVisible = false,
-                Axes =
-                {
-                    horizontalAxis,
-                    new LinearAxis
-                    {
-                        Title = "Probability",
-                        Position = AxisPosition.Left,
-                        Minimum = 0.0,
-                        AbsoluteMinimum = 0.0,
-                        Maximum = 1.0,
-                        AbsoluteMaximum = 1.0,
-                        IsZoomEnabled = false,
-                        IsPanEnabled = false,
-                        StringFormat = "p",
-                    }
-                },
-                Series =
-                {
-                    new ColumnSeries
-                    {
-                        Title = "Sum result probability",
-                        ItemsSource = Items,
-                        ValueField = nameof(ValueProbabilityPair.Probability),
-                        FillColor = OxyColors.DarkCyan,
-                        TrackerFormatString = "{0}\n{1}: {2:p}"
-                    }
-                }
-            };
-
-            NumberOfDice = 2;
-            NumberOfSides = 6;
+            UpdateForNewSumOfDiceParameters();
         }
 
         /// <summary>
@@ -113,6 +61,7 @@ namespace Xilconic.BoardgamingUtils.App.Controls
                 UpdateForNewSumOfDiceParameters();
 
                 OnNotifyPropertyChanged(nameof(NumberOfDice));
+                OnNotifyPropertyChanged(nameof(Distribution));
             }
         }
 
@@ -134,15 +83,17 @@ namespace Xilconic.BoardgamingUtils.App.Controls
                 UpdateForNewSumOfDiceParameters();
 
                 OnNotifyPropertyChanged(nameof(NumberOfSides));
+                OnNotifyPropertyChanged(nameof(Distribution));
             }
         }
 
-        /// <summary>
-        /// The model for displaying the pdf of the die.
-        /// </summary>
-        public PlotModel PlotModel { get; private set; }
-
-        private List<ValueProbabilityPair> Items { get; }
+        public DiscreteValueProbabilityDistribution Distribution
+        {
+            get
+            {
+                return diceSum.ProbabilityDistribution;
+            }
+        }
 
         private void OnNotifyPropertyChanged(string propertyName)
         {
@@ -152,13 +103,6 @@ namespace Xilconic.BoardgamingUtils.App.Controls
         private void UpdateForNewSumOfDiceParameters()
         {
             diceSum = new SumOfDice(GenerateDice(numberOfDice, numberOfSides), rng);
-
-            Items.Clear();
-            Items.AddRange(diceSum.ProbabilityDistribution.Specification);
-
-            horizontalAxis.AbsoluteMaximum = diceSum.ProbabilityDistribution.Specification.Count;
-
-            PlotModel.InvalidatePlot(true);
         }
 
         private IEnumerable<NumericalDie> GenerateDice(int numberOfDice, int numberOfSides)

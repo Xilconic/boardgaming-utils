@@ -13,17 +13,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 using NUnit.Framework;
-using OxyPlot;
-using OxyPlot.Axes;
-using OxyPlot.Series;
 using Rhino.Mocks;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xilconic.BoardgamingUtils.App.Controls;
 using Xilconic.BoardgamingUtils.Dice;
 using Xilconic.BoardgamingUtils.Mathmatics;
@@ -42,67 +35,131 @@ namespace Xilconic.BoardgamingUtils.App.Test.Controls
 
             // Assert
             Assert.IsInstanceOf<INotifyPropertyChanged>(viewModel);
-            AssertViewModelForExpectedNumberOfDice(2, 6, viewModel);
+            Assert.AreEqual(2, viewModel.NumberOfDice);
+            Assert.AreEqual(6, viewModel.NumberOfSides);
+            AssertExpectedDistribution(viewModel.NumberOfDice, viewModel.NumberOfSides, viewModel.Distribution);
         }
 
-        private static void AssertViewModelForExpectedNumberOfDice(int expectedNumberOfDice, 
-            int expectedNumberOfSides, 
-            SumOfNumericalDiceViewModel viewModel)
+        [Test]
+        public void NumberOfSides_SetNewValue_NotifyPropertyChange()
         {
-            Assert.AreEqual(expectedNumberOfDice, viewModel.NumberOfDice);
-            Assert.AreEqual(expectedNumberOfSides, viewModel.NumberOfSides);
+            // Setup
+            var propertyChangedCalls = new Dictionary<string, int>();
 
-            PlotModel model = viewModel.PlotModel;
-            Assert.AreEqual("Dice Probabilities (pdf)", model.Title);
-            Assert.IsFalse(model.IsLegendVisible);
-
-            Assert.AreEqual(2, model.Axes.Count);
-            var horizontalAxis = (CategoryAxis)model.Axes[0];
-            Assert.AreEqual("Sum", horizontalAxis.Title);
-            Assert.AreEqual(AxisPosition.Bottom, horizontalAxis.Position);
-            Assert.AreEqual(-1, horizontalAxis.AbsoluteMinimum);
-            Assert.AreEqual(expectedNumberOfSides * expectedNumberOfDice - expectedNumberOfDice + 1, horizontalAxis.AbsoluteMaximum);
-            Assert.IsFalse(horizontalAxis.IsZoomEnabled);
-            Assert.IsFalse(horizontalAxis.IsPanEnabled);
-            Assert.AreEqual(0.0, horizontalAxis.GapWidth);
-            AssertItemSource(horizontalAxis.ItemsSource, expectedNumberOfDice, expectedNumberOfSides);
-            Assert.AreEqual(nameof(ValueProbabilityPair.Value), horizontalAxis.LabelField);
-
-            var verticalAxis = (LinearAxis)model.Axes[1];
-            Assert.AreEqual("Probability", verticalAxis.Title);
-            Assert.AreEqual(AxisPosition.Left, verticalAxis.Position);
-            Assert.AreEqual(0.0, verticalAxis.AbsoluteMinimum);
-            Assert.AreEqual(1.0, verticalAxis.AbsoluteMaximum);
-            Assert.AreEqual(0.0, verticalAxis.Minimum);
-            Assert.AreEqual(1.0, verticalAxis.Maximum);
-            Assert.IsFalse(verticalAxis.IsZoomEnabled);
-            Assert.IsFalse(verticalAxis.IsPanEnabled);
-            Assert.AreEqual("p", verticalAxis.StringFormat);
-
-            Assert.AreEqual(1, model.Series.Count);
-            ColumnSeries series = (ColumnSeries)model.Series[0];
-            Assert.AreEqual("Sum result probability", series.Title);
-            AssertItemSource(horizontalAxis.ItemsSource, expectedNumberOfDice, expectedNumberOfSides);
-            Assert.AreEqual(nameof(ValueProbabilityPair.Probability), series.ValueField);
-            Assert.AreEqual(OxyColors.DarkCyan, series.FillColor);
-            Assert.AreEqual("{0}\n{1}: {2:p}", series.TrackerFormatString);
-        }
-
-        private static void AssertItemSource(IEnumerable itemSource, int expectedNumberOfDice, int expectedNumberOfSidesOnDie)
-        {
-            var valueProbabilities = (IList<ValueProbabilityPair>)itemSource;
-
-            var rng = MockRepository.GenerateStub<IRandomNumberGenerator>();
-            var dice = Enumerable.Repeat(expectedNumberOfSidesOnDie, expectedNumberOfDice)
-                .Select(nrOfSides => new NumericalDie(nrOfSides, rng));
-            var diceSum = new SumOfDice(dice, rng);
-            IList<ValueProbabilityPair> expectedProbabilities = diceSum.ProbabilityDistribution.Specification;
-
-            Assert.AreEqual(expectedProbabilities.Count, valueProbabilities.Count);
-            for(int i = 0; i < expectedProbabilities.Count; i++)
+            var viewModel = new SumOfNumericalDiceViewModel();
+            viewModel.PropertyChanged += (s, e) =>
             {
-                Assert.AreEqual(expectedProbabilities[i].Value, valueProbabilities[i].Value);
-                Assert.AreEqual(expectedProbabilities[i].Probability, valueProbabilities[i].Probability);
+                if (!propertyChangedCalls.ContainsKey(e.PropertyName))
+                {
+                    propertyChangedCalls[e.PropertyName] = 0;
+                }
+                propertyChangedCalls[e.PropertyName]++;
+
+                Assert.AreSame(viewModel, s);
+            };
+
+            // Call
+            viewModel.NumberOfSides = 3;
+
+            // Assert
+            Assert.AreEqual(1, propertyChangedCalls[nameof(SumOfNumericalDiceViewModel.NumberOfSides)]);
+        }
+
+        [Test]
+        public void NumberOfSides_SetNewValue_UpdatesDistributionAndNotifyPropertyChange()
+        {
+            // Setup
+            var propertyChangedCalls = new Dictionary<string, int>();
+
+            var viewModel = new SumOfNumericalDiceViewModel();
+            viewModel.PropertyChanged += (s, e) =>
+            {
+                if (!propertyChangedCalls.ContainsKey(e.PropertyName))
+                {
+                    propertyChangedCalls[e.PropertyName] = 0;
+                }
+                propertyChangedCalls[e.PropertyName]++;
+
+                Assert.AreSame(viewModel, s);
+            };
+
+            // Call
+            viewModel.NumberOfSides = 3;
+
+            // Assert
+            Assert.AreEqual(1, propertyChangedCalls[nameof(SumOfNumericalDiceViewModel.Distribution)]);
+            AssertExpectedDistribution(viewModel.NumberOfDice, viewModel.NumberOfSides, viewModel.Distribution);
+        }
+
+        [Test]
+        public void NumberOfDice_SetNewValue_NotifyPropertyChange()
+        {
+            // Setup
+            var propertyChangedCalls = new Dictionary<string, int>();
+
+            var viewModel = new SumOfNumericalDiceViewModel();
+            viewModel.PropertyChanged += (s, e) =>
+            {
+                if (!propertyChangedCalls.ContainsKey(e.PropertyName))
+                {
+                    propertyChangedCalls[e.PropertyName] = 0;
+                }
+                propertyChangedCalls[e.PropertyName]++;
+
+                Assert.AreSame(viewModel, s);
+            };
+
+            // Call
+            viewModel.NumberOfDice = 3;
+
+            // Assert
+            Assert.AreEqual(1, propertyChangedCalls[nameof(SumOfNumericalDiceViewModel.NumberOfDice)]);
+        }
+
+        [Test]
+        public void NumberOfDice_SetNewValue_UpdatesDistributionAndNotifyPropertyChange()
+        {
+            // Setup
+            var propertyChangedCalls = new Dictionary<string, int>();
+
+            var viewModel = new SumOfNumericalDiceViewModel();
+            viewModel.PropertyChanged += (s, e) =>
+            {
+                if (!propertyChangedCalls.ContainsKey(e.PropertyName))
+                {
+                    propertyChangedCalls[e.PropertyName] = 0;
+                }
+                propertyChangedCalls[e.PropertyName]++;
+
+                Assert.AreSame(viewModel, s);
+            };
+
+            // Call
+            viewModel.NumberOfDice = 3;
+
+            // Assert
+            Assert.AreEqual(1, propertyChangedCalls[nameof(SumOfNumericalDiceViewModel.Distribution)]);
+            AssertExpectedDistribution(viewModel.NumberOfDice, viewModel.NumberOfSides, viewModel.Distribution);
+        }
+
+        private void AssertExpectedDistribution(int numberOfDice, int numberOfSides, DiscreteValueProbabilityDistribution actualDistribution)
+        {
+            var rng = MockRepository.GenerateStub<IRandomNumberGenerator>();
+            IEnumerable<NumericalDie> dice = Enumerable.Repeat(numberOfSides, numberOfDice)
+                .Select(nrOfSides => new NumericalDie(nrOfSides, rng));
+            var sumOfDice = new SumOfDice(dice, rng);
+
+            DiscreteValueProbabilityDistribution expectedDistribution = sumOfDice.ProbabilityDistribution;
+            AssertEquals(expectedDistribution, actualDistribution);
+        }
+
+        private void AssertEquals(DiscreteValueProbabilityDistribution expectedDistribution, DiscreteValueProbabilityDistribution actualDistribution)
+        {
+            Assert.AreEqual(expectedDistribution.Specification.Count, actualDistribution.Specification.Count);
+            for(int i = 0; i < expectedDistribution.Specification.Count; i++)
+            {
+                Assert.AreEqual(expectedDistribution.Specification[i].Value, actualDistribution.Specification[i].Value);
+                Assert.AreEqual(expectedDistribution.Specification[i].Probability, actualDistribution.Specification[i].Probability);
             }
         }
     }

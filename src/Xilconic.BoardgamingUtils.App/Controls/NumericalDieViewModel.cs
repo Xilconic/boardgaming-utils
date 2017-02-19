@@ -12,11 +12,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using OxyPlot;
-using OxyPlot.Axes;
-using OxyPlot.Series;
 using System;
-using System.Collections.Generic;
 using Xilconic.BoardgamingUtils.Dice;
 using Xilconic.BoardgamingUtils.PseudoRandom;
 using Xilconic.BoardgamingUtils.Mathmatics;
@@ -32,7 +28,6 @@ namespace Xilconic.BoardgamingUtils.App.Controls
     {
         private readonly RandomNumberGenerator rng = new RandomNumberGenerator(Environment.TickCount);
         private NumericalDie die;
-        private readonly CategoryAxis horizontalAxis;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -41,60 +36,8 @@ namespace Xilconic.BoardgamingUtils.App.Controls
         /// </summary>
         public NumericalDieViewModel()
         {
-            Items = new List<ValueProbabilityPair>();
-
-            horizontalAxis = new CategoryAxis
-            {
-                Title = "Die face",
-                Position = AxisPosition.Bottom,
-                ItemsSource = Items,
-                LabelField = nameof(ValueProbabilityPair.Value),
-                AbsoluteMinimum = -1,
-                IsZoomEnabled = false,
-                IsPanEnabled = false,
-                GapWidth = 0
-            };
-
-            PlotModel = new PlotModel
-            {
-                Title = "Die Probabilities (pdf)",
-                IsLegendVisible = false,
-                Axes =
-                {
-                    horizontalAxis,
-                    new LinearAxis
-                    {
-                        Title = "Probability",
-                        Position = AxisPosition.Left,
-                        Minimum = 0.0,
-                        AbsoluteMinimum = 0.0,
-                        Maximum = 1.0,
-                        AbsoluteMaximum = 1.0,
-                        IsZoomEnabled = false,
-                        IsPanEnabled = false,
-                        StringFormat = "p",
-                    }
-                },
-                Series =
-                {
-                    new ColumnSeries
-                    {
-                        Title = "Die face probability",
-                        ItemsSource = Items,
-                        ValueField = nameof(ValueProbabilityPair.Probability),
-                        FillColor = OxyColors.DarkCyan,
-                        TrackerFormatString = "{0}\n{1}: {2:p}"
-                    }
-                }
-            };
-
             NumberOfSides = 6;
         }
-
-        /// <summary>
-        /// The model for displaying the pdf of the die.
-        /// </summary>
-        public PlotModel PlotModel { get; private set; }
 
         /// <summary>
         /// The number of sides the die has.
@@ -110,16 +53,19 @@ namespace Xilconic.BoardgamingUtils.App.Controls
                 Contract.Requires<ArgumentOutOfRangeException>(value > 0);
 
                 die = new NumericalDie(value, rng);
-                Items.Clear();
-                Items.AddRange(die.ProbabilityDistribution.Specification);
-                horizontalAxis.AbsoluteMaximum = value;
 
                 OnNotifyPropertyChanged(nameof(NumberOfSides));
-                PlotModel.InvalidatePlot(true);
+                OnNotifyPropertyChanged(nameof(Distribution));
             }
         }
 
-        private List<ValueProbabilityPair> Items { get; }
+        public DiscreteValueProbabilityDistribution Distribution
+        {
+            get
+            {
+                return die.ProbabilityDistribution;
+            }
+        }
 
         private void OnNotifyPropertyChanged(string propertyName)
         {

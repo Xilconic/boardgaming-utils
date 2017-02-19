@@ -21,6 +21,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Xilconic.BoardgamingUtils.App.Controls;
 using Xilconic.BoardgamingUtils.Mathmatics;
+using System;
+using Xilconic.BoardgamingUtils.Dice;
+using Xilconic.BoardgamingUtils.PseudoRandom;
+using Rhino.Mocks;
 
 namespace Xilconic.BoardgamingUtils.App.Test.Controls
 {
@@ -35,88 +39,77 @@ namespace Xilconic.BoardgamingUtils.App.Test.Controls
 
             // Assert
             Assert.IsInstanceOf<INotifyPropertyChanged>(viewModel);
-            AssertViewModelForExpectedNumberOfDieSides(6, viewModel);
+            Assert.AreEqual(6, viewModel.NumberOfSides);
+            AssertExpectedDistribution(viewModel.NumberOfSides, viewModel.Distribution);
         }
 
-        [TestCase(2)]
-        [TestCase(20)]
-        public void NumberOfSides_SetToDifferentValue_UpdatePlotModel(int newNumberOfSides)
+        [Test]
+        public void NumberOfSides_SetNewValue_NotifyPropertyChange()
         {
             // Setup
-            var viewModel = new NumericalDieViewModel();
+            var propertyChangedCalls = new Dictionary<string, int>();
 
-            int propertyChangedCallCount = 0;
-            object propertyChangedSender = null;
-            PropertyChangedEventArgs eventArgs = null;
-            viewModel.PropertyChanged += (sender, args) =>
+            var viewModel = new NumericalDieViewModel();
+            viewModel.PropertyChanged += (s, e) =>
             {
-                propertyChangedCallCount++;
-                propertyChangedSender = sender;
-                eventArgs = args;
+                if (!propertyChangedCalls.ContainsKey(e.PropertyName))
+                {
+                    propertyChangedCalls[e.PropertyName] = 0;
+                }
+                propertyChangedCalls[e.PropertyName]++;
+
+                Assert.AreSame(viewModel, s);
             };
 
             // Call
-            viewModel.NumberOfSides = newNumberOfSides;
+            viewModel.NumberOfSides = 3;
 
             // Assert
-            AssertViewModelForExpectedNumberOfDieSides(newNumberOfSides, viewModel);
-
-            Assert.AreEqual(1, propertyChangedCallCount);
-            Assert.AreSame(viewModel, propertyChangedSender);
-            Assert.AreEqual(nameof(viewModel.NumberOfSides), eventArgs.PropertyName);
+            Assert.AreEqual(1, propertyChangedCalls[nameof(NumericalDieViewModel.NumberOfSides)]);
         }
 
-        private void AssertViewModelForExpectedNumberOfDieSides(int expectedNumberofSidesOnDie, NumericalDieViewModel viewModel)
+        [Test]
+        public void NumberOfSides_SetNewValue_UpdatesDistributionAndNotifyPropertyChange()
         {
-            Assert.AreEqual(expectedNumberofSidesOnDie, viewModel.NumberOfSides);
+            // Setup
+            var propertyChangedCalls = new Dictionary<string, int>();
 
-            PlotModel model = viewModel.PlotModel;
-            Assert.AreEqual("Die Probabilities (pdf)", model.Title);
-            Assert.IsFalse(model.IsLegendVisible);
-
-            Assert.AreEqual(2, model.Axes.Count);
-            var horizontalAxis = (CategoryAxis)model.Axes[0];
-            Assert.AreEqual("Die face", horizontalAxis.Title);
-            Assert.AreEqual(AxisPosition.Bottom, horizontalAxis.Position);
-            Assert.AreEqual(-1, horizontalAxis.AbsoluteMinimum);
-            Assert.AreEqual(expectedNumberofSidesOnDie, horizontalAxis.AbsoluteMaximum);
-            Assert.IsFalse(horizontalAxis.IsZoomEnabled);
-            Assert.IsFalse(horizontalAxis.IsPanEnabled);
-            Assert.AreEqual(0.0, horizontalAxis.GapWidth);
-            AssertItemSource(horizontalAxis.ItemsSource, expectedNumberofSidesOnDie);
-            Assert.AreEqual(nameof(ValueProbabilityPair.Value), horizontalAxis.LabelField);
-
-            var verticalAxis = (LinearAxis)model.Axes[1];
-            Assert.AreEqual("Probability", verticalAxis.Title);
-            Assert.AreEqual(AxisPosition.Left, verticalAxis.Position);
-            Assert.AreEqual(0.0, verticalAxis.AbsoluteMinimum);
-            Assert.AreEqual(1.0, verticalAxis.AbsoluteMaximum);
-            Assert.AreEqual(0.0, verticalAxis.Minimum);
-            Assert.AreEqual(1.0, verticalAxis.Maximum);
-            Assert.IsFalse(verticalAxis.IsZoomEnabled);
-            Assert.IsFalse(verticalAxis.IsPanEnabled);
-            Assert.AreEqual("p", verticalAxis.StringFormat);
-
-            Assert.AreEqual(1, model.Series.Count);
-            ColumnSeries series = (ColumnSeries)model.Series[0];
-            Assert.AreEqual("Die face probability", series.Title);
-            AssertItemSource(series.ItemsSource, expectedNumberofSidesOnDie);
-            Assert.AreEqual(nameof(ValueProbabilityPair.Probability), series.ValueField);
-            Assert.AreEqual(OxyColors.DarkCyan, series.FillColor);
-            Assert.AreEqual("{0}\n{1}: {2:p}", series.TrackerFormatString);
-        }
-
-        private void AssertItemSource(IEnumerable itemSource, int expectedNumberOfSidesOnDie)
-        {
-            var valueProbabilities = (IList<ValueProbabilityPair>)itemSource;
-
-            Assert.AreEqual(expectedNumberOfSidesOnDie, valueProbabilities.Count);
-
-            var expectedProbability = 1.0 / expectedNumberOfSidesOnDie;
-            for(int i = 0; i < expectedNumberOfSidesOnDie; i++)
+            var viewModel = new NumericalDieViewModel();
+            viewModel.PropertyChanged += (s, e) =>
             {
-                Assert.AreEqual(i + 1, valueProbabilities[i].Value);
-                Assert.AreEqual(expectedProbability, valueProbabilities[i].Probability);
+                if (!propertyChangedCalls.ContainsKey(e.PropertyName))
+                {
+                    propertyChangedCalls[e.PropertyName] = 0;
+                }
+                propertyChangedCalls[e.PropertyName]++;
+
+                Assert.AreSame(viewModel, s);
+            };
+
+            // Call
+            viewModel.NumberOfSides = 3;
+
+            // Assert
+            Assert.AreEqual(1, propertyChangedCalls[nameof(NumericalDieViewModel.Distribution)]);
+            AssertExpectedDistribution(viewModel.NumberOfSides, viewModel.Distribution);
+        }
+
+        private void AssertExpectedDistribution(int numberOfSides, DiscreteValueProbabilityDistribution actualDistribution)
+        {
+            var rng = MockRepository.GenerateStub<IRandomNumberGenerator>();
+            var die = new NumericalDie(numberOfSides, rng);
+
+            DiscreteValueProbabilityDistribution expectedDistribution = die.ProbabilityDistribution;
+            AssertEquals(expectedDistribution, actualDistribution);
+        }
+
+        private void AssertEquals(DiscreteValueProbabilityDistribution expectedDistribution, DiscreteValueProbabilityDistribution actualDistribution)
+        {
+            Assert.AreEqual(expectedDistribution.Specification.Count, actualDistribution.Specification.Count);
+            for (int i = 0; i < expectedDistribution.Specification.Count; i++)
+            {
+                Assert.AreEqual(expectedDistribution.Specification[i].Value, actualDistribution.Specification[i].Value);
+                Assert.AreEqual(expectedDistribution.Specification[i].Probability, actualDistribution.Specification[i].Probability);
             }
         }
     }
