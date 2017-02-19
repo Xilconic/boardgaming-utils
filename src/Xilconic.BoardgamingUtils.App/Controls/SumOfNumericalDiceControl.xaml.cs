@@ -12,37 +12,37 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using System.Windows;
-using Xilconic.BoardgamingUtils.App.Controls;
+using System.Windows.Controls;
+using System.Windows.Input;
 
-namespace Xilconic.BoardgamingUtils.App
+namespace Xilconic.BoardgamingUtils.App.Controls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SumOfNumericalDiceControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SumOfNumericalDiceControl : UserControl
     {
-        public MainWindow()
+        /// <summary>
+        /// Creates a new instance of <see cref="SumOfNumericalDiceControl"/>.
+        /// </summary>
+        public SumOfNumericalDiceControl()
         {
             InitializeComponent();
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            var aboutWindow = new AboutWindow();
-            aboutWindow.ShowDialog();
+            if (e.Key == Key.Enter)
+            {
+                var textBox = (TextBox)sender;
+                CommitValueInTexBoxField(textBox);
+                e.Handled = true;
+            }
         }
 
-        private void Change_to_single_die_statistics_mode(object sender, RoutedEventArgs e)
+        private static void CommitValueInTexBoxField(TextBox textBox)
         {
-            panel.Children.Clear();
-            panel.Children.Add(new DiceAnalyticsControl());
-        }
-
-        private void Change_to_sum_of_dice_statistics_mode(object sender, RoutedEventArgs e)
-        {
-            panel.Children.Clear();
-            panel.Children.Add(new SumOfNumericalDiceControl());
+            textBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
         }
     }
 }

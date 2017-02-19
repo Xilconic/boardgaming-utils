@@ -114,15 +114,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\ProbabilityDensityFunctionChartControl.xaml.cs">
+      <DependentUpon>ProbabilityDensityFunctionChartControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ProbabilityDensityFunctionChartViewModel.cs" />
+    <Compile Include="Controls\SumOfNumericalDiceControl.xaml.cs">
+      <DependentUpon>SumOfNumericalDiceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SumOfNumericalDiceViewModel.cs" />
     <Compile Include="Utils\ColorExtensions.cs" />
     <Compile Include="ValidationRules\IntegerParsingRule.cs" />
+    <Compile Include="ValidationRules\NumberOfDiceRule.cs" />
     <Compile Include="ValidationRules\NumberOfDieFacesRule.cs" />
+    <Compile Include="ValidationRules\PracticalNumberOfDiceLimitationRule.cs" />
     <Compile Include="ValidationRules\PracticalNumberOfDieFacesLimitationRule.cs" />
     <Page Include="AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\NumericalDieControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ProbabilityDensityFunctionChartControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SumOfNumericalDiceControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
