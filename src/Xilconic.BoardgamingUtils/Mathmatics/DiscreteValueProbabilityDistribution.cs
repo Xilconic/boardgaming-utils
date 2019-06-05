@@ -87,7 +87,7 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
         {
             for(int i = 1; i < Specification.Count; i++)
             {
-                if(Specification[i-1].Value <= Specification[i].Value)
+                if(Specification[i-1].Value >= Specification[i].Value)
                 {
                     return false;
                 }
