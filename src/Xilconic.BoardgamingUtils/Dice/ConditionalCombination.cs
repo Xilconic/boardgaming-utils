@@ -14,7 +14,7 @@
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
 using System.Linq;
 using Xilconic.BoardgamingUtils.Mathmatics;
 
@@ -35,9 +35,9 @@ namespace Xilconic.BoardgamingUtils.Dice
         public ConditionalCombination(IDiscreteBooleanRandomVariable condition,
             IDiscreteIntegerRandomVariable trueCase, IDiscreteIntegerRandomVariable falseCase)
         {
-            Contract.Requires<ArgumentNullException>(condition != null);
-            Contract.Requires<ArgumentNullException>(trueCase != null);
-            Contract.Requires<ArgumentNullException>(falseCase != null);
+            Debug.Assert(condition != null);
+            Debug.Assert(trueCase != null);
+            Debug.Assert(falseCase != null);
 
             ProbabilityDistribution = GetProbabilityDistribution(condition, trueCase, falseCase);
         }

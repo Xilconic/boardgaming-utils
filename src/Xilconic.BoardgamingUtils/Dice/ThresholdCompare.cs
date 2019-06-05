@@ -14,7 +14,7 @@
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
 using System.Linq;
 using Xilconic.BoardgamingUtils.Mathmatics;
 using Xilconic.BoardgamingUtils.PseudoRandom;
@@ -39,11 +39,10 @@ namespace Xilconic.BoardgamingUtils.Dice
         public ThresholdCompare(IAbstractDie die, ComparisonType comparisonType, int referenceValue,
             IRandomNumberGenerator rng)
         {
-            Contract.Requires<ArgumentNullException>(die != null);
-            Contract.Requires<InvalidEnumArgumentException>(comparisonType == ComparisonType.Greater ||
-                comparisonType == ComparisonType.GreaterOrEqual || comparisonType == ComparisonType.Smaller ||
-                comparisonType == ComparisonType.SmallerOrEqual);
-            Contract.Requires<ArgumentNullException>(rng != null);
+            Debug.Assert(die != null);
+            Debug.Assert(comparisonType == ComparisonType.Greater || comparisonType == ComparisonType.GreaterOrEqual ||
+                comparisonType == ComparisonType.Smaller || comparisonType == ComparisonType.SmallerOrEqual);
+            Debug.Assert(rng != null);
 
             this.die = die;
             ComparisonType = comparisonType;
@@ -52,6 +51,8 @@ namespace Xilconic.BoardgamingUtils.Dice
 
             double successProbability = CreateProbabilityDistribution(die, comparisonType, referenceValue);
             ProbabilityDistribution = new BooleanProbabilityDistribution(successProbability);
+
+            Debug.Assert(ProbabilityDistribution != null);
         }
 
         /// <summary>
@@ -76,13 +77,14 @@ namespace Xilconic.BoardgamingUtils.Dice
 
         private double CreateProbabilityDistribution(IAbstractDie die, ComparisonType comparisonType, int referenceValue)
         {
-            Contract.Ensures(Contract.Result<double>() >= 0.0);
-            Contract.Ensures(Contract.Result<double>() <= 1.0);
-
             Func<int, bool> comparitor = GetComparitor(comparisonType, referenceValue);
-            return die.ProbabilityDistribution.Specification
+            double result = die.ProbabilityDistribution.Specification
                 .Where(p => comparitor(p.Value))
                 .Sum(p => p.Probability);
+
+            Debug.Assert(0.0 <= result && result <= 1.0);
+
+            return result;
         }
 
         private Func<int, bool> GetComparitor(ComparisonType comparisonType, int referenceValue)
@@ -100,12 +102,6 @@ namespace Xilconic.BoardgamingUtils.Dice
                 default:
                     throw new InvalidEnumArgumentException(nameof(comparisonType), (int)comparisonType, typeof(ComparisonType));
             }
-        }
-
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
-        {
-            Contract.Invariant(ProbabilityDistribution != null);
         }
     }
 }

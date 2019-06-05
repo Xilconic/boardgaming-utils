@@ -15,7 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Xilconic.BoardgamingUtils.Mathmatics
@@ -31,16 +31,23 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
         /// <param name="probabilitySpecification">The complete probability mass function specification.</param>
         public DiscreteValueProbabilityDistribution(IEnumerable<ValueProbabilityPair> probabilitySpecification)
         {
-            Contract.Requires<ArgumentNullException>(probabilitySpecification != null);
-            Contract.Requires<ArgumentException>(probabilitySpecification.Count() > 0);
-            Contract.Requires<ArgumentException>(Contract.ForAll(probabilitySpecification, p => p != null));
-            Contract.Requires<ArgumentException>(Math.Abs(probabilitySpecification.Sum(p => p.Probability) - 1.0) < 1e-6,
+            Debug.Assert(probabilitySpecification != null);
+            Debug.Assert(probabilitySpecification.Count() > 0);
+            Debug.Assert(probabilitySpecification.All(element => element != null));
+            Debug.Assert(Math.Abs(probabilitySpecification.Sum(p => p.Probability) - 1.0) < 1e-6,
                 "The sum of all probabilities should be 1.");
-            Contract.Requires<ArgumentException>(probabilitySpecification.Select(p => p.Value).Distinct().Count() == probabilitySpecification.Count(),
+            Debug.Assert(probabilitySpecification.Select(p => p.Value).Distinct().Count() == probabilitySpecification.Count(),
                 "All values in the specification should be unique.");
 
             Specification = new ReadOnlyCollection<ValueProbabilityPair>(probabilitySpecification.OrderBy(p => p.Value).ToArray());
-            Contract.Assert(Specification.Count > 0);
+
+            Debug.Assert(Specification != null);
+            Debug.Assert(Specification.Count > 0);
+            Debug.Assert(Specification.All(pair => pair != null));
+            Debug.Assert(Math.Abs(Specification.Sum(p => p.Probability) - 1.0) < 1e-6);
+            Debug.Assert(Specification.Select(p => p.Value).Distinct().Count() == Specification.Count());
+            Debug.Assert(IsSpecificationInStrictIncreasingOrderBasedOnValueProbabilityPairValue(),
+                "Specification should be ordered in a strict increasing collection on ValueProbabilityPair.Value.");
         }
 
         /// <summary>
@@ -59,9 +66,7 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
         /// boundaries between two elements in <see cref="Specification"/>.</remarks>
         public int GetValueAtCdf(double probabilityValue)
         {
-            Contract.Requires<ArgumentOutOfRangeException>(probabilityValue >= 0.0);
-            Contract.Requires<ArgumentOutOfRangeException>(probabilityValue <= 1.0);
-            Contract.Ensures(Contract.Exists(Specification, p => p.Value == Contract.Result<int>()));
+            Debug.Assert(0.0 <= probabilityValue && probabilityValue <= 1.0);
 
             double runningLowerProbabilityBracket = 0.0;
             foreach (ValueProbabilityPair pair in Specification)
@@ -78,16 +83,16 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
             return Specification.Last().Value;
         }
 
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
+        private bool IsSpecificationInStrictIncreasingOrderBasedOnValueProbabilityPairValue()
         {
-            Contract.Invariant(Specification != null);
-            Contract.Invariant(Specification.Count > 0);
-            Contract.Invariant(Contract.ForAll(Specification, p => p != null));
-            Contract.Invariant(Math.Abs(Specification.Sum(p => p.Probability) - 1.0) < 1e-6);
-            Contract.Invariant(Specification.Select(p => p.Value).Distinct().Count() == Specification.Count());
-            Contract.Invariant(Contract.ForAll(1, Specification.Count, index => Specification[index].Value > Specification[index - 1].Value),
-                "Specification should be ordered in a strict increasing collection on ValueProbabilityPair.Value.");
+            for(int i = 1; i < Specification.Count; i++)
+            {
+                if(Specification[i-1].Value <= Specification[i].Value)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

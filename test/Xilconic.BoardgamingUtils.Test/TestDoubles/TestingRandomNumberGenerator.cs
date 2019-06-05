@@ -14,7 +14,7 @@
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
 using System.Linq;
 using Xilconic.BoardgamingUtils.PseudoRandom;
 
@@ -24,7 +24,6 @@ namespace Xilconic.BoardgamingUtils.Test.TestDoubles
     /// Implementation of <see cref="IRandomNumberGenerator"/> that allows for predictable number
     /// generation, useful for unit testing.
     /// </summary>
-    [ContractVerification(true)]
     internal class TestingRandomNumberGenerator : IRandomNumberGenerator
     {
         private readonly Queue<double> factorValues;
@@ -43,9 +42,8 @@ namespace Xilconic.BoardgamingUtils.Test.TestDoubles
         /// <param name="factors">The collection of factors.</param>
         public void AddFactorValues(IEnumerable<double> factors)
         {
-            Contract.Requires<ArgumentNullException>(factors != null);
-            Contract.Requires<ArgumentOutOfRangeException>(Contract.ForAll(factors, f => f >= 0.0));
-            Contract.Requires<ArgumentOutOfRangeException>(Contract.ForAll(factors, f => f <= 1.0));
+            Debug.Assert(factors != null);
+            Debug.Assert(factors.All(factor => 0.0 <= factor && factor <= 1.0));
 
             foreach(double factor in factors)
             {
@@ -60,10 +58,7 @@ namespace Xilconic.BoardgamingUtils.Test.TestDoubles
         {
             if (factorValues.Any())
             {
-                double factor = factorValues.Dequeue();
-                Contract.Assume(factor >= 0.0);
-                Contract.Assume(factor <= 1.0);
-                return factor;
+                return factorValues.Dequeue();
             }
             else
             {

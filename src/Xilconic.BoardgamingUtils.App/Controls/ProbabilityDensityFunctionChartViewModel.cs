@@ -17,7 +17,7 @@ using OxyPlot.Axes;
 using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
 using Xilconic.BoardgamingUtils.Mathmatics;
 
 namespace Xilconic.BoardgamingUtils.App.Controls
@@ -106,7 +106,7 @@ namespace Xilconic.BoardgamingUtils.App.Controls
             }
             set
             {
-                Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(value));
+                Debug.Assert(!string.IsNullOrWhiteSpace(value));
 
                 horizontalAxis.Title = value;
                 valueSerie.Title = $"{value} probability";
@@ -124,7 +124,7 @@ namespace Xilconic.BoardgamingUtils.App.Controls
             }
             set
             {
-                Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(value));
+                Debug.Assert(!string.IsNullOrWhiteSpace(value));
 
                 PlotModel.Title = value;
             }
