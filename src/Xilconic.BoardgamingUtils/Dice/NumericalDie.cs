@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
 using System.Linq;
 using Xilconic.BoardgamingUtils.Mathmatics;
 using Xilconic.BoardgamingUtils.PseudoRandom;
@@ -33,12 +33,11 @@ namespace Xilconic.BoardgamingUtils.Dice
         /// <param name="rng">The random number generator.</param>
         public NumericalDie(int numberOfSides, IRandomNumberGenerator rng) : base(rng)
         {
-            Contract.Requires<ArgumentOutOfRangeException>(numberOfSides > 0);
-            Contract.Ensures(NumberOfSides == numberOfSides);
-
             NumberOfSides = numberOfSides;
             ValueProbabilityPair[] dieProbabilities = CreateProbabilityDistribution(numberOfSides);
             ProbabilityDistribution = new DiscreteValueProbabilityDistribution(dieProbabilities);
+
+            Debug.Assert(NumberOfSides == numberOfSides);
         }
 
         /// <summary>
@@ -50,18 +49,12 @@ namespace Xilconic.BoardgamingUtils.Dice
 
         private ValueProbabilityPair[] CreateProbabilityDistribution(int numberOfSides)
         {
-            Contract.Requires<ArgumentOutOfRangeException>(numberOfSides > 0);
+            Debug.Assert(numberOfSides > 0);
 
             double uniformProbability = 1.0 / numberOfSides;
             return Enumerable.Range(1, numberOfSides)
                 .Select(value => new ValueProbabilityPair(value, uniformProbability))
                 .ToArray();
-        }
-
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
-        {
-            Contract.Invariant(NumberOfSides > 0);
         }
     }
 }

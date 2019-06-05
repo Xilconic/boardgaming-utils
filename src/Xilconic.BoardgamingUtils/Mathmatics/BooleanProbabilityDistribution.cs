@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
 
 namespace Xilconic.BoardgamingUtils.Mathmatics
 {
@@ -29,11 +29,12 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
         /// <param name="successProbability">The probability on success.</param>
         public BooleanProbabilityDistribution(double successProbability)
         {
-            Contract.Requires<ArgumentOutOfRangeException>(successProbability >= 0.0);
-            Contract.Requires<ArgumentOutOfRangeException>(successProbability <= 1.0);
+            Debug.Assert(0.0 <= successProbability && successProbability <= 1.0);
 
             SuccessProbability = successProbability;
             FailureProbability = 1.0 - successProbability;
+
+            Debug.Assert(0.0 <= FailureProbability && FailureProbability <= 1.0);
         }
 
         /// <summary>
@@ -45,14 +46,5 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
         /// The probability on failure.
         /// </summary>
         public double FailureProbability { get; }
-
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
-        {
-            Contract.Invariant(SuccessProbability >= 0.0);
-            Contract.Invariant(SuccessProbability <= 1.0);
-            Contract.Invariant(FailureProbability >= 0.0);
-            Contract.Invariant(FailureProbability <= 1.0);
-        }
     }
 }

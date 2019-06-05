@@ -14,7 +14,7 @@
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
 using System.Linq;
 using Xilconic.BoardgamingUtils.Mathmatics;
 using Xilconic.BoardgamingUtils.PseudoRandom;
@@ -36,9 +36,9 @@ namespace Xilconic.BoardgamingUtils.Dice
         /// <param name="rng">The random number generator.</param>
         public SumOfDice(IEnumerable<IAbstractDie> dice, IRandomNumberGenerator rng) : base(rng)
         {
-            Contract.Requires<ArgumentNullException>(dice != null);
-            Contract.Requires<ArgumentException>(Contract.ForAll(dice, d => d != null));
-            Contract.Requires<ArgumentException>(dice.Count() > 0);
+            Debug.Assert(dice != null);
+            Debug.Assert(dice.All(die => die != null));
+            Debug.Assert(dice.Count() > 0);
 
             this.dice = dice.ToArray();
             ValueProbabilityPair[] probabilitySpecification = CreateProbabilityDistribution(this.dice);

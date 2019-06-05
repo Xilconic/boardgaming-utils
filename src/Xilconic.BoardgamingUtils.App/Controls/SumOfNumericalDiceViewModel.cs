@@ -15,7 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
 using System.Linq;
 using Xilconic.BoardgamingUtils.Dice;
 using Xilconic.BoardgamingUtils.Mathmatics;
@@ -54,7 +54,7 @@ namespace Xilconic.BoardgamingUtils.App.Controls
             }
             set
             {
-                Contract.Requires<ArgumentOutOfRangeException>(value > 0);
+                Debug.Assert(value > 0);
 
                 numberOfDice = value;
 
@@ -76,7 +76,7 @@ namespace Xilconic.BoardgamingUtils.App.Controls
             }
             set
             {
-                Contract.Requires<ArgumentOutOfRangeException>(value > 0);
+                Debug.Assert(value > 0);
 
                 numberOfSides = value;
 

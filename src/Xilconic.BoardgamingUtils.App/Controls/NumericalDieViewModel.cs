@@ -17,7 +17,7 @@ using Xilconic.BoardgamingUtils.Dice;
 using Xilconic.BoardgamingUtils.PseudoRandom;
 using Xilconic.BoardgamingUtils.Mathmatics;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
 
 namespace Xilconic.BoardgamingUtils.App.Controls
 {
@@ -50,7 +50,7 @@ namespace Xilconic.BoardgamingUtils.App.Controls
             }
             set
             {
-                Contract.Requires<ArgumentOutOfRangeException>(value > 0);
+                Debug.Assert(value > 0);
 
                 die = new NumericalDie(value, rng);
 

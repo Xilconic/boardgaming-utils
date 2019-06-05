@@ -12,8 +12,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
 
 namespace Xilconic.BoardgamingUtils.Mathmatics
 {
@@ -29,9 +28,8 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
         /// <param name="probability">The probability.</param>
         public ValueProbabilityPair(int value, double probability)
         {
-            Contract.Requires<ArgumentOutOfRangeException>(!double.IsNaN(probability));
-            Contract.Requires<ArgumentOutOfRangeException>(probability >= 0.0);
-            Contract.Requires<ArgumentOutOfRangeException>(probability <= 1.0);
+            Debug.Assert(!double.IsNaN(probability));
+            Debug.Assert(0.0 <= probability && probability <= 1.0);
 
             Value = value;
             Probability = probability;
@@ -46,13 +44,5 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
         /// The value.
         /// </summary>
         public int Value { get; private set; }
-
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
-        {
-            Contract.Invariant(!double.IsNaN(Probability));
-            Contract.Invariant(Probability >= 0.0);
-            Contract.Invariant(Probability <= 1.0);
-        }
     }
 }

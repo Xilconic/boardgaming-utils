@@ -12,8 +12,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
 using Xilconic.BoardgamingUtils.Mathmatics;
 using Xilconic.BoardgamingUtils.PseudoRandom;
 
@@ -32,7 +31,7 @@ namespace Xilconic.BoardgamingUtils.Dice
         /// <param name="rng">The random number generator.</param>
         public AbstractDie(IRandomNumberGenerator rng)
         {
-            Contract.Requires<ArgumentNullException>(rng != null);
+            Debug.Assert(rng != null);
             this.rng = rng;
         }
 

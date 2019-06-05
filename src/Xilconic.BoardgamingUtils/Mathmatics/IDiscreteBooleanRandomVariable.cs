@@ -12,33 +12,20 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using System.Diagnostics.Contracts;
-
 namespace Xilconic.BoardgamingUtils.Mathmatics
 {
     /// <summary>
     /// Interface for a random variable that is an event that either holds (is <c>true</c>) or not
     /// (is <c>false</c>).
     /// </summary>
-    [ContractClass(typeof(IDiscreteBooleanRandomVariableContract))]
     public interface IDiscreteBooleanRandomVariable
     {
         /// <summary>
         /// The probability distribution of the random variable.
         /// </summary>
+        /// <postcondition>
+        /// This property shall never return null.
+        /// </postcondition>
         BooleanProbabilityDistribution ProbabilityDistribution { get; }
-    }
-
-    [ContractClassFor(typeof(IDiscreteBooleanRandomVariable))]
-    internal abstract class IDiscreteBooleanRandomVariableContract : IDiscreteBooleanRandomVariable
-    {
-        public BooleanProbabilityDistribution ProbabilityDistribution
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<BooleanProbabilityDistribution>() != null);
-                return default(BooleanProbabilityDistribution);
-            }
-        }
     }
 }
