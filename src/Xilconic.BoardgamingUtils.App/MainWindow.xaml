@@ -24,6 +24,9 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="525" Icon="Resources/AppIcon.ico">
     <Grid x:Name="a">
+        <Grid.DataContext>
+            <local:MainWindowViewModel/>
+        </Grid.DataContext>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -46,9 +49,24 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!--TODO: Move 'Dice statistics' options from menu to items in this collection -->
-                <ListView Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                
+                <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Items:"/>
+
+                    <!--TODO: Move 'Dice statistics' options from menu to items in this collection -->
+                    <ListView Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding WorkbenchItems}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+
                 <!--TODO: Replace 'panel' for Workspace to Grid.Column="1"-->
                 <Grid x:Name="panel" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     

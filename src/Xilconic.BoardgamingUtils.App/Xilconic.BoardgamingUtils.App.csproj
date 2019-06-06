@@ -123,12 +123,14 @@
       <DependentUpon>SumOfNumericalDiceControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\SumOfNumericalDiceViewModel.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Utils\ColorExtensions.cs" />
     <Compile Include="ValidationRules\IntegerParsingRule.cs" />
     <Compile Include="ValidationRules\NumberOfDiceRule.cs" />
     <Compile Include="ValidationRules\NumberOfDieFacesRule.cs" />
     <Compile Include="ValidationRules\PracticalNumberOfDiceLimitationRule.cs" />
     <Compile Include="ValidationRules\PracticalNumberOfDieFacesLimitationRule.cs" />
+    <Compile Include="WorkbenchItemViewModel.cs" />
     <Page Include="AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
