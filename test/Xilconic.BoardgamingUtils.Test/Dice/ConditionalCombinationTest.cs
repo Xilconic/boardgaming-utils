@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,9 +13,10 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+using System;
+
 using NUnit.Framework;
 using Rhino.Mocks;
-using System;
 using Xilconic.BoardgamingUtils.Dice;
 using Xilconic.BoardgamingUtils.Mathmatics;
 
@@ -60,7 +62,7 @@ namespace Xilconic.BoardgamingUtils.Test.Dice
                 .Return(new DiscreteValueProbabilityDistribution(new[]
                 {
                     new ValueProbabilityPair(2, 0.5),
-                    new ValueProbabilityPair(4, 0.5)
+                    new ValueProbabilityPair(4, 0.5),
                 }));
 
             var conditional = new ConditionalCombination(randomVariable, trueCase, falseCase);
@@ -72,11 +74,11 @@ namespace Xilconic.BoardgamingUtils.Test.Dice
             Assert.AreEqual(3, distribution.Specification.Count);
             var probabilitiesAndValues = new Tuple<double, int>[]
             {
-                Tuple.Create(0.25*0.25, 1),
-                Tuple.Create(0.25*0.75 + 0.75*0.5, 2),
-                Tuple.Create(0.75*0.5, 4)
+                Tuple.Create(0.25 * 0.25, 1),
+                Tuple.Create((0.25 * 0.75) + (0.75 * 0.5), 2),
+                Tuple.Create(0.75 * 0.5, 4),
             };
-            for(int i = 0; i < probabilitiesAndValues.Length; i++)
+            for (int i = 0; i < probabilitiesAndValues.Length; i++)
             {
                 Tuple<double, int> expectedProbabilityAndValue = probabilitiesAndValues[i];
                 ValueProbabilityPair actualProbabilityAndValue = distribution.Specification[i];

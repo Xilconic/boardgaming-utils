@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+
 using System.Diagnostics;
 
 namespace Xilconic.BoardgamingUtils.Mathmatics
@@ -22,27 +24,27 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
     public sealed class ValueProbabilityPair
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ValueProbabilityPair"/>.
+        /// Initializes a new instance of the <see cref="ValueProbabilityPair"/> class.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="probability">The probability.</param>
         public ValueProbabilityPair(int value, double probability)
         {
-            Debug.Assert(!double.IsNaN(probability));
-            Debug.Assert(0.0 <= probability && probability <= 1.0);
+            Debug.Assert(!double.IsNaN(probability), "The probability cannot be NaN.");
+            Debug.Assert(0.0 <= probability && probability <= 1.0, "The probability must be in range [0.0, 1.0].");
 
             Value = value;
             Probability = probability;
         }
 
         /// <summary>
-        /// The probability that <see cref="Value"/> occurs.
+        /// Gets the probability that <see cref="Value"/> occurs.
         /// </summary>
-        public double Probability { get; private set; }
+        public double Probability { get; }
 
         /// <summary>
-        /// The value.
+        /// Gets the value.
         /// </summary>
-        public int Value { get; private set; }
+        public int Value { get; }
     }
 }

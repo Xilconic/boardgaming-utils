@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,10 +19,10 @@ using Xilconic.BoardgamingUtils.Mathmatics;
 namespace Xilconic.BoardgamingUtils.Test.Mathmatics
 {
     [TestFixture]
-    public class ValueProbabilityPairTest
+    public static class ValueProbabilityPairTest
     {
         [Combinatorial]
-        public void Constructor_ValidArguments_ExpectedValue(
+        public static void Constructor_ValidArguments_ExpectedValue(
             [Values(int.MinValue, -5467, 0, 89754, int.MaxValue)]int value,
             [Values(0.0, 0.345, 1.0)]double probability)
         {

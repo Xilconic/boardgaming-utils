@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,9 +13,10 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+using System.Collections.ObjectModel;
+
 using NUnit.Framework;
 using Rhino.Mocks;
-using System.Collections.ObjectModel;
 using Xilconic.BoardgamingUtils.Dice;
 using Xilconic.BoardgamingUtils.Mathmatics;
 using Xilconic.BoardgamingUtils.PseudoRandom;
@@ -58,7 +60,7 @@ namespace Xilconic.BoardgamingUtils.Test.Dice
             // Assert
             ReadOnlyCollection<ValueProbabilityPair> specification = die.ProbabilityDistribution.Specification;
             Assert.AreEqual(specification.Count, distribution.Specification.Count);
-            for(int i = 0; i < specification.Count; i++)
+            for (int i = 0; i < specification.Count; i++)
             {
                 ValueProbabilityPair referencePair = specification[i];
                 ValueProbabilityPair actualPair = distribution.Specification[i];

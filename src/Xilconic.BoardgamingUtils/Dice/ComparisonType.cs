@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -37,6 +38,6 @@ namespace Xilconic.BoardgamingUtils.Dice
         /// <summary>
         /// Success = <see cref="IAbstractDie"/> result is less than or equal to the reference value.
         /// </summary>
-        SmallerOrEqual
+        SmallerOrEqual,
     }
 }

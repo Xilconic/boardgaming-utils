@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,9 +13,9 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using System;
 using System.Diagnostics;
 using System.Linq;
+
 using Xilconic.BoardgamingUtils.Mathmatics;
 using Xilconic.BoardgamingUtils.PseudoRandom;
 
@@ -29,14 +30,15 @@ namespace Xilconic.BoardgamingUtils.Dice
         private readonly IAbstractDie die;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DiceModifier"/>.
+        /// Initializes a new instance of the <see cref="DiceModifier"/> class.
         /// </summary>
         /// <param name="die">The die being modified.</param>
         /// <param name="modifierValue">The value of the modification.</param>
         /// <param name="rng">The random number generator.</param>
-        public DiceModifier(IAbstractDie die, int modifierValue, IRandomNumberGenerator rng) : base(rng)
+        public DiceModifier(IAbstractDie die, int modifierValue, IRandomNumberGenerator rng)
+            : base(rng)
         {
-            Debug.Assert(die != null);
+            Debug.Assert(die != null, "The die cannot be null.");
 
             this.die = die;
             Modifier = modifierValue;
@@ -44,10 +46,11 @@ namespace Xilconic.BoardgamingUtils.Dice
         }
 
         /// <summary>
-        /// The modifier applied to the given die.
+        /// Gets the modifier applied to the given die.
         /// </summary>
         public int Modifier { get; }
 
+        /// <inheritdoc/>
         public override DiscreteValueProbabilityDistribution ProbabilityDistribution { get; }
 
         private DiscreteValueProbabilityDistribution CreateProbabilityDistribution(IAbstractDie die, int modifier)

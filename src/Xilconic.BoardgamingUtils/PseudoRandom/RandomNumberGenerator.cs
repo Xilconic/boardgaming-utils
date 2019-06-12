@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 
 namespace Xilconic.BoardgamingUtils.PseudoRandom
@@ -24,8 +26,7 @@ namespace Xilconic.BoardgamingUtils.PseudoRandom
         private readonly Random random;
 
         /// <summary>
-        /// Creates a new instance of <see cref="RandomNumberGenerator"/>, initialized with a given
-        /// seed.
+        /// Initializes a new instance of the <see cref="RandomNumberGenerator"/> class.
         /// </summary>
         /// <param name="seed">The seed.</param>
         public RandomNumberGenerator(int seed)
@@ -33,6 +34,7 @@ namespace Xilconic.BoardgamingUtils.PseudoRandom
             random = new Random(seed);
         }
 
+        /// <inheritdoc/>
         public double NextFactor()
         {
             return random.NextDouble();
