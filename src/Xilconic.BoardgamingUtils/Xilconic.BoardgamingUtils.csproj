@@ -29,6 +29,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>Xilconic.BoardgamingUtils.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\Xilconic.BoardgamingUtils.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,6 +39,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>Xilconic.BoardgamingUtils.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Release\Xilconic.BoardgamingUtils.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
