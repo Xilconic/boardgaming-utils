@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xilconic.BoardgamingUtils",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xilconic.BoardgamingUtils.Test", "test\Xilconic.BoardgamingUtils.Test\Xilconic.BoardgamingUtils.Test.csproj", "{1802CBF6-90CC-4844-A239-18C0CB2ADCE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xilconic.BoardgamingUtils.App", "src\Xilconic.BoardgamingUtils.App\Xilconic.BoardgamingUtils.App.csproj", "{2B35BD4B-6CF1-4D70-894E-4A203035E65F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xilconic.BoardgamingUtils.ToolboxApp", "src\Xilconic.BoardgamingUtils.ToolboxApp\Xilconic.BoardgamingUtils.ToolboxApp.csproj", "{8ABE8B89-793B-4961-BCBA-D6BF857901F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xilconic.BoardgamingUtils.App.Test", "test\Xilconic.BoardgamingUtils.App.Test\Xilconic.BoardgamingUtils.App.Test.csproj", "{E6CF0836-B483-458D-AD0E-D1E22ACA3580}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xilconic.BoardgamingUtils.ToolboxApp.Test", "test\Xilconic.BoardgamingUtils.ToolboxApp.Test\Xilconic.BoardgamingUtils.ToolboxApp.Test.csproj", "{D8CC600E-9033-4CB2-8021-9AF2348F1256}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +25,14 @@ Global
 		{1802CBF6-90CC-4844-A239-18C0CB2ADCE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1802CBF6-90CC-4844-A239-18C0CB2ADCE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1802CBF6-90CC-4844-A239-18C0CB2ADCE5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B35BD4B-6CF1-4D70-894E-4A203035E65F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B35BD4B-6CF1-4D70-894E-4A203035E65F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B35BD4B-6CF1-4D70-894E-4A203035E65F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B35BD4B-6CF1-4D70-894E-4A203035E65F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E6CF0836-B483-458D-AD0E-D1E22ACA3580}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6CF0836-B483-458D-AD0E-D1E22ACA3580}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E6CF0836-B483-458D-AD0E-D1E22ACA3580}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E6CF0836-B483-458D-AD0E-D1E22ACA3580}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ABE8B89-793B-4961-BCBA-D6BF857901F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ABE8B89-793B-4961-BCBA-D6BF857901F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ABE8B89-793B-4961-BCBA-D6BF857901F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ABE8B89-793B-4961-BCBA-D6BF857901F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8CC600E-9033-4CB2-8021-9AF2348F1256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8CC600E-9033-4CB2-8021-9AF2348F1256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8CC600E-9033-4CB2-8021-9AF2348F1256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8CC600E-9033-4CB2-8021-9AF2348F1256}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
