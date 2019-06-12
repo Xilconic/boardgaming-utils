@@ -31,7 +31,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet />
+    <CodeAnalysisRuleSet>..\..\build\Xilconic.BoardgamingUtils.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -41,7 +41,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet />
+    <CodeAnalysisRuleSet>..\..\build\Xilconic.BoardgamingUtils.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Xilconic.BoardgamingUtils.ToolboxApp.App</StartupObject>
@@ -152,6 +152,12 @@
     </EmbeddedResource>
     <None Include="..\..\build\license_header.licenseheader">
       <Link>license_header.licenseheader</Link>
+    </None>
+    <AdditionalFiles Include="..\..\build\stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
+    <None Include="..\..\build\Xilconic.BoardgamingUtils.ruleset">
+      <Link>Xilconic.BoardgamingUtils.ruleset</Link>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -1,5 +1,6 @@
 extensions: designer.cs generated.cs
 extensions: .cs .cpp .h
+// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
 // This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
@@ -16,6 +17,7 @@ extensions: .cs .cpp .h
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 extensions: .aspx .ascx
 <%-- 
+Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
 This file is part of Boardgaming Utils.
 
 Boardgaming Utils is free software: you can redistribute it and/or modify
@@ -32,6 +34,7 @@ You should have received a copy of the GNU General Public License
 along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 --%>
 extensions: .vb
+'Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
 'This file is part of Boardgaming Utils.
 '
 'Boardgaming Utils is free software: you can redistribute it and/or modify
@@ -48,6 +51,7 @@ extensions: .vb
 'along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 extensions:  .xml .config .xsd .xaml
 <!--
+Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
 This file is part of Boardgaming Utils.
 
 Boardgaming Utils is free software: you can redistribute it and/or modify

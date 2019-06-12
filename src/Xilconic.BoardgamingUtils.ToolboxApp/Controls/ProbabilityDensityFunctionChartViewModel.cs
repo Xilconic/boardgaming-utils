@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,15 +13,16 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+using System.Collections.Generic;
+using System.Diagnostics;
+
+using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Series;
+using Xilconic.BoardgamingUtils.Mathmatics;
+
 namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls
 {
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using OxyPlot;
-    using OxyPlot.Axes;
-    using OxyPlot.Series;
-    using Xilconic.BoardgamingUtils.Mathmatics;
-
     /// <summary>
     /// ViewModel for plotting the probability density function (pdf) of a <see cref="DiscreteValueProbabilityDistribution"/>.
     /// </summary>
@@ -81,7 +83,7 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls
                 },
                 Series =
                 {
-                    valueSerie
+                    valueSerie,
                 },
             };
 
@@ -107,8 +109,7 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls
 
             set
             {
-                Debug.Assert(!string.IsNullOrWhiteSpace(value),
-                    "The name of the value cannot be null or empty.");
+                Debug.Assert(!string.IsNullOrWhiteSpace(value), "The name of the value cannot be null or empty.");
 
                 horizontalAxis.Title = value;
                 valueSerie.Title = $"{value} probability";
@@ -127,8 +128,7 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls
 
             set
             {
-                Debug.Assert(!string.IsNullOrWhiteSpace(value),
-                    "The title of the plot cannot be null or empty.");
+                Debug.Assert(!string.IsNullOrWhiteSpace(value), "The title of the plot cannot be null or empty.");
 
                 PlotModel.Title = value;
             }

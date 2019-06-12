@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,17 +13,18 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
+
+using Xilconic.BoardgamingUtils.Dice;
+using Xilconic.BoardgamingUtils.Mathmatics;
+using Xilconic.BoardgamingUtils.PseudoRandom;
+
 namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Diagnostics;
-    using System.Linq;
-    using Xilconic.BoardgamingUtils.Dice;
-    using Xilconic.BoardgamingUtils.Mathmatics;
-    using Xilconic.BoardgamingUtils.PseudoRandom;
-
     /// <summary>
     /// ViewModel for configuring the probability density function (pdf) of a <see cref="SumOfDice"/>
     /// for a single class of <see cref="NumericalDie"/>.
@@ -58,8 +60,7 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls
 
             set
             {
-                Debug.Assert(value > 0,
-                    "The number of dice must be at least 1.");
+                Debug.Assert(value > 0, "The number of dice must be at least 1.");
 
                 numberOfDice = value;
 
@@ -82,8 +83,7 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls
 
             set
             {
-                Debug.Assert(value > 0,
-                    "The number of sides of a die must be 1 or greater.");
+                Debug.Assert(value > 0, "The number of sides of a die must be 1 or greater.");
 
                 numberOfSides = value;
 

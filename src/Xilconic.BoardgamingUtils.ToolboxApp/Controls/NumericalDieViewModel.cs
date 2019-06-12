@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,15 +13,16 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+
+using Xilconic.BoardgamingUtils.Dice;
+using Xilconic.BoardgamingUtils.Mathmatics;
+using Xilconic.BoardgamingUtils.PseudoRandom;
+
 namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls
 {
-    using System;
-    using System.ComponentModel;
-    using System.Diagnostics;
-    using Xilconic.BoardgamingUtils.Dice;
-    using Xilconic.BoardgamingUtils.Mathmatics;
-    using Xilconic.BoardgamingUtils.PseudoRandom;
-
     /// <summary>
     /// ViewModel for displaying the probability density function (pdf) of a <see cref="NumericalDie"/>.
     /// </summary>

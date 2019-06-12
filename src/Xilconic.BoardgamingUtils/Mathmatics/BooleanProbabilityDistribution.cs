@@ -20,7 +20,7 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
 {
     /// <summary>
     /// Class representing a probability distribution for a <see cref="bool"/> value. Also known as
-    /// a Bernoulli Distribution
+    /// a Bernoulli Distribution.
     /// </summary>
     public sealed class BooleanProbabilityDistribution
     {
