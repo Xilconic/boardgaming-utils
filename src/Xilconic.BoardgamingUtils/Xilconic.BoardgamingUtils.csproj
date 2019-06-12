@@ -28,7 +28,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>Xilconic.BoardgamingUtils.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\..\build\Xilconic.BoardgamingUtils.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\Debug\Xilconic.BoardgamingUtils.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -38,7 +38,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>Xilconic.BoardgamingUtils.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\..\build\Xilconic.BoardgamingUtils.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\Release\Xilconic.BoardgamingUtils.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
@@ -74,9 +74,13 @@
     <None Include="..\..\build\license_header.licenseheader">
       <Link>license_header.licenseheader</Link>
     </None>
+    <AdditionalFiles Include="..\..\build\stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
+    <None Include="..\..\build\Xilconic.BoardgamingUtils.ruleset">
+      <Link>Xilconic.BoardgamingUtils.ruleset</Link>
+    </None>
     <None Include="packages.config" />
-    <AdditionalFiles Include="stylecop.json" />
-    <None Include="Xilconic.BoardgamingUtils.ruleset" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.2\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
