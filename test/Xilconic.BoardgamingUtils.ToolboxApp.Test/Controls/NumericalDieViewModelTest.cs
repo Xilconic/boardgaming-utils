@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,17 +13,18 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+using System.Collections.Generic;
+using System.ComponentModel;
+
+using NUnit.Framework;
+using Rhino.Mocks;
+using Xilconic.BoardgamingUtils.Dice;
+using Xilconic.BoardgamingUtils.Mathmatics;
+using Xilconic.BoardgamingUtils.PseudoRandom;
+using Xilconic.BoardgamingUtils.ToolboxApp.Controls;
+
 namespace Xilconic.BoardgamingUtils.ToolboxApp.Test.Controls
 {
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using NUnit.Framework;
-    using Rhino.Mocks;
-    using Xilconic.BoardgamingUtils.Dice;
-    using Xilconic.BoardgamingUtils.Mathmatics;
-    using Xilconic.BoardgamingUtils.PseudoRandom;
-    using Xilconic.BoardgamingUtils.ToolboxApp.Controls;
-
     [TestFixture]
     public class NumericalDieViewModelTest
     {
@@ -77,6 +79,7 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Test.Controls
                 {
                     propertyChangedCalls[e.PropertyName] = 0;
                 }
+
                 propertyChangedCalls[e.PropertyName]++;
 
                 Assert.AreSame(viewModel, s);
@@ -90,7 +93,7 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Test.Controls
             AssertExpectedDistribution(viewModel.NumberOfSides, viewModel.Distribution);
         }
 
-        private void AssertExpectedDistribution(int numberOfSides, DiscreteValueProbabilityDistribution actualDistribution)
+        private static void AssertExpectedDistribution(int numberOfSides, DiscreteValueProbabilityDistribution actualDistribution)
         {
             var rng = MockRepository.GenerateStub<IRandomNumberGenerator>();
             var die = new NumericalDie(numberOfSides, rng);
@@ -99,7 +102,7 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Test.Controls
             AssertEquals(expectedDistribution, actualDistribution);
         }
 
-        private void AssertEquals(DiscreteValueProbabilityDistribution expectedDistribution, DiscreteValueProbabilityDistribution actualDistribution)
+        private static void AssertEquals(DiscreteValueProbabilityDistribution expectedDistribution, DiscreteValueProbabilityDistribution actualDistribution)
         {
             Assert.AreEqual(expectedDistribution.Specification.Count, actualDistribution.Specification.Count);
             for (int i = 0; i < expectedDistribution.Specification.Count; i++)
