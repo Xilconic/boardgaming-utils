@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+
 namespace Xilconic.BoardgamingUtils.Mathmatics
 {
     /// <summary>
@@ -21,7 +23,7 @@ namespace Xilconic.BoardgamingUtils.Mathmatics
     public interface IDiscreteBooleanRandomVariable
     {
         /// <summary>
-        /// The probability distribution of the random variable.
+        /// Gets the probability distribution of the random variable.
         /// </summary>
         /// <postcondition>
         /// This property shall never return null.

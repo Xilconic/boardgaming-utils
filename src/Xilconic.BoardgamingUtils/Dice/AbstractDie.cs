@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 using System.Diagnostics;
+
 using Xilconic.BoardgamingUtils.Mathmatics;
 using Xilconic.BoardgamingUtils.PseudoRandom;
 
@@ -26,20 +28,22 @@ namespace Xilconic.BoardgamingUtils.Dice
         private readonly IRandomNumberGenerator rng;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AbstractDie"/>.
+        /// Initializes a new instance of the <see cref="AbstractDie"/> class.
         /// </summary>
         /// <param name="rng">The random number generator.</param>
         public AbstractDie(IRandomNumberGenerator rng)
         {
-            Debug.Assert(rng != null);
+            Debug.Assert(rng != null, "The random number generator cannot be null.");
             this.rng = rng;
         }
 
+        /// <inheritdoc/>
         public abstract DiscreteValueProbabilityDistribution ProbabilityDistribution
         {
             get;
         }
 
+        /// <inheritdoc/>
         public int Roll()
         {
             return ProbabilityDistribution.GetValueAtCdf(rng.NextFactor());

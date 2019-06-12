@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,13 +13,15 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+
 namespace Xilconic.BoardgamingUtils.Dice
 {
     /// <summary>
     /// Interface for an object that can be rolled for a result.
     /// </summary>
     /// <typeparam name="T">The rolled result type.</typeparam>
-    public interface IRollable<T> where T : struct
+    public interface IRollable<T>
+        where T : struct
     {
         /// <summary>
         /// Rolls for a randomly generated result value.
