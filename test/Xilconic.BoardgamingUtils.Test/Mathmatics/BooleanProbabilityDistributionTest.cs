@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -30,7 +31,7 @@ namespace Xilconic.BoardgamingUtils.Test.Mathmatics
 
             // Assert
             Assert.AreEqual(succesProbability, distribution.SuccessProbability);
-            Assert.AreEqual(1.0-succesProbability, distribution.FailureProbability);
+            Assert.AreEqual(1.0 - succesProbability, distribution.FailureProbability);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,10 +13,11 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using NUnit.Framework;
-using Rhino.Mocks;
 using System;
 using System.Linq;
+
+using NUnit.Framework;
+using Rhino.Mocks;
 using Xilconic.BoardgamingUtils.Dice;
 using Xilconic.BoardgamingUtils.Mathmatics;
 using Xilconic.BoardgamingUtils.PseudoRandom;
@@ -63,7 +65,7 @@ namespace Xilconic.BoardgamingUtils.Test.Dice
             // Setup
             var rng = MockRepository.GenerateStub<IRandomNumberGenerator>();
 
-            var spec = new[] 
+            var spec = new[]
             {
                 new ValueProbabilityPair(1, 0.25),
                 new ValueProbabilityPair(4, 0.5),
@@ -205,10 +207,10 @@ namespace Xilconic.BoardgamingUtils.Test.Dice
             var expectedValueAndProbabilities = new[]
             {
                 Tuple.Create(true, 0.0),
-                Tuple.Create(true, successProbability-0.1),
+                Tuple.Create(true, successProbability - 0.1),
                 Tuple.Create(true, successProbability),
-                Tuple.Create(false, successProbability+1e-6),
-                Tuple.Create(false, successProbability+0.1),
+                Tuple.Create(false, successProbability + 1e-6),
+                Tuple.Create(false, successProbability + 0.1),
                 Tuple.Create(false, 1.0),
             };
             rng.AddFactorValues(expectedValueAndProbabilities.Select(t => t.Item2));

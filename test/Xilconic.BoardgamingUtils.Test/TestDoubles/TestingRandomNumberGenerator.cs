@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+
 using Xilconic.BoardgamingUtils.PseudoRandom;
 
 namespace Xilconic.BoardgamingUtils.Test.TestDoubles
@@ -29,7 +31,7 @@ namespace Xilconic.BoardgamingUtils.Test.TestDoubles
         private readonly Queue<double> factorValues;
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestingRandomNumberGenerator"/>.
+        /// Initializes a new instance of the <see cref="TestingRandomNumberGenerator"/> class.
         /// </summary>
         public TestingRandomNumberGenerator()
         {
@@ -42,10 +44,10 @@ namespace Xilconic.BoardgamingUtils.Test.TestDoubles
         /// <param name="factors">The collection of factors.</param>
         public void AddFactorValues(IEnumerable<double> factors)
         {
-            Debug.Assert(factors != null);
-            Debug.Assert(factors.All(factor => 0.0 <= factor && factor <= 1.0));
+            Debug.Assert(factors != null, "The collection of factors cannot be null.");
+            Debug.Assert(factors.All(factor => 0.0 <= factor && factor <= 1.0), "All elements should be in range [0.0, 1.0].");
 
-            foreach(double factor in factors)
+            foreach (double factor in factors)
             {
                 factorValues.Enqueue(factor);
             }
@@ -54,6 +56,7 @@ namespace Xilconic.BoardgamingUtils.Test.TestDoubles
         /// <summary>
         /// Returns the next value in the range of [0.0, 1.0].
         /// </summary>
+        /// <returns>The factor.</returns>
         public double NextFactor()
         {
             if (factorValues.Any())

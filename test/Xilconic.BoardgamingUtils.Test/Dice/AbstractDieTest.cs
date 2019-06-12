@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,15 +13,13 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using NUnit.Framework;
 using Xilconic.BoardgamingUtils.Dice;
-using Xilconic.BoardgamingUtils.PseudoRandom;
 using Xilconic.BoardgamingUtils.Mathmatics;
+using Xilconic.BoardgamingUtils.PseudoRandom;
 using Xilconic.BoardgamingUtils.Test.TestDoubles;
 
 namespace Xilconic.BoardgamingUtils.Test.Dice
@@ -35,7 +34,7 @@ namespace Xilconic.BoardgamingUtils.Test.Dice
             var spec = new[]
             {
                 new ValueProbabilityPair(0, 0.5),
-                new ValueProbabilityPair(1, 0.5)
+                new ValueProbabilityPair(1, 0.5),
             };
             var distribution = new DiscreteValueProbabilityDistribution(spec);
 
@@ -44,7 +43,7 @@ namespace Xilconic.BoardgamingUtils.Test.Dice
                 Tuple.Create(0, 0.0),
                 Tuple.Create(0, 0.324),
                 Tuple.Create(0, 0.5),
-                Tuple.Create(1, 0.5+1e-6),
+                Tuple.Create(1, 0.5 + 1e-6),
                 Tuple.Create(1, 0.75),
                 Tuple.Create(1, 1.0),
             };
@@ -54,7 +53,7 @@ namespace Xilconic.BoardgamingUtils.Test.Dice
 
             AbstractDie die = new TestAbstractDie(rng, distribution);
 
-            foreach(Tuple<int, double> tuple in expectedValueAndProbabilities)
+            foreach (Tuple<int, double> tuple in expectedValueAndProbabilities)
             {
                 // Call
                 int rollResult = die.Roll();
@@ -66,7 +65,8 @@ namespace Xilconic.BoardgamingUtils.Test.Dice
 
         private class TestAbstractDie : AbstractDie
         {
-            public TestAbstractDie(IRandomNumberGenerator rng, DiscreteValueProbabilityDistribution distribution) : base(rng)
+            public TestAbstractDie(IRandomNumberGenerator rng, DiscreteValueProbabilityDistribution distribution)
+                : base(rng)
             {
                 ProbabilityDistribution = distribution;
             }
