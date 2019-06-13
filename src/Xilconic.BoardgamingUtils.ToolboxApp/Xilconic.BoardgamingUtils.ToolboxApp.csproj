@@ -95,6 +95,9 @@
       <DependentUpon>SumOfNumericalDiceControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\SumOfNumericalDiceViewModel.cs" />
+    <Compile Include="Controls\WorkbenchItems\SingleDieViewItem.xaml.cs">
+      <DependentUpon>SingleDieViewItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Utils\ColorExtensions.cs" />
     <Compile Include="ValidationRules\IntegerParsingRule.cs" />
@@ -116,6 +119,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\SumOfNumericalDiceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WorkbenchItems\SingleDieViewItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
