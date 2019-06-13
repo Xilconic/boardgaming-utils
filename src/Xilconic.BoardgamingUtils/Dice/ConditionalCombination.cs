@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,10 +13,11 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+
 using Xilconic.BoardgamingUtils.Mathmatics;
 
 namespace Xilconic.BoardgamingUtils.Dice
@@ -27,27 +29,34 @@ namespace Xilconic.BoardgamingUtils.Dice
     public class ConditionalCombination : IDiscreteIntegerRandomVariable
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ConditionalCombination"/>.
+        /// Initializes a new instance of the <see cref="ConditionalCombination"/> class.
         /// </summary>
         /// <param name="condition">The conditional event.</param>
         /// <param name="trueCase">The scenario to be used if <paramref name="condition"/> is <c>true</c>.</param>
         /// <param name="falseCase">The scenario to be used if <paramref name="condition"/> is <c>false</c>.</param>
-        public ConditionalCombination(IDiscreteBooleanRandomVariable condition,
-            IDiscreteIntegerRandomVariable trueCase, IDiscreteIntegerRandomVariable falseCase)
+        public ConditionalCombination(
+            IDiscreteBooleanRandomVariable condition,
+            IDiscreteIntegerRandomVariable trueCase,
+            IDiscreteIntegerRandomVariable falseCase)
         {
-            Debug.Assert(condition != null);
-            Debug.Assert(trueCase != null);
-            Debug.Assert(falseCase != null);
+            Debug.Assert(condition != null, "The conditional random variable cannot be null.");
+            Debug.Assert(trueCase != null, "The random variable for when the conditional random variable is true cannot be null.");
+            Debug.Assert(falseCase != null, "The random variable for when the conditional random variable is false cannot be null.");
 
             ProbabilityDistribution = GetProbabilityDistribution(condition, trueCase, falseCase);
         }
 
-        private static DiscreteValueProbabilityDistribution GetProbabilityDistribution(IDiscreteBooleanRandomVariable condition,
-            IDiscreteIntegerRandomVariable trueCase, IDiscreteIntegerRandomVariable falseCase)
+        /// <inheritdoc/>
+        public DiscreteValueProbabilityDistribution ProbabilityDistribution { get; }
+
+        private static DiscreteValueProbabilityDistribution GetProbabilityDistribution(
+            IDiscreteBooleanRandomVariable condition,
+            IDiscreteIntegerRandomVariable trueCase,
+            IDiscreteIntegerRandomVariable falseCase)
         {
             IDictionary<int, double> valueAndProbabilities = trueCase.ProbabilityDistribution.Specification
                 .ToDictionary(pair => pair.Value, pair => pair.Probability * condition.ProbabilityDistribution.SuccessProbability);
-            foreach(ValueProbabilityPair pair in falseCase.ProbabilityDistribution.Specification)
+            foreach (ValueProbabilityPair pair in falseCase.ProbabilityDistribution.Specification)
             {
                 double probabilityComponent = condition.ProbabilityDistribution.FailureProbability * pair.Probability;
                 if (valueAndProbabilities.ContainsKey(pair.Value))
@@ -59,9 +68,8 @@ namespace Xilconic.BoardgamingUtils.Dice
                     valueAndProbabilities[pair.Value] = probabilityComponent;
                 }
             }
+
             return new DiscreteValueProbabilityDistribution(valueAndProbabilities.Select(vp => new ValueProbabilityPair(vp.Key, vp.Value)));
         }
-
-        public DiscreteValueProbabilityDistribution ProbabilityDistribution { get; }
     }
 }

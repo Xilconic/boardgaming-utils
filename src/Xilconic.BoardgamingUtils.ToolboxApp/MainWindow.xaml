@@ -1,0 +1,81 @@
+﻿<!--
+Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+This file is part of Boardgaming Utils.
+
+Boardgaming Utils is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Boardgaming Utils is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+-->
+<Window x:Class="Xilconic.BoardgamingUtils.ToolboxApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:Xilconic.BoardgamingUtils.ToolboxApp.Controls"
+        xmlns:local="clr-namespace:Xilconic.BoardgamingUtils.ToolboxApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="525" Icon="Resources/AppIcon.ico">
+    <Grid x:Name="a">
+        <Grid.DataContext>
+            <local:MainWindowViewModel/>
+        </Grid.DataContext>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="0">
+            <MenuItem Header="Dice statistics">
+                <MenuItem Header="Single die" Click="Change_to_single_die_statistics_mode"/>
+                <MenuItem Header="Sum of dice" Click="Change_to_sum_of_dice_statistics_mode"/>
+            </MenuItem>
+            <MenuItem Header="About" Click="MenuItem_Click"/>
+        </Menu>
+        <Grid Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Items:"/>
+
+                    <!--TODO: Move 'Dice statistics' options from menu to items in this collection -->
+                    <ListView Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding WorkbenchItems}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+
+                <!--TODO: Replace 'panel' for Workspace to Grid.Column="1"-->
+                <Grid x:Name="panel" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    
+                </Grid>
+            </Grid>
+
+            <Controls:ProbabilityDensityFunctionChartControl HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch"/>
+
+        </Grid>
+    </Grid>
+</Window>
