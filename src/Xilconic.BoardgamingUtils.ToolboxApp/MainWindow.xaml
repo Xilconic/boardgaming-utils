@@ -70,11 +70,11 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 
                 <!--TODO: Replace 'panel' for Workspace to Grid.Column="1"-->
                 <Grid x:Name="panel" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <Canvas x:Name="WorkbenchCanvas" AllowDrop="True" Drop="WorkbenchCanvas_Drop" DragOver="WorkbenchCanvas_DragOver" Background="White"/>
+                    <Canvas x:Name="WorkbenchCanvas" AllowDrop="True" Drop="WorkbenchCanvas_Drop" DragOver="WorkbenchCanvas_DragOver" Background="White" MouseUp="WorkbenchCanvas_MouseUp"/>
                 </Grid>
             </Grid>
 
-            <Controls:ProbabilityDensityFunctionChartControl HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch"/>
+            <Controls:ProbabilityDensityFunctionChartControl x:Name="ChartControl" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch"/>
 
         </Grid>
     </Grid>

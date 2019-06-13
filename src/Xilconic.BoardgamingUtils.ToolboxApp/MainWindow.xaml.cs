@@ -69,10 +69,11 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp
         {
             if (e.Data.GetDataPresent(typeof(WorkbenchItemViewModel)))
             {
-                WorkbenchItemViewModel workbenchItemViewModel = (WorkbenchItemViewModel)e.Data.GetData(typeof(WorkbenchItemViewModel));
+                WorkbenchItemViewModel workbenchItemViewModel = ((WorkbenchItemViewModel)e.Data.GetData(typeof(WorkbenchItemViewModel))).DeepClone();
                 Point position = e.GetPosition(WorkbenchCanvas);
 
                 CreateViewForWorkbenchItemAndAddToWorkbench(workbenchItemViewModel, position);
+                ShowProbabilityDistributionInChartControl(workbenchItemViewModel);
             }
         }
 
@@ -97,6 +98,23 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp
             {
                 e.Effects = DragDropEffects.Copy;
             }
+        }
+
+        private void WorkbenchCanvas_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var workbenchItemUserControl = e.Source as WorkbenchItemUserControl;
+            if (workbenchItemUserControl != null)
+            {
+                // TODO: Implement some kind of selection highlight
+                ShowProbabilityDistributionInChartControl(workbenchItemUserControl.WorkbenchItem);
+            }
+        }
+
+        private void ShowProbabilityDistributionInChartControl(WorkbenchItemViewModel workbenchItem)
+        {
+            ChartControl.Distribution = workbenchItem.Distribution;
+            ChartControl.Title = workbenchItem.Title;
+            ChartControl.ValueName = workbenchItem.ValueName;
         }
     }
 }
