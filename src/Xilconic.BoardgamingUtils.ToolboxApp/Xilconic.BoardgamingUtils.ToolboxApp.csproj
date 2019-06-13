@@ -99,6 +99,7 @@
       <DependentUpon>SingleDieViewItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\WorkbenchItems\SingleDieWorkbenchItem.cs" />
+    <Compile Include="Controls\WorkbenchItems\WorkbenchItemViewFactory.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Utils\ColorExtensions.cs" />
     <Compile Include="ValidationRules\IntegerParsingRule.cs" />

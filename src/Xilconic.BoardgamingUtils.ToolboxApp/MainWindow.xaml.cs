@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -71,11 +72,22 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp
                 WorkbenchItemViewModel workbenchItemViewModel = (WorkbenchItemViewModel)e.Data.GetData(typeof(WorkbenchItemViewModel));
                 Point position = e.GetPosition(WorkbenchCanvas);
 
-                // TODO: Replace View creation with ViewItem factory behavior based on 'workbenchItemViewModel'
-                var view = new SingleDieViewItem();
+                CreateViewForWorkbenchItemAndAddToWorkbench(workbenchItemViewModel, position);
+            }
+        }
+
+        private void CreateViewForWorkbenchItemAndAddToWorkbench(WorkbenchItemViewModel workbenchItem, Point position)
+        {
+            try
+            {
+                UserControl view = WorkbenchItemViewFactory.CreateView(workbenchItem);
                 Canvas.SetLeft(view, position.X);
                 Canvas.SetTop(view, position.Y);
                 WorkbenchCanvas.Children.Add(view);
+            }
+            catch (NotImplementedException)
+            {
+                MessageBox.Show($"There is no visual representation available yet for the workbench item \"{workbenchItem.Name}\".");
             }
         }
 
