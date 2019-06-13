@@ -13,15 +13,23 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using System.Windows.Controls;
+using System.Windows;
 
 namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
 {
     /// <summary>
     /// Interaction logic for SingleDieViewItem.xaml.
     /// </summary>
-    public partial class SingleDieViewItem : UserControl
+    public partial class SingleDieViewItem : WorkbenchItemUserControl
     {
+        /// <summary>
+        /// Gets the dependency property of the Workbench item.
+        /// </summary>
+        public static readonly DependencyProperty SingleDieWorkbenchItemProperty = DependencyProperty.Register(
+            nameof(SingleDieWorkbenchItem),
+            typeof(SingleDieWorkbenchItem),
+            typeof(SingleDieViewItem));
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SingleDieViewItem"/> class.
         /// </summary>
@@ -29,5 +37,25 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Gets or sets the workbench item.
+        /// </summary>
+        internal SingleDieWorkbenchItem SingleDieWorkbenchItem
+        {
+            get
+            {
+                return (SingleDieWorkbenchItem)GetValue(SingleDieWorkbenchItemProperty);
+            }
+
+            set
+            {
+                // TODO: Implement behavior similar to NumericalDieControl (Committing values, validation, etc)
+                SetValue(SingleDieWorkbenchItemProperty, value);
+            }
+        }
+
+        /// <inheritdoc/>
+        internal override WorkbenchItemViewModel WorkbenchItem => SingleDieWorkbenchItem;
     }
 }

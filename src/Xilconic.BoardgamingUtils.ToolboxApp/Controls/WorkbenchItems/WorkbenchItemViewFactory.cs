@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Windows.Controls;
 
 namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
 {
@@ -29,11 +28,14 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
         /// <param name="viewModel">The view model.</param>
         /// <returns>The view.</returns>
         /// <exception cref="NotImplementedException">Thrown when <paramref name="viewModel"/> is of an unknown type.</exception>
-        internal static UserControl CreateView(WorkbenchItemViewModel viewModel)
+        internal static WorkbenchItemUserControl CreateView(WorkbenchItemViewModel viewModel)
         {
             switch (viewModel)
             {
-                case SingleDieWorkbenchItem _: return new SingleDieViewItem();
+                case SingleDieWorkbenchItem singleDieWorkbenchItem: return new SingleDieViewItem
+                {
+                    SingleDieWorkbenchItem = singleDieWorkbenchItem,
+                };
                 default: throw new NotImplementedException($"No View has been made available for the object of type: {viewModel.GetType().FullName}.");
             }
         }

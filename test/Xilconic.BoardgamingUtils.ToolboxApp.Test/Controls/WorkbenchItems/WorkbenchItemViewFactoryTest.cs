@@ -15,7 +15,6 @@
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Threading;
-using System.Windows.Controls;
 
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -40,11 +39,16 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Test.Controls.WorkbenchItems
         [Test]
         public void CreateView_ForSingleDieWorkbenchItem_SingleDieViewItemCreated()
         {
+            // Setup
+            var workbenchItem = new SingleDieWorkbenchItem(rngStub);
+
             // Call
-            UserControl control = WorkbenchItemViewFactory.CreateView(new SingleDieWorkbenchItem(rngStub));
+            WorkbenchItemUserControl control = WorkbenchItemViewFactory.CreateView(workbenchItem);
 
             // Assert
             Assert.IsInstanceOf<SingleDieViewItem>(control);
+            var singleDieViewItem = (SingleDieViewItem)control;
+            Assert.AreSame(workbenchItem, singleDieViewItem.SingleDieWorkbenchItem);
         }
 
         [Test]
