@@ -51,8 +51,13 @@ namespace Xilconic.BoardgamingUtils.App.Test
             {
                 get
                 {
-                    return new DiscreteValueProbabilityDistribution(new[] { new ValueProbabilityPair(0, 1.0) });
+                    throw new System.NotImplementedException();
                 }
+            }
+
+            public override WorkbenchItemViewModel DeepClone()
+            {
+                throw new System.NotImplementedException();
             }
         }
     }

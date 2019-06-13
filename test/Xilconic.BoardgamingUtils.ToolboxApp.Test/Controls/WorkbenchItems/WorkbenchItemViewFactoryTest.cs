@@ -71,6 +71,11 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Test.Controls.WorkbenchItems
                     return new DiscreteValueProbabilityDistribution(new[] { new ValueProbabilityPair(0, 1.0) });
                 }
             }
+
+            public override WorkbenchItemViewModel DeepClone()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

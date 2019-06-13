@@ -24,22 +24,47 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
     /// </summary>
     internal class SingleDieWorkbenchItem : WorkbenchItemViewModel
     {
-        private readonly NumericalDie die;
+        private readonly IRandomNumberGenerator rng;
+
+        private NumericalDie die;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SingleDieWorkbenchItem"/> class.
         /// </summary>
         /// <param name="rng">The random number generator.</param>
-        public SingleDieWorkbenchItem(IRandomNumberGenerator rng)
+        /// <param name="numberOfSides">The number of sides of the die.</param>
+        public SingleDieWorkbenchItem(IRandomNumberGenerator rng, int numberOfSides = 6)
             : base("Single die", "Die Probabilities (pdf)", "Die face")
         {
-            die = new NumericalDie(6, rng);
+            this.rng = rng;
+            die = new NumericalDie(numberOfSides, rng);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SingleDieWorkbenchItem"/> class.
+        /// </summary>
+        /// <param name="other">The object to be copied.</param>
+        private SingleDieWorkbenchItem(SingleDieWorkbenchItem other)
+            : this(other.rng, other.NumberOfSides)
+        {
         }
 
         /// <summary>
         /// Gets or sets the number of sides of the single die.
         /// </summary>
-        public int NumberOfSides { get; set; } = 6;
+        public int NumberOfSides
+        {
+            get
+            {
+                return die.NumberOfSides;
+            }
+
+            set
+            {
+                die = new NumericalDie(value, rng);
+                //TODO: Perform NotifyPropertyChanged of Distribution property (and of this property)
+            }
+        }
 
         /// <inheritdoc/>
         public override DiscreteValueProbabilityDistribution Distribution
@@ -48,6 +73,12 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
             {
                 return die.ProbabilityDistribution;
             }
+        }
+
+        /// <inheritdoc/>
+        public override WorkbenchItemViewModel DeepClone()
+        {
+            return new SingleDieWorkbenchItem(this);
         }
     }
 }

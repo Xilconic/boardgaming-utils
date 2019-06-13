@@ -58,5 +58,11 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
         /// Gets the name of the random variable of the <see cref="Distribution"/>.
         /// </summary>
         public string ValueName { get; }
+
+        /// <summary>
+        /// Return a deep clone of this instance.
+        /// </summary>
+        /// <returns>The clone.</returns>
+        public abstract WorkbenchItemViewModel DeepClone();
     }
 }

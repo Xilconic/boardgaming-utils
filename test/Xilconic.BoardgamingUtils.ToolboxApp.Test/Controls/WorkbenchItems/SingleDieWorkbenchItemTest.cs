@@ -57,13 +57,40 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Test.Controls.WorkbenchItems
             // Setup
             var workbenchItem = new SingleDieWorkbenchItem(rngStub);
 
-            int newNumberOfSides = 3;
+            int newNumberOfSides = 4;
 
             // Call
             workbenchItem.NumberOfSides = newNumberOfSides;
 
             // Assert
             Assert.AreEqual(newNumberOfSides, workbenchItem.NumberOfSides);
+            Assert.AreEqual(newNumberOfSides, workbenchItem.Distribution.Specification.Count);
+            CollectionAssert.AreEqual(Enumerable.Range(1, newNumberOfSides), workbenchItem.Distribution.Specification.Select(pair => pair.Value));
+            CollectionAssert.AreEqual(Enumerable.Repeat(1.0 / newNumberOfSides, newNumberOfSides), workbenchItem.Distribution.Specification.Select(pair => pair.Probability));
+        }
+
+        [Test]
+        public void DeepClone_Always_ReturnsDeepCopy()
+        {
+            // Setup
+            var workbenchItem = new SingleDieWorkbenchItem(rngStub)
+            {
+                NumberOfSides = 2,
+            };
+
+            // Call
+            WorkbenchItemViewModel clone = workbenchItem.DeepClone();
+
+            // Assert
+            Assert.IsInstanceOf<SingleDieWorkbenchItem>(clone);
+            var clonedSingleDieWorkbenchItem = (SingleDieWorkbenchItem)clone;
+            Assert.AreNotSame(workbenchItem, clonedSingleDieWorkbenchItem);
+            Assert.AreEqual(workbenchItem.Name, clonedSingleDieWorkbenchItem.Name);
+            Assert.AreEqual(workbenchItem.ValueName, clonedSingleDieWorkbenchItem.ValueName);
+            Assert.AreEqual(workbenchItem.Title, clonedSingleDieWorkbenchItem.Title);
+            Assert.AreEqual(workbenchItem.Distribution.Specification.Count, clonedSingleDieWorkbenchItem.Distribution.Specification.Count);
+            CollectionAssert.AreEqual(workbenchItem.Distribution.Specification.Select(pair => pair.Value), clonedSingleDieWorkbenchItem.Distribution.Specification.Select(pair => pair.Value));
+            CollectionAssert.AreEqual(workbenchItem.Distribution.Specification.Select(pair => pair.Probability), clonedSingleDieWorkbenchItem.Distribution.Specification.Select(pair => pair.Probability));
         }
     }
 }
