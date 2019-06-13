@@ -15,6 +15,7 @@
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 
 using NUnit.Framework;
+using Xilconic.BoardgamingUtils.Mathmatics;
 using Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems;
 
 namespace Xilconic.BoardgamingUtils.App.Test
@@ -27,12 +28,32 @@ namespace Xilconic.BoardgamingUtils.App.Test
         {
             // Setup
             string name = "some name";
+            string title = "some title";
+            string valueName = "some value name";
 
             // Call
-            var viewModel = new WorkbenchItemViewModel(name);
+            var viewModel = new SimpleWorkbenchItemViewModel(name, title, valueName);
 
             // Assert
             Assert.AreEqual(name, viewModel.Name);
+            Assert.AreEqual(title, viewModel.Title);
+            Assert.AreEqual(valueName, viewModel.ValueName);
+        }
+
+        private class SimpleWorkbenchItemViewModel : WorkbenchItemViewModel
+        {
+            public SimpleWorkbenchItemViewModel(string name, string title, string valueName)
+                : base(name, title, valueName)
+            {
+            }
+
+            public override DiscreteValueProbabilityDistribution Distribution
+            {
+                get
+                {
+                    return new DiscreteValueProbabilityDistribution(new[] { new ValueProbabilityPair(0, 1.0) });
+                }
+            }
         }
     }
 }

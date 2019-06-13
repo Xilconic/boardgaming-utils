@@ -16,26 +16,47 @@
 
 using System.Diagnostics;
 
+using Xilconic.BoardgamingUtils.Mathmatics;
+
 namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
 {
     /// <summary>
     /// The ViewModel representing a workbench item.
     /// </summary>
-    internal class WorkbenchItemViewModel
+    internal abstract class WorkbenchItemViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WorkbenchItemViewModel"/> class.
         /// </summary>
         /// <param name="name">The name of the workbench item.</param>
-        public WorkbenchItemViewModel(string name)
+        /// <param name="title">The title of the random variable encapsulated by the workbench item.</param>
+        /// <param name="valueName">The name of the random variable encapsulated by the workbench item.</param>
+        protected WorkbenchItemViewModel(string name, string title, string valueName)
         {
             Debug.Assert(name != null, "The name of the workbench item cannot be null.");
             Name = name;
+            Title = title;
+            ValueName = valueName;
         }
 
         /// <summary>
         /// Gets the name of the workbench item.
         /// </summary>
         public string Name { get; }
+
+        /// <summary>
+        /// Gets the probability distribution of the workbench item.
+        /// </summary>
+        public abstract DiscreteValueProbabilityDistribution Distribution { get; }
+
+        /// <summary>
+        /// Gets the title description of the <see cref="Distribution"/>.
+        /// </summary>
+        public string Title { get; }
+
+        /// <summary>
+        /// Gets the name of the random variable of the <see cref="Distribution"/>.
+        /// </summary>
+        public string ValueName { get; }
     }
 }

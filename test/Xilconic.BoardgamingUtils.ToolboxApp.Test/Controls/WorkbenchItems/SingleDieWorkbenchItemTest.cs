@@ -13,7 +13,11 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+using System.Linq;
+
 using NUnit.Framework;
+using Rhino.Mocks;
+using Xilconic.BoardgamingUtils.PseudoRandom;
 using Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems;
 
 namespace Xilconic.BoardgamingUtils.ToolboxApp.Test.Controls.WorkbenchItems
@@ -21,24 +25,37 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Test.Controls.WorkbenchItems
     [TestFixture]
     public class SingleDieWorkbenchItemTest
     {
+        private IRandomNumberGenerator rngStub;
+
+        [SetUp]
+        public void SetUp()
+        {
+            rngStub = MockRepository.GenerateStub<IRandomNumberGenerator>();
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var workbenchItem = new SingleDieWorkbenchItem();
+            var workbenchItem = new SingleDieWorkbenchItem(rngStub);
 
             // Assert
             Assert.IsInstanceOf<WorkbenchItemViewModel>(workbenchItem);
             Assert.AreEqual("Single die", workbenchItem.Name);
 
             Assert.AreEqual(6, workbenchItem.NumberOfSides);
+            Assert.AreEqual("Die Probabilities (pdf)", workbenchItem.Title);
+            Assert.AreEqual("Die face", workbenchItem.ValueName);
+            Assert.AreEqual(6, workbenchItem.Distribution.Specification.Count);
+            CollectionAssert.AreEqual(Enumerable.Range(1, 6), workbenchItem.Distribution.Specification.Select(pair => pair.Value));
+            CollectionAssert.AreEqual(Enumerable.Repeat(1.0 / 6, 6), workbenchItem.Distribution.Specification.Select(pair => pair.Probability));
         }
 
         [Test]
         public void NumberOfSides_SetNewValue_GetNewValue()
         {
             // Setup
-            var workbenchItem = new SingleDieWorkbenchItem();
+            var workbenchItem = new SingleDieWorkbenchItem(rngStub);
 
             int newNumberOfSides = 3;
 

@@ -14,8 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 
+using Xilconic.BoardgamingUtils.PseudoRandom;
 using Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems;
 
 namespace Xilconic.BoardgamingUtils.ToolboxApp
@@ -25,12 +27,14 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp
     /// </summary>
     internal class MainWindowViewModel
     {
+        private readonly IRandomNumberGenerator rng = new RandomNumberGenerator((int)DateTime.Now.Ticks & 0x0000FFFF);
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
         /// </summary>
         public MainWindowViewModel()
         {
-            WorkbenchItems = new WorkbenchItemViewModel[] { new SingleDieWorkbenchItem() };
+            WorkbenchItems = new WorkbenchItemViewModel[] { new SingleDieWorkbenchItem(rng) };
         }
 
         /// <summary>

@@ -18,6 +18,9 @@ using System.Threading;
 using System.Windows.Controls;
 
 using NUnit.Framework;
+using Rhino.Mocks;
+using Xilconic.BoardgamingUtils.Mathmatics;
+using Xilconic.BoardgamingUtils.PseudoRandom;
 using Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems;
 
 namespace Xilconic.BoardgamingUtils.ToolboxApp.Test.Controls.WorkbenchItems
@@ -26,11 +29,19 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Test.Controls.WorkbenchItems
     [TestFixture]
     public class WorkbenchItemViewFactoryTest
     {
+        private IRandomNumberGenerator rngStub;
+
+        [SetUp]
+        public void SetUp()
+        {
+            rngStub = MockRepository.GenerateStub<IRandomNumberGenerator>();
+        }
+
         [Test]
         public void CreateView_ForSingleDieWorkbenchItem_SingleDieViewItemCreated()
         {
             // Call
-            UserControl control = WorkbenchItemViewFactory.CreateView(new SingleDieWorkbenchItem());
+            UserControl control = WorkbenchItemViewFactory.CreateView(new SingleDieWorkbenchItem(rngStub));
 
             // Assert
             Assert.IsInstanceOf<SingleDieViewItem>(control);
@@ -40,10 +51,26 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Test.Controls.WorkbenchItems
         public void CreateView_ForUnsupportedWorkbenchViewModel_ThrowNotImplementedException()
         {
             // Call
-            TestDelegate call = () => WorkbenchItemViewFactory.CreateView(new WorkbenchItemViewModel("A"));
+            TestDelegate call = () => WorkbenchItemViewFactory.CreateView(new SomeUnsupportedWorkbenchItem());
 
             // Assert
             Assert.Throws<NotImplementedException>(call);
+        }
+
+        private class SomeUnsupportedWorkbenchItem : WorkbenchItemViewModel
+        {
+            public SomeUnsupportedWorkbenchItem()
+                : base("1", "2", "3")
+            {
+            }
+
+            public override DiscreteValueProbabilityDistribution Distribution
+            {
+                get
+                {
+                    return new DiscreteValueProbabilityDistribution(new[] { new ValueProbabilityPair(0, 1.0) });
+                }
+            }
         }
     }
 }

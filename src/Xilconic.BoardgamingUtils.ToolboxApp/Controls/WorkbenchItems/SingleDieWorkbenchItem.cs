@@ -13,7 +13,9 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using System.ComponentModel;
+using Xilconic.BoardgamingUtils.Dice;
+using Xilconic.BoardgamingUtils.Mathmatics;
+using Xilconic.BoardgamingUtils.PseudoRandom;
 
 namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
 {
@@ -22,17 +24,30 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
     /// </summary>
     internal class SingleDieWorkbenchItem : WorkbenchItemViewModel
     {
+        private readonly NumericalDie die;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SingleDieWorkbenchItem"/> class.
         /// </summary>
-        public SingleDieWorkbenchItem()
-            : base("Single die")
+        /// <param name="rng">The random number generator.</param>
+        public SingleDieWorkbenchItem(IRandomNumberGenerator rng)
+            : base("Single die", "Die Probabilities (pdf)", "Die face")
         {
+            die = new NumericalDie(6, rng);
         }
 
         /// <summary>
         /// Gets or sets the number of sides of the single die.
         /// </summary>
         public int NumberOfSides { get; set; } = 6;
+
+        /// <inheritdoc/>
+        public override DiscreteValueProbabilityDistribution Distribution
+        {
+            get
+            {
+                return die.ProbabilityDistribution;
+            }
+        }
     }
 }
