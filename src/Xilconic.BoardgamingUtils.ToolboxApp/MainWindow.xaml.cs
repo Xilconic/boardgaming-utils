@@ -14,8 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 using Xilconic.BoardgamingUtils.ToolboxApp.Controls;
+using Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems;
 
 namespace Xilconic.BoardgamingUtils.ToolboxApp
 {
@@ -48,6 +51,40 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp
         {
             panel.Children.Clear();
             panel.Children.Add(new SumOfNumericalDiceControl());
+        }
+
+        private void ListViewTextBlock_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                var workbenchItemViewModel = (WorkbenchItemViewModel)((TextBlock)sender).DataContext;
+                DataObject dragDropData = new DataObject();
+                dragDropData.SetData(typeof(WorkbenchItemViewModel), workbenchItemViewModel);
+                DragDrop.DoDragDrop(this, dragDropData, DragDropEffects.Copy);
+            }
+        }
+
+        private void WorkbenchCanvas_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(WorkbenchItemViewModel)))
+            {
+                WorkbenchItemViewModel workbenchItemViewModel = (WorkbenchItemViewModel)e.Data.GetData(typeof(WorkbenchItemViewModel));
+                Point position = e.GetPosition(WorkbenchCanvas);
+
+                // TODO: Replace View creation with ViewItem factory behavior based on 'workbenchItemViewModel'
+                var view = new SingleDieViewItem();
+                Canvas.SetLeft(view, position.X);
+                Canvas.SetTop(view, position.Y);
+                WorkbenchCanvas.Children.Add(view);
+            }
+        }
+
+        private void WorkbenchCanvas_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(WorkbenchItemViewModel)))
+            {
+                e.Effects = DragDropEffects.Copy;
+            }
         }
     }
 }
