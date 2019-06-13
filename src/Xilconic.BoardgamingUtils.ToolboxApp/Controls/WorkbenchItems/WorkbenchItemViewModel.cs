@@ -16,7 +16,7 @@
 
 using System.Diagnostics;
 
-namespace Xilconic.BoardgamingUtils.ToolboxApp
+namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
 {
     /// <summary>
     /// The ViewModel representing a workbench item.

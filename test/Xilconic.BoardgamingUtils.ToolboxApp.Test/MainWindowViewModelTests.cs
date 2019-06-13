@@ -1,4 +1,5 @@
-﻿// This file is part of Boardgaming Utils.
+﻿// Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+// This file is part of Boardgaming Utils.
 //
 // Boardgaming Utils is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,7 +13,9 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+
 using NUnit.Framework;
+using Xilconic.BoardgamingUtils.ToolboxApp;
 
 namespace Xilconic.BoardgamingUtils.App.Test
 {
@@ -27,7 +30,7 @@ namespace Xilconic.BoardgamingUtils.App.Test
 
             // Assert
             Assert.AreEqual(1, viewModel.WorkbenchItems.Count);
-            Assert.AreEqual("Die", viewModel.WorkbenchItems[0].Name);
+            Assert.AreEqual("Single die", viewModel.WorkbenchItems[0].Name);
         }
     }
 }

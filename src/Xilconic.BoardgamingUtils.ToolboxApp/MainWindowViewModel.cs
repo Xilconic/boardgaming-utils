@@ -16,6 +16,8 @@
 
 using System.Collections.Generic;
 
+using Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems;
+
 namespace Xilconic.BoardgamingUtils.ToolboxApp
 {
     /// <summary>
@@ -28,7 +30,7 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp
         /// </summary>
         public MainWindowViewModel()
         {
-            WorkbenchItems = new WorkbenchItemViewModel[] { new WorkbenchItemViewModel("Die") };
+            WorkbenchItems = new WorkbenchItemViewModel[] { new SingleDieWorkbenchItem() };
         }
 
         /// <summary>
