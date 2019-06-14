@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
@@ -22,6 +23,31 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
     /// </summary>
     public class WorkbenchItemUserControl : UserControl
     {
+        /// <summary>
+        /// Gets the dependency property of the Workbench item.
+        /// </summary>
+        public static readonly DependencyProperty IsSelectedProperty = DependencyProperty.Register(
+            nameof(IsSelected),
+            typeof(bool),
+            typeof(WorkbenchItemUserControl),
+            new UIPropertyMetadata(false));
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this control is selected in the workbench area.
+        /// </summary>
+        public bool IsSelected
+        {
+            get
+            {
+                return (bool)GetValue(IsSelectedProperty);
+            }
+
+            set
+            {
+                SetValue(IsSelectedProperty, value);
+            }
+        }
+
         /// <summary>
         /// Gets the displayed <see cref="WorkbenchItemViewModel"/>.
         /// </summary>

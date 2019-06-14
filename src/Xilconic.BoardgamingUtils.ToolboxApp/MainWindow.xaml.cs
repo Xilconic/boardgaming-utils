@@ -140,7 +140,17 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp
         private void SelectWorkbenchItem(WorkbenchItemViewModel workbenchItem, WorkbenchItemUserControl correspondingView)
         {
             SelectedWorkbenchItem = workbenchItem;
+
+            if (selectedWorkbenchItemUserControl != null)
+            {
+                selectedWorkbenchItemUserControl.IsSelected = false;
+            }
+
             selectedWorkbenchItemUserControl = correspondingView;
+            if (selectedWorkbenchItemUserControl != null)
+            {
+                selectedWorkbenchItemUserControl.IsSelected = true;
+            }
         }
 
         private void ClearWorkbenchSelection()

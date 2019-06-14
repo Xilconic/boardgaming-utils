@@ -26,6 +26,11 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="PapayaWhip"/>
             </Trigger>
+            
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="BorderBrush" Value="DeepSkyBlue"/>
+                <Setter Property="Background" Value="AliceBlue"/>
+            </Trigger>
         </Style.Triggers>
     </Style>
 
