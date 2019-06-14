@@ -23,7 +23,8 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
         xmlns:Controls="clr-namespace:Xilconic.BoardgamingUtils.ToolboxApp.Controls"
         xmlns:local="clr-namespace:Xilconic.BoardgamingUtils.ToolboxApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="525" Icon="Resources/AppIcon.ico">
+        Title="MainWindow" Height="500" Width="525" Icon="Resources/AppIcon.ico"
+        KeyUp="Window_KeyUp">
     <Grid x:Name="a">
         <Grid.DataContext>
             <local:MainWindowViewModel/>

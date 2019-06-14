@@ -37,6 +37,8 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp
             typeof(MainWindow),
             new UIPropertyMetadata(new NullWorkbenchItemViewModel()));
 
+        private WorkbenchItemUserControl selectedWorkbenchItemUserControl;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
@@ -91,23 +93,29 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp
                 WorkbenchItemViewModel workbenchItemViewModel = ((WorkbenchItemViewModel)e.Data.GetData(typeof(WorkbenchItemViewModel))).DeepClone();
                 Point position = e.GetPosition(WorkbenchCanvas);
 
-                CreateViewForWorkbenchItemAndAddToWorkbench(workbenchItemViewModel, position);
-                ShowProbabilityDistributionInChartControl(workbenchItemViewModel);
+                WorkbenchItemUserControl createdView = CreateViewForWorkbenchItemAndAddToWorkbench(workbenchItemViewModel, position);
+                if (createdView != null)
+                {
+                    SelectWorkbenchItem(workbenchItemViewModel, createdView);
+                }
             }
         }
 
-        private void CreateViewForWorkbenchItemAndAddToWorkbench(WorkbenchItemViewModel workbenchItem, Point position)
+        private WorkbenchItemUserControl CreateViewForWorkbenchItemAndAddToWorkbench(WorkbenchItemViewModel workbenchItem, Point position)
         {
             try
             {
-                UserControl view = WorkbenchItemViewFactory.CreateView(workbenchItem);
+                WorkbenchItemUserControl view = WorkbenchItemViewFactory.CreateView(workbenchItem);
                 Canvas.SetLeft(view, position.X);
                 Canvas.SetTop(view, position.Y);
                 WorkbenchCanvas.Children.Add(view);
+
+                return view;
             }
             catch (NotImplementedException)
             {
                 MessageBox.Show($"There is no visual representation available yet for the workbench item \"{workbenchItem.Name}\".");
+                return null;
             }
         }
 
@@ -125,13 +133,28 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp
             if (workbenchItemUserControl != null)
             {
                 // TODO: Implement some kind of selection highlight
-                ShowProbabilityDistributionInChartControl(workbenchItemUserControl.WorkbenchItem);
+                SelectWorkbenchItem(workbenchItemUserControl.WorkbenchItem, workbenchItemUserControl);
             }
         }
 
-        private void ShowProbabilityDistributionInChartControl(WorkbenchItemViewModel workbenchItem)
+        private void SelectWorkbenchItem(WorkbenchItemViewModel workbenchItem, WorkbenchItemUserControl correspondingView)
         {
             SelectedWorkbenchItem = workbenchItem;
+            selectedWorkbenchItemUserControl = correspondingView;
+        }
+
+        private void ClearWorkbenchSelection()
+        {
+            SelectWorkbenchItem((WorkbenchItemViewModel)SelectedWorkbenchItemProperty.DefaultMetadata.DefaultValue, null);
+        }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete && selectedWorkbenchItemUserControl != null)
+            {
+                WorkbenchCanvas.Children.Remove(selectedWorkbenchItemUserControl);
+                ClearWorkbenchSelection();
+            }
         }
     }
 }
