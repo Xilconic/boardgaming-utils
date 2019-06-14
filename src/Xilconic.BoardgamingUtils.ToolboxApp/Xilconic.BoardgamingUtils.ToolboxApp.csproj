@@ -83,10 +83,6 @@
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="AboutWindowViewModel.cs" />
-    <Compile Include="Controls\NumericalDieControl.xaml.cs">
-      <DependentUpon>NumericalDieControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\NumericalDieViewModel.cs" />
     <Compile Include="Controls\ProbabilityDensityFunctionChartControl.xaml.cs">
       <DependentUpon>ProbabilityDensityFunctionChartControl.xaml</DependentUpon>
     </Compile>
@@ -111,10 +107,6 @@
     <Compile Include="ValidationRules\PracticalNumberOfDieFacesLimitationRule.cs" />
     <Compile Include="Controls\WorkbenchItems\WorkbenchItemViewModel.cs" />
     <Page Include="AboutWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\NumericalDieControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

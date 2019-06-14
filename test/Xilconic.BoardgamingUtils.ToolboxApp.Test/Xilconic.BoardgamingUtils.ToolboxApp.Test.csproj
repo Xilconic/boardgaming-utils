@@ -65,7 +65,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\NumericalDieViewModelTest.cs" />
     <Compile Include="Controls\ProbabilityDensityFunctionChartViewModelTest.cs" />
     <Compile Include="Controls\SumOfNumericalDiceViewModelTest.cs" />
     <Compile Include="Controls\WorkbenchItems\SingleDieWorkbenchItemTest.cs" />

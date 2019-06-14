@@ -34,7 +34,8 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp
         public static readonly DependencyProperty SelectedWorkbenchItemProperty = DependencyProperty.Register(
             nameof(SelectedWorkbenchItem),
             typeof(WorkbenchItemViewModel),
-            typeof(MainWindow));
+            typeof(MainWindow),
+            new UIPropertyMetadata(new NullWorkbenchItemViewModel()));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -42,7 +43,6 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp
         public MainWindow()
         {
             InitializeComponent();
-            SelectedWorkbenchItem = new NullWorkbenchItemViewModel();
         }
 
         /// <summary>
@@ -65,12 +65,6 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp
         {
             var aboutWindow = new AboutWindow();
             aboutWindow.ShowDialog();
-        }
-
-        private void Change_to_single_die_statistics_mode(object sender, RoutedEventArgs e)
-        {
-            panel.Children.Clear();
-            panel.Children.Add(new NumericalDieControl());
         }
 
         private void Change_to_sum_of_dice_statistics_mode(object sender, RoutedEventArgs e)
