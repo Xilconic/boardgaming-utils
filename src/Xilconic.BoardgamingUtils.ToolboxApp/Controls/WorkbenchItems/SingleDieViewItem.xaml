@@ -39,7 +39,7 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 
         <TextBlock Text="Single die" Grid.Row="0" HorizontalAlignment="Center" Grid.ColumnSpan="2"/>
         <TextBlock Text="# sides:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="8,0,0,0" VerticalAlignment="Center">
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="8,0,0,0" VerticalAlignment="Center" KeyDown="TextBox_KeyDown">
             <TextBox.Text>
                 <Binding Path="SingleDieWorkbenchItem.NumberOfSides" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:SingleDieViewItem}}">
                     <Binding.ValidationRules>
