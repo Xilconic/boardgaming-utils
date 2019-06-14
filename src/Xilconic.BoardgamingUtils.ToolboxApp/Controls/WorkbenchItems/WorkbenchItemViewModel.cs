@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 
+using System.ComponentModel;
 using System.Diagnostics;
 
 using Xilconic.BoardgamingUtils.Mathmatics;
@@ -23,7 +24,7 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
     /// <summary>
     /// The ViewModel representing a workbench item.
     /// </summary>
-    internal abstract class WorkbenchItemViewModel
+    internal abstract class WorkbenchItemViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WorkbenchItemViewModel"/> class.
@@ -38,6 +39,9 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
             Title = title;
             ValueName = valueName;
         }
+
+        /// <inheritdoc/>
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Gets the name of the workbench item.
@@ -64,5 +68,14 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
         /// </summary>
         /// <returns>The clone.</returns>
         public abstract WorkbenchItemViewModel DeepClone();
+
+        /// <summary>
+        /// Indicate that a property has changed by raising the <see cref="PropertyChanged"/> event.
+        /// </summary>
+        /// <param name="propertyName">The name of the property.</param>
+        protected void RaiseNotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

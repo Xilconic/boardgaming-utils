@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 
+using System.ComponentModel;
 using NUnit.Framework;
 using Xilconic.BoardgamingUtils.Mathmatics;
 using Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems;
@@ -35,9 +36,38 @@ namespace Xilconic.BoardgamingUtils.App.Test
             var viewModel = new SimpleWorkbenchItemViewModel(name, title, valueName);
 
             // Assert
+            Assert.IsInstanceOf<INotifyPropertyChanged>(viewModel);
+
             Assert.AreEqual(name, viewModel.Name);
             Assert.AreEqual(title, viewModel.Title);
             Assert.AreEqual(valueName, viewModel.ValueName);
+        }
+
+        [Test]
+        public void RaiseNotifyPropertyChanged_Always_RaisesThePropertyChangedEventForGivenProperty()
+        {
+            // Setup
+            var viewModel = new SimpleWorkbenchItemViewModel("A", "B", "C");
+
+            object sender = null;
+            string propertyName = null;
+            int callCount = 0;
+            viewModel.PropertyChanged += (s, e) =>
+            {
+                sender = s;
+                propertyName = e.PropertyName;
+                callCount++;
+            };
+
+            string expectedPropertyName = "A";
+
+            // Call
+            viewModel.TestRaiseNotifyPropertyChanged(expectedPropertyName);
+
+            // Assert
+            Assert.AreEqual(1, callCount);
+            Assert.AreEqual(viewModel, sender);
+            Assert.AreEqual(propertyName, expectedPropertyName);
         }
 
         private class SimpleWorkbenchItemViewModel : WorkbenchItemViewModel
@@ -58,6 +88,11 @@ namespace Xilconic.BoardgamingUtils.App.Test
             public override WorkbenchItemViewModel DeepClone()
             {
                 throw new System.NotImplementedException();
+            }
+
+            public void TestRaiseNotifyPropertyChanged(string propertyName)
+            {
+                RaiseNotifyPropertyChanged(propertyName);
             }
         }
     }
