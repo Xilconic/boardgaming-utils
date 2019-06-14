@@ -29,11 +29,36 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp
     public partial class MainWindow : Window
     {
         /// <summary>
+        /// Gets the dependency property of the selected Workbench item.
+        /// </summary>
+        public static readonly DependencyProperty SelectedWorkbenchItemProperty = DependencyProperty.Register(
+            nameof(SelectedWorkbenchItem),
+            typeof(WorkbenchItemViewModel),
+            typeof(MainWindow));
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+            SelectedWorkbenchItem = new NullWorkbenchItemViewModel();
+        }
+
+        /// <summary>
+        /// Gets or sets the selected <see cref="WorkbenchItemViewModel"/> in the workbench.
+        /// </summary>
+        internal WorkbenchItemViewModel SelectedWorkbenchItem
+        {
+            get
+            {
+                return (WorkbenchItemViewModel)GetValue(SelectedWorkbenchItemProperty);
+            }
+
+            set
+            {
+                SetValue(SelectedWorkbenchItemProperty, value);
+            }
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -112,9 +137,7 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp
 
         private void ShowProbabilityDistributionInChartControl(WorkbenchItemViewModel workbenchItem)
         {
-            ChartControl.Distribution = workbenchItem.Distribution;
-            ChartControl.Title = workbenchItem.Title;
-            ChartControl.ValueName = workbenchItem.ValueName;
+            SelectedWorkbenchItem = workbenchItem;
         }
     }
 }

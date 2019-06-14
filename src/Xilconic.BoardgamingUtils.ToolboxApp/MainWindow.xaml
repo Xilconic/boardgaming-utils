@@ -74,8 +74,10 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
                 </Grid>
             </Grid>
 
-            <Controls:ProbabilityDensityFunctionChartControl x:Name="ChartControl" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch"/>
-
+            <Controls:ProbabilityDensityFunctionChartControl x:Name="ChartControl" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch"
+                                                             Title="{Binding SelectedWorkbenchItem.Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"
+                                                             Distribution="{Binding SelectedWorkbenchItem.Distribution, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"
+                                                             ValueName="{Binding SelectedWorkbenchItem.ValueName, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}"/>
         </Grid>
     </Grid>
 </Window>

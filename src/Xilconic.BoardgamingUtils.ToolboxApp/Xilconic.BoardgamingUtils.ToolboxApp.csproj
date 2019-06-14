@@ -95,6 +95,7 @@
       <DependentUpon>SumOfNumericalDiceControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\SumOfNumericalDiceViewModel.cs" />
+    <Compile Include="Controls\WorkbenchItems\NullWorkbenchItemViewModel.cs" />
     <Compile Include="Controls\WorkbenchItems\SingleDieViewItem.xaml.cs">
       <DependentUpon>SingleDieViewItem.xaml</DependentUpon>
     </Compile>
