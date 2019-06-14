@@ -72,6 +72,7 @@
     <Compile Include="Controls\WorkbenchItems\WorkbenchItemViewFactoryTest.cs" />
     <Compile Include="MainWindowViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestingUtils\RecievedPropertyChangedEvent.cs" />
     <Compile Include="Utils\ColorExtensionsTest.cs" />
     <Compile Include="ValidationRules\IntegerParsingRuleTest.cs" />
     <Compile Include="ValidationRules\NumberOfDiceRuleTest.cs" />

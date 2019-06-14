@@ -13,12 +13,14 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+using System.Collections.Generic;
 using System.Linq;
 
 using NUnit.Framework;
 using Rhino.Mocks;
 using Xilconic.BoardgamingUtils.PseudoRandom;
 using Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems;
+using Xilconic.BoardgamingUtils.ToolboxApp.Test.TestingUtils;
 
 namespace Xilconic.BoardgamingUtils.ToolboxApp.Test.Controls.WorkbenchItems
 {
@@ -59,6 +61,17 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Test.Controls.WorkbenchItems
 
             int newNumberOfSides = 4;
 
+            var receivedEvents = new List<RecievedPropertyChangedEvent>();
+            workbenchItem.PropertyChanged += (s, e) =>
+            {
+                receivedEvents.Add(new RecievedPropertyChangedEvent
+                {
+                    Sender = s,
+                    PropertyName = e.PropertyName,
+                    CallCount = 1,
+                });
+            };
+
             // Call
             workbenchItem.NumberOfSides = newNumberOfSides;
 
@@ -67,6 +80,17 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Test.Controls.WorkbenchItems
             Assert.AreEqual(newNumberOfSides, workbenchItem.Distribution.Specification.Count);
             CollectionAssert.AreEqual(Enumerable.Range(1, newNumberOfSides), workbenchItem.Distribution.Specification.Select(pair => pair.Value));
             CollectionAssert.AreEqual(Enumerable.Repeat(1.0 / newNumberOfSides, newNumberOfSides), workbenchItem.Distribution.Specification.Select(pair => pair.Probability));
+
+            Assert.AreEqual(2, receivedEvents.Count);
+            RecievedPropertyChangedEvent actualEvent = receivedEvents[0];
+            Assert.AreEqual(workbenchItem, actualEvent.Sender);
+            Assert.AreEqual(nameof(workbenchItem.NumberOfSides), actualEvent.PropertyName);
+            Assert.AreEqual(1, actualEvent.CallCount);
+
+            actualEvent = receivedEvents[1];
+            Assert.AreEqual(workbenchItem, actualEvent.Sender);
+            Assert.AreEqual(nameof(workbenchItem.Distribution), actualEvent.PropertyName);
+            Assert.AreEqual(1, actualEvent.CallCount);
         }
 
         [Test]

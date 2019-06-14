@@ -15,6 +15,7 @@
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 
 using System.ComponentModel;
+
 using NUnit.Framework;
 using Xilconic.BoardgamingUtils.Mathmatics;
 using Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems;

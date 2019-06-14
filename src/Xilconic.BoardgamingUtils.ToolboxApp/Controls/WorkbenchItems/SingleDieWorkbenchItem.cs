@@ -62,7 +62,8 @@ namespace Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems
             set
             {
                 die = new NumericalDie(value, rng);
-                //TODO: Perform NotifyPropertyChanged of Distribution property (and of this property)
+                RaiseNotifyPropertyChanged(nameof(NumberOfSides));
+                RaiseNotifyPropertyChanged(nameof(Distribution));
             }
         }
 
