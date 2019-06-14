@@ -22,7 +22,8 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems"
-        mc:Ignorable="d" 
+    xmlns:validationrules="clr-namespace:Xilconic.BoardgamingUtils.ToolboxApp.ValidationRules"
+    mc:Ignorable="d" 
         MinHeight="65" MinWidth="120"
         MaxHeight="65" MaxWidth="120" BorderThickness="1" BorderBrush="SaddleBrown" Background="Ivory">
     <Grid Margin="10">
@@ -38,7 +39,16 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 
         <TextBlock Text="Single die" Grid.Row="0" HorizontalAlignment="Center" Grid.ColumnSpan="2"/>
         <TextBlock Text="# sides:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="8,0,2,0" VerticalAlignment="Center" Text="{Binding SingleDieWorkbenchItem.NumberOfSides, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:SingleDieViewItem}}}" />
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="8,0,0,0" VerticalAlignment="Center">
+            <TextBox.Text>
+                <Binding Path="SingleDieWorkbenchItem.NumberOfSides" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:SingleDieViewItem}}">
+                    <Binding.ValidationRules>
+                        <validationrules:NumberOfDieFacesRule/>
+                        <validationrules:PracticalNumberOfDieFacesLimitationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
     </Grid>
 </local:WorkbenchItemUserControl>
