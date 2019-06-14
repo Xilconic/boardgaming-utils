@@ -22,10 +22,10 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems"
-    xmlns:validationrules="clr-namespace:Xilconic.BoardgamingUtils.ToolboxApp.ValidationRules"
-    mc:Ignorable="d" 
+        xmlns:validationrules="clr-namespace:Xilconic.BoardgamingUtils.ToolboxApp.ValidationRules"
+        mc:Ignorable="d" 
         MinHeight="65" MinWidth="120"
-        MaxHeight="65" MaxWidth="120" BorderThickness="1" BorderBrush="SaddleBrown" Background="Ivory">
+        MaxHeight="65" MaxWidth="120">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

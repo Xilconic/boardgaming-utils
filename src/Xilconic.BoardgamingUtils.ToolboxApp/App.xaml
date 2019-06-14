@@ -20,6 +20,11 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary Source="XamlResources\Styles\TextBoxStylesDictionary.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="XamlResources\Styles\TextBoxStylesDictionary.xaml"/>
+                <ResourceDictionary Source="XamlResources\Styles\WorkbenchItemUserControlStylesDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
