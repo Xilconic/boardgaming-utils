@@ -19,7 +19,7 @@ namespace Xilconic.BoardgamingUtils.Dice;
 /// Interface for an object that can be rolled for a result.
 /// </summary>
 /// <typeparam name="T">The rolled result type.</typeparam>
-public interface IRollable<T>
+public interface IRollable<out T>
     where T : struct
 {
     /// <summary>

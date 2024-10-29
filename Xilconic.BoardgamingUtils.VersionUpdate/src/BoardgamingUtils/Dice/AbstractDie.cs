@@ -45,6 +45,7 @@ public abstract class AbstractDie : IAbstractDie
     /// <inheritdoc/>
     public int Roll()
     {
-        return ProbabilityDistribution.GetValueAtCdf(_rng.NextFactor());
+        var probability = new Probability(_rng.NextFactor());
+        return ProbabilityDistribution.GetValueAtCdf(probability);
     }
 }

@@ -15,7 +15,6 @@
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 
 using FluentAssertions;
-using System.Collections.ObjectModel;
 using Xilconic.BoardgamingUtils.Mathematics;
 
 namespace Xilconic.BoardgamingUtils.Tests.Mathematics;
@@ -95,7 +94,7 @@ public class DiscreteValueProbabilityDistributionTests
 
         var distribution = new DiscreteValueProbabilityDistribution(valueProbabilityPairs);
 
-        ReadOnlyCollection<ValueProbabilityPair> specification = distribution.Specification;
+        IReadOnlyCollection<ValueProbabilityPair> specification = distribution.Specification;
         distribution.Specification.Should().HaveCount(valueProbabilityPairs.Length);
         
         foreach (ValueProbabilityPair expectedPair in valueProbabilityPairs)
@@ -131,7 +130,7 @@ public class DiscreteValueProbabilityDistributionTests
         };
         var distribution = new DiscreteValueProbabilityDistribution(valueProbabilityPairs);
 
-        int sampleValue = distribution.GetValueAtCdf(probability);
+        int sampleValue = distribution.GetValueAtCdf(new Probability(probability));
 
         sampleValue.Should().Be(expectedValue);
     }

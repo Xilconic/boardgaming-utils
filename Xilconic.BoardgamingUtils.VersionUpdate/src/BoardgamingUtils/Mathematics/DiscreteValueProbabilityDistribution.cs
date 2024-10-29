@@ -23,6 +23,8 @@ namespace Xilconic.BoardgamingUtils.Mathematics;
 /// </summary>
 public class DiscreteValueProbabilityDistribution
 {
+    private readonly ValueProbabilityPair[] _orderedProbabilitySpecification;
+    
     /// <summary>
     /// Initializes a new instance of the <see cref="DiscreteValueProbabilityDistribution"/> class.
     /// </summary>
@@ -35,8 +37,7 @@ public class DiscreteValueProbabilityDistribution
         ThrowIfSumOfProbabilitiesIsNotOne(probabilitySpecification);
         ThrowIfHasDuplicateValues(probabilitySpecification);
 
-        ValueProbabilityPair[] orderedByValue = probabilitySpecification.OrderBy(p => p.Value).ToArray();
-        Specification = new ReadOnlyCollection<ValueProbabilityPair>(orderedByValue);
+        _orderedProbabilitySpecification = probabilitySpecification.OrderBy(p => p.Value).ToArray();
     }
 
     private static void ThrowIfHasDuplicateValues(IReadOnlyCollection<ValueProbabilityPair> probabilitySpecification)
@@ -83,7 +84,7 @@ public class DiscreteValueProbabilityDistribution
     /// </summary>
     /// <remarks>The elements have been ordered on <see cref="ValueProbabilityPair.Value"/> in
     /// ascending order.</remarks>
-    public ReadOnlyCollection<ValueProbabilityPair> Specification { get; private set; } // TODO: Does this still need to be publically exposed?
+    public IReadOnlyCollection<ValueProbabilityPair> Specification => _orderedProbabilitySpecification;
     
     /// <summary>
     /// Samples the distribution at the given cdf probability and returns the corresponding value.
@@ -92,15 +93,12 @@ public class DiscreteValueProbabilityDistribution
     /// <returns>The value corresponding with the cdf probability.</returns>
     /// <remarks>Limited precision of <see cref="double"/> can result in slight unexpected at
     /// boundaries between two elements in <see cref="Specification"/>.</remarks>
-    public int GetValueAtCdf(double probabilityValue)
+    public int GetValueAtCdf(Probability probabilityValue)
     {
-        // TODO: Push upwards?
-        var probability = new Probability(probabilityValue);
-
         var runningLowerProbabilityBracket = new Probability(0.0);
         foreach (ValueProbabilityPair pair in Specification)
         {
-            if (runningLowerProbabilityBracket <= probability && probability <= runningLowerProbabilityBracket + pair.Probability)
+            if (runningLowerProbabilityBracket <= probabilityValue && probabilityValue <= runningLowerProbabilityBracket + pair.Probability)
             {
                 return pair.Value;
             }
@@ -110,6 +108,6 @@ public class DiscreteValueProbabilityDistribution
             }
         }
 
-        return Specification.Last().Value;
+        return _orderedProbabilitySpecification[^1].Value;
     }
 }
