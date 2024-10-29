@@ -186,4 +186,14 @@ public class ProbabilityTests
         
         isEqual.Should().BeFalse();
     }
+
+    [Fact]
+    public void WhenToStringThenReturnStringOfFactor()
+    {
+        var probability = new Probability(0.234);
+        
+        var text = probability.ToString();
+        
+        text.Should().Be("0.234");
+    }
 }

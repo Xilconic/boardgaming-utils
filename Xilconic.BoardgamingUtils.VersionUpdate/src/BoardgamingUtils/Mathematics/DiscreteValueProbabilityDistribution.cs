@@ -14,8 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.ObjectModel;
-
 namespace Xilconic.BoardgamingUtils.Mathematics;
 
 /// <summary>
@@ -84,7 +82,7 @@ public class DiscreteValueProbabilityDistribution
     /// </summary>
     /// <remarks>The elements have been ordered on <see cref="ValueProbabilityPair.Value"/> in
     /// ascending order.</remarks>
-    public IReadOnlyCollection<ValueProbabilityPair> Specification => _orderedProbabilitySpecification;
+    public IReadOnlyList<ValueProbabilityPair> Specification => _orderedProbabilitySpecification;
     
     /// <summary>
     /// Samples the distribution at the given cdf probability and returns the corresponding value.

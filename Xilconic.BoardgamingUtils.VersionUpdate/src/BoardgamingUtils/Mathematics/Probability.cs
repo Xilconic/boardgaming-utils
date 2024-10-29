@@ -13,6 +13,9 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+
+using System.Globalization;
+
 namespace Xilconic.BoardgamingUtils.Mathematics;
 
 /// <summary>
@@ -50,13 +53,37 @@ public readonly record struct Probability : IComparable<Probability>, IComparabl
     /// <exception cref="ArgumentException">Thrown when adding the probabilities would exceed the [0.0, 1.0] range.</exception>
     public static Probability operator +(Probability a, Probability b)
     {
-        var intendedValue = a._value+ b._value;
+        var intendedValue = a._value + b._value;
         if (intendedValue > MaxValue)
         {
+            // To compensate for limited precision of calculations working on double/float:
+            if (intendedValue - MaxValue < 1e-10)
+            {
+                return One;
+            }
+
             throw new ArgumentException($"Adding these two probabilities would result in '{intendedValue}, which exceeds the max allowed value of '{MaxValue}'.");
         }
         
         return new Probability(intendedValue);
+    }
+
+    /// <summary>
+    /// Performs multiplication of 2 independent events: P(A & B) = P(A) * P(B).
+    /// </summary>
+    public Probability MultiplyWithIndependentProbability(Probability other) => this * other;
+#pragma warning disable CA2225 // Defined MultiplyWithIndependentProbability, instead of the expected 'Multiply', for improved mathematical clarity
+    /// <summary>
+    /// Multiplies two independent probability events. 
+    /// </summary>
+    /// <remarks>Do not use this operator for non-independent events.
+    /// For that you need to perform P(A & B) = P(A) * P(B | A) instead.</remarks>
+    /// <returns></returns>
+    /// <seealso cref="MultiplyWithIndependentProbability"/>
+    public static Probability operator *(Probability a, Probability b)
+#pragma warning restore CA2225
+    {
+        return new Probability(a._value * b._value);
     }
 
     public int CompareTo(Probability other) => _value.CompareTo(other._value);
@@ -78,4 +105,9 @@ public readonly record struct Probability : IComparable<Probability>, IComparabl
     public static bool operator >=(Probability left, Probability right) => left.CompareTo(right) >= 0;
 
     public bool Equals(Probability other, double margin) => Math.Abs(other._value - _value) <= margin;
+
+    public override string ToString()
+    {
+        return _value.ToString(CultureInfo.InvariantCulture);
+    }
 }
