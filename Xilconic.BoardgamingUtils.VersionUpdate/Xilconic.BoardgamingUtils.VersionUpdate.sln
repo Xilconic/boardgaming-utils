@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardgamingUtils.Tests", "test\BoardgamingUtils.Tests\BoardgamingUtils.Tests.csproj", "{19AE03BF-FC19-46C4-A10D-0D8D018A342D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardgamingUtils.Application", "src\BoardgamingUtils.Application\BoardgamingUtils.Application.csproj", "{A899C7AB-7368-481F-AA1E-EF2522E57ACD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{19AE03BF-FC19-46C4-A10D-0D8D018A342D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19AE03BF-FC19-46C4-A10D-0D8D018A342D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19AE03BF-FC19-46C4-A10D-0D8D018A342D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A899C7AB-7368-481F-AA1E-EF2522E57ACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A899C7AB-7368-481F-AA1E-EF2522E57ACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A899C7AB-7368-481F-AA1E-EF2522E57ACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A899C7AB-7368-481F-AA1E-EF2522E57ACD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

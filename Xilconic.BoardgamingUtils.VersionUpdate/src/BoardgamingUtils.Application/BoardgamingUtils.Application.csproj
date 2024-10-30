@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+
+        <AnalysisLevel>latest</AnalysisLevel>
+        <!-- Analysis Level can be tweaked with https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#analysislevelcategory -->
+        <AnalysisMode>All</AnalysisMode>
+        <!-- Analysis Mode can be tweaked with https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#analysismodecategory -->
+        <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+        <!-- <EnableNETAnalyzers> not used, because NuGet code analysis packages are expected to be adopted -->
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+        <IsPackable>false</IsPackable>
+        <Version>0.1.0.0</Version>
+        <Title>Xilconic.BoardgamingUtils.Application</Title>
+        <Description>UI Toolbox for running statistics on boardgaming related scenario's.</Description>
+        <Copyright>Copyright ©  2016</Copyright>
+        <PackageProjectUrl>https://github.com/Xilconic/boardgaming-utils</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/Xilconic/boardgaming-utils/blob/master/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/Xilconic/boardgaming-utils</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>statistics boardgame analysis</PackageTags>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <Company>Xilconic</Company>
+        <Product>Xilconic.BoardgamingUtils</Product>
+        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <RootNamespace>Xilconic.BoardgamingUtils.Application</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Resources\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Resources\AppIcon.ico" />
+      <Resource Include="Resources\AppIcon.ico" />
+      <None Remove="Resources\gplv3-127x51.png" />
+      <Resource Include="Resources\gplv3-127x51.png" />
+    </ItemGroup>
+
+</Project>
