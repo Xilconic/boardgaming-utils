@@ -103,9 +103,58 @@ public class ProbabilityTests
         var probability2 = new Probability(0.6);
 
         Func<Probability> call = () => probability1 + probability2;
-        call.Should().Throw<ArgumentException>();
+        call.Should().Throw<ArgumentException>()
+            .WithMessage("Adding these two probabilities would result in '1.2', which exceeds the max allowed value of '1'.");
     }
 
+    [Fact]
+    public void GivenTwoProbabilitiesWhenRemovingToBelowZeroThrowsArgumentException()
+    {
+        var probability1 = new Probability(0.4);
+        var probability2 = new Probability(0.6);
+
+        Func<Probability> call = () => probability1 - probability2;
+        call.Should().Throw<ArgumentException>()
+            .WithMessage("Subtracting these two probabilities would result in '-0.19999999999999996', which exceeds the min allowed value of '0'.");
+    }
+    
+    [Fact]
+    public void GivenTwoProbabilitiesWhenSubtractingThenReturnsDifference()
+    {
+        var probability1 = new Probability(0.6);
+        var probability2 = new Probability(0.2);
+
+        var expectedProbability = new Probability(0.4);
+        Probability result1 = probability1 - probability2;
+        result1.Equals(expectedProbability, 1e-6).Should().BeTrue(
+            "Because {0} should be {1}", result1, expectedProbability);
+        var result2 = probability1.Subtract(probability2);
+        result2.Equals(expectedProbability, 1e-6).Should().BeTrue(
+            "Because {0} should be {1}", result1, expectedProbability);
+    }
+
+    [Theory]
+    [InlineData(1.0, 1.0, 1.0)]
+    [InlineData(1.0, 0.1, 0.1)]
+    [InlineData(0.5, 0.5, 0.25)]
+    [InlineData(0.5, 0.1, 0.05)]
+    [InlineData(0.0, 1.0, 0.0)]
+    [InlineData(0.0, 0.0, 0.0)]
+    public void GivenTwoProbabilitiesWhenMultiplyingThenReturnsExpectedResult(
+        double probabilityA,
+        double probabilityB,
+        double expectedProbability)
+    {
+        var pOfA = new Probability(probabilityA);
+        var pOfB = new Probability(probabilityB);
+
+        var expected = new Probability(expectedProbability);
+        (pOfA * pOfB).Should().Be(expected);
+        (pOfB * pOfA).Should().Be(expected);
+        pOfA.MultiplyWithIndependentProbability(pOfB).Should().Be(expected);
+        pOfB.MultiplyWithIndependentProbability(pOfA).Should().Be(expected);
+    }
+    
     [Fact]
     public void GivenNullWhenComparingAgainstProbabilityThenReturnPositive()
     {
@@ -195,5 +244,21 @@ public class ProbabilityTests
         var text = probability.ToString();
         
         text.Should().Be("0.234");
+    }
+
+    [Theory]
+    [InlineData(1.0, 0.0)]
+    [InlineData(0.2, 0.8)]
+    [InlineData(0.5, 0.5)]
+    [InlineData(0.0, 1.0)]
+    public void GivenProbabilityWhenInvertingThenReturnExpectedValue(
+        double originalProbability,
+        double expectedInvertedProbability)
+    {
+        var probability = new Probability(originalProbability);
+
+        Probability invertedProbability = probability.Invert();
+
+        invertedProbability.Should().Be(new Probability(expectedInvertedProbability));
     }
 }

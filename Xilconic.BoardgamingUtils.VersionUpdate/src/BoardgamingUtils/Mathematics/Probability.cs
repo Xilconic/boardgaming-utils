@@ -24,9 +24,10 @@ namespace Xilconic.BoardgamingUtils.Mathematics;
 public readonly record struct Probability : IComparable<Probability>, IComparable
 {
     private const double MaxValue = 1.0;
+    private const double MinValue = 0.0;
     
-    public static readonly Probability Zero = new(0);
-    public static readonly Probability One = new(1);
+    public static readonly Probability Zero = new(MinValue);
+    public static readonly Probability One = new(MaxValue);
     
     private readonly double _value;
 
@@ -40,7 +41,7 @@ public readonly record struct Probability : IComparable<Probability>, IComparabl
             throw new ArgumentException("Probability cannot be 'NaN'.", nameof(value));
         }
 
-        if(value is < 0.0 or > MaxValue)
+        if(value is < MinValue or > MaxValue)
         {
             throw new ArgumentOutOfRangeException(nameof(value), "Probability must be in range [0.0, 1.0].");            
         }
@@ -62,11 +63,35 @@ public readonly record struct Probability : IComparable<Probability>, IComparabl
                 return One;
             }
 
-            throw new ArgumentException($"Adding these two probabilities would result in '{intendedValue}, which exceeds the max allowed value of '{MaxValue}'.");
+            var message = string.Create(
+                CultureInfo.InvariantCulture,
+                $"Adding these two probabilities would result in '{intendedValue}', which exceeds the max allowed value of '{MaxValue}'."
+            );
+            throw new ArgumentException(message);
         }
         
         return new Probability(intendedValue);
     }
+
+    /// <exception cref="ArgumentException">Thrown when subtracting the probabilities would exceed the [0.0, 1.0] range.</exception>
+    public Probability Subtract(Probability other) => this - other;
+    /// <exception cref="ArgumentException">Thrown when subtracting the probabilities would exceed the [0.0, 1.0] range.</exception>
+    public static Probability operator -(Probability a, Probability b)
+    {
+        var intendedValue = a._value - b._value;
+        if (intendedValue < MinValue)
+        {
+            var message = string.Create(
+                CultureInfo.InvariantCulture,
+                $"Subtracting these two probabilities would result in '{intendedValue}', which exceeds the min allowed value of '{MinValue}'."
+            );
+            throw new ArgumentException(message);
+        }
+
+        return new Probability(intendedValue);
+    }
+    
+    public Probability Invert() => One - this;
 
     /// <summary>
     /// Performs multiplication of 2 independent events: P(A & B) = P(A) * P(B).
@@ -110,4 +135,6 @@ public readonly record struct Probability : IComparable<Probability>, IComparabl
     {
         return _value.ToString(CultureInfo.InvariantCulture);
     }
+
+    public double AsFactor() => _value;
 }
