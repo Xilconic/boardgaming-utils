@@ -15,6 +15,7 @@
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 
 using FluentAssertions;
+using System.Globalization;
 using Xilconic.BoardgamingUtils.Mathematics;
 
 namespace Xilconic.BoardgamingUtils.Tests.Mathematics;
@@ -241,7 +242,7 @@ public class ProbabilityTests
     {
         var probability = new Probability(0.234);
         
-        var text = probability.ToString();
+        var text = probability.ToString(CultureInfo.InvariantCulture);
         
         text.Should().Be("0.234");
     }

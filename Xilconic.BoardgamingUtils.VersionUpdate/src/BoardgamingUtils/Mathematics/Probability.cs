@@ -21,7 +21,7 @@ namespace Xilconic.BoardgamingUtils.Mathematics;
 /// <summary>
 /// Denotes a probability.
 /// </summary>
-public readonly record struct Probability : IComparable<Probability>, IComparable
+public readonly record struct Probability : IComparable<Probability>, IComparable, IConvertible
 {
     private const double MaxValue = 1.0;
     private const double MinValue = 0.0;
@@ -131,10 +131,83 @@ public readonly record struct Probability : IComparable<Probability>, IComparabl
 
     public bool Equals(Probability other, double margin) => Math.Abs(other._value - _value) <= margin;
 
-    public override string ToString()
-    {
-        return _value.ToString(CultureInfo.InvariantCulture);
-    }
+    public override string ToString() => ToString(CultureInfo.CurrentCulture);
 
     public double AsFactor() => _value;
+
+    #region IConvertible
+
+    // Note: Needed by Oxyplot for rendering in ProbabilityDensityFunctionChartViewModel.
+    // Source code pulled from C# implementation of Double:
+    
+    public TypeCode GetTypeCode() {
+        return TypeCode.Double;
+    }
+
+    bool IConvertible.ToBoolean(IFormatProvider? provider) {
+        return Convert.ToBoolean(_value);
+    }
+
+    char IConvertible.ToChar(IFormatProvider? provider) {
+        throw new InvalidCastException("Cannot cast from Probability to Char!");
+    }
+
+    sbyte IConvertible.ToSByte(IFormatProvider? provider) {
+        return Convert.ToSByte(_value);
+    }
+
+    byte IConvertible.ToByte(IFormatProvider? provider) {
+        return Convert.ToByte(_value);
+    }
+
+    short IConvertible.ToInt16(IFormatProvider? provider) {
+        return Convert.ToInt16(_value);
+    }
+
+    ushort IConvertible.ToUInt16(IFormatProvider? provider) {
+        return Convert.ToUInt16(_value);
+    }
+
+    int IConvertible.ToInt32(IFormatProvider? provider) {
+        return Convert.ToInt32(_value);
+    }
+
+    uint IConvertible.ToUInt32(IFormatProvider? provider) {
+        return Convert.ToUInt32(_value);
+    }
+
+    long IConvertible.ToInt64(IFormatProvider? provider) {
+        return Convert.ToInt64(_value);
+    }
+
+    ulong IConvertible.ToUInt64(IFormatProvider? provider) {
+        return Convert.ToUInt64(_value);
+    }
+
+    float IConvertible.ToSingle(IFormatProvider? provider) {
+        return Convert.ToSingle(_value);
+    }
+
+    public string ToString(IFormatProvider? provider)
+    {
+        return _value.ToString(provider);
+    }
+
+    double IConvertible.ToDouble(IFormatProvider? provider) {
+        return _value;
+    }
+
+    Decimal IConvertible.ToDecimal(IFormatProvider? provider) {
+        return Convert.ToDecimal(_value);
+    }
+
+    DateTime IConvertible.ToDateTime(IFormatProvider? provider) {
+        throw new InvalidCastException("Cannot cast from Probability to DateTime!");
+    }
+
+    Object IConvertible.ToType(Type conversionType, IFormatProvider? provider) {
+        return Convert.ChangeType(this, conversionType, provider);
+    }
+
+    #endregion
 }
