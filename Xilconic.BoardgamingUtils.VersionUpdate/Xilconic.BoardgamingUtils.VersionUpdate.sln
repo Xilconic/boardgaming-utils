@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardgamingUtils.Tests", "t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardgamingUtils.Application", "src\BoardgamingUtils.Application\BoardgamingUtils.Application.csproj", "{A899C7AB-7368-481F-AA1E-EF2522E57ACD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardgamingUtils.Application.Tests", "test\BoardgamingUtils.Application.Tests\BoardgamingUtils.Application.Tests.csproj", "{F3123A3A-2DC4-41F1-9E7B-BBA2BE85D514}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{A899C7AB-7368-481F-AA1E-EF2522E57ACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A899C7AB-7368-481F-AA1E-EF2522E57ACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A899C7AB-7368-481F-AA1E-EF2522E57ACD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3123A3A-2DC4-41F1-9E7B-BBA2BE85D514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3123A3A-2DC4-41F1-9E7B-BBA2BE85D514}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3123A3A-2DC4-41F1-9E7B-BBA2BE85D514}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3123A3A-2DC4-41F1-9E7B-BBA2BE85D514}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -43,4 +43,8 @@
       <Resource Include="Resources\gplv3-127x51.png" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\BoardgamingUtils\BoardgamingUtils.csproj" />
+    </ItemGroup>
+
 </Project>
