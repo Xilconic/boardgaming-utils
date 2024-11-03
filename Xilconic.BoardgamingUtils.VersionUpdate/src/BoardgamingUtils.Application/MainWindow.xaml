@@ -24,17 +24,19 @@ along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
         Title="MainWindow" Height="500" Width="525" Icon="Resources/AppIcon.ico">
     <Grid x:Name="a">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="0">
+        <Menu Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <MenuItem Header="Dice statistics">
                 <MenuItem Header="Sum of Dice" Click="ChangeMainPanelToSumOfDiceStatistics"/>
             </MenuItem>
+            <MenuItem Header="Workbench" Click="ChangeMainPanelToWorkbench"/>
             <MenuItem Header="About" Click="MenuItemClick"/>
         </Menu>
         
-        <Grid x:Name="MainPanel" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid x:Name="MainPanel" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             
         </Grid>
     </Grid>

@@ -31,8 +31,9 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
-    
-#pragma warning disable S2325
+
+// S2325 states private methods that do not use local state should be static, but static methods cannot be databound as click handler for buttons.
+#pragma warning disable S2325 
     private void MenuItemClick(object sender, RoutedEventArgs e)
 #pragma warning restore S2325
     {
@@ -40,11 +41,15 @@ public partial class MainWindow : Window
         aboutWindow.ShowDialog();
     }
 
-#pragma warning disable S2325
     private void ChangeMainPanelToSumOfDiceStatistics(object sender, RoutedEventArgs e)
-#pragma warning restore S2325
     {
         MainPanel.Children.Clear();
         MainPanel.Children.Add(new SumOfNumericalDiceControl());
+    }
+
+    private void ChangeMainPanelToWorkbench(object sender, RoutedEventArgs e)
+    {
+        MainPanel.Children.Clear();
+        MainPanel.Children.Add(new WorkbenchControl());
     }
 }
