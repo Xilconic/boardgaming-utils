@@ -14,19 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 
-namespace Xilconic.BoardgamingUtils.Dice
+using System.Diagnostics;
+using System.Windows;
+
+namespace Xilconic.BoardgamingUtils.Application;
+
+/// <summary>
+/// Interaction logic for AboutWindow.xaml.
+/// </summary>
+public partial class AboutWindow : Window
 {
     /// <summary>
-    /// Interface for an object that can be rolled for a result.
+    /// Initializes a new instance of the <see cref="AboutWindow"/> class.
     /// </summary>
-    /// <typeparam name="T">The rolled result type.</typeparam>
-    public interface IRollable<T>
-        where T : struct
+    public AboutWindow()
     {
-        /// <summary>
-        /// Rolls for a randomly generated result value.
-        /// </summary>
-        /// <returns>The rolled result.</returns>
-        T Roll();
+        InitializeComponent();
+    }
+
+#pragma warning disable S2325
+    private void HyperlinkRequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+#pragma warning restore S2325
+    {
+        Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+        e.Handled = true;
     }
 }

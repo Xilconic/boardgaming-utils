@@ -13,33 +13,39 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
-using System.Globalization;
-using System.Windows.Controls;
 
-namespace Xilconic.BoardgamingUtils.ToolboxApp.ValidationRules
+using System.Windows.Controls;
+using System.Windows.Input;
+
+namespace Xilconic.BoardgamingUtils.Application.Controls;
+
+/// <summary>
+/// Interaction logic for SumOfNumericalDiceControl.xaml.
+/// </summary>
+public partial class SumOfNumericalDiceControl : UserControl
 {
     /// <summary>
-    /// Validation rule for the number of dice going into a collection.
+    /// Initializes a new instance of the <see cref="SumOfNumericalDiceControl"/> class.
     /// </summary>
-    public class NumberOfDiceRule : IntegerParsingRule
+    public SumOfNumericalDiceControl()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NumberOfDiceRule"/> class.
-        /// </summary>
-        public NumberOfDiceRule()
-        {
-            ParameterName = "Number of dice";
-        }
+        InitializeComponent();
+    }
 
-        /// <inheritdoc/>
-        protected override ValidationResult ValidateInteger(int numberOfDice, CultureInfo cultureInfo)
-        {
-            if (numberOfDice <= 0)
-            {
-                return new ValidationResult(false, $"{ParameterName} must be greater than zero.");
-            }
+    private static void CommitValueInTexBoxField(TextBox textBox)
+    {
+        textBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+    }
 
-            return ValidationResult.ValidResult;
+#pragma warning disable S2325
+    private void TextBoxKeyDown(object sender, KeyEventArgs e)
+#pragma warning restore S2325
+    {
+        if (e.Key == Key.Enter)
+        {
+            var textBox = (TextBox)sender;
+            CommitValueInTexBoxField(textBox);
+            e.Handled = true;
         }
     }
 }

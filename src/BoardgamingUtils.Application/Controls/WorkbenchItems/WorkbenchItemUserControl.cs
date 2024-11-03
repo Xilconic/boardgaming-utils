@@ -22,7 +22,7 @@ namespace Xilconic.BoardgamingUtils.Application.Controls.WorkbenchItems;
 /// <summary>
 /// A user control for displaying information encapsulated by an instance of <see cref="WorkbenchItemViewModel"/>.
 /// </summary>
-public class WorkbenchItemUserControl : UserControl
+public abstract class WorkbenchItemUserControl : UserControl
 {
     /// <summary>
     /// Gets the dependency property of the Workbench item.
@@ -45,5 +45,5 @@ public class WorkbenchItemUserControl : UserControl
     /// <summary>
     /// Gets the displayed <see cref="WorkbenchItemViewModel"/>.
     /// </summary>
-    internal virtual WorkbenchItemViewModel WorkbenchItem { get; }
+    internal abstract WorkbenchItemViewModel WorkbenchItem { get; }
 }
