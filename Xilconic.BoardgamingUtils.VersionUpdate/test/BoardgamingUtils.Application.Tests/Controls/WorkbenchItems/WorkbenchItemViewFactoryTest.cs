@@ -19,7 +19,6 @@ using Moq;
 using Xilconic.BoardgamingUtils.Application.Controls.WorkbenchItems;
 using Xilconic.BoardgamingUtils.Mathematics;
 using Xilconic.BoardgamingUtils.PseudoRandom;
-using Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems;
 
 namespace Xilconic.BoardgamingUtils.Application.Tests.Controls.WorkbenchItems;
 

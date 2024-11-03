@@ -18,7 +18,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems;
 
 namespace Xilconic.BoardgamingUtils.Application.Controls.WorkbenchItems;
 

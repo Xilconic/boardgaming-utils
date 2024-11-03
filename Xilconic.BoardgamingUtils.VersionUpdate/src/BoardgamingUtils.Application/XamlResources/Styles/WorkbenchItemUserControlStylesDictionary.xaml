@@ -1,0 +1,38 @@
+﻿<!--
+Copyright (c) Bas des Bouvrie ("Xilconic"). All rights reserved.
+This file is part of Boardgaming Utils.
+
+Boardgaming Utils is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Boardgaming Utils is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:workbenchItems="clr-namespace:Xilconic.BoardgamingUtils.Application.Controls.WorkbenchItems">
+    <Style x:Key="DefaultWorkbenchItemStyle" TargetType="{x:Type workbenchItems:WorkbenchItemUserControl}">
+        <Setter Property="Background" Value="Ivory"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="SaddleBrown"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="PapayaWhip"/>
+            </Trigger>
+            
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="BorderBrush" Value="DeepSkyBlue"/>
+                <Setter Property="Background" Value="AliceBlue"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type workbenchItems:SingleDieViewItem}" BasedOn="{StaticResource DefaultWorkbenchItemStyle}"/>
+</ResourceDictionary>

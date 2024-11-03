@@ -18,7 +18,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Xilconic.BoardgamingUtils.Application.Controls.WorkbenchItems;
-using Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems;
 
 namespace Xilconic.BoardgamingUtils.Application.Controls;
 
@@ -111,7 +110,6 @@ public partial class WorkbenchControl : UserControl
     {
         if (e.Source is WorkbenchItemUserControl workbenchItemUserControl)
         {
-            // Implement some kind of selection highlight
             SelectWorkbenchItem(workbenchItemUserControl.WorkbenchItem, workbenchItemUserControl);
         }
     }

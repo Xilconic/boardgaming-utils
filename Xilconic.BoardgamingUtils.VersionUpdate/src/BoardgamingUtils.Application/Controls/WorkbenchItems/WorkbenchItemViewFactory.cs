@@ -14,8 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 
-using Xilconic.BoardgamingUtils.ToolboxApp.Controls.WorkbenchItems;
-
 namespace Xilconic.BoardgamingUtils.Application.Controls.WorkbenchItems;
 
 /// <summary>
