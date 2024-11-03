@@ -15,6 +15,7 @@
 // along with Boardgaming Utils. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Windows;
+using Xilconic.BoardgamingUtils.Application.Controls;
 
 namespace Xilconic.BoardgamingUtils.Application;
 
@@ -31,9 +32,19 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
     
-    private void MenuItem_Click(object sender, RoutedEventArgs e)
+#pragma warning disable S2325
+    private void MenuItemClick(object sender, RoutedEventArgs e)
+#pragma warning restore S2325
     {
         var aboutWindow = new AboutWindow();
         aboutWindow.ShowDialog();
+    }
+
+#pragma warning disable S2325
+    private void ChangeMainPanelToSumOfDiceStatistics(object sender, RoutedEventArgs e)
+#pragma warning restore S2325
+    {
+        MainPanel.Children.Clear();
+        MainPanel.Children.Add(new SumOfNumericalDiceControl());
     }
 }
